@@ -6,22 +6,15 @@ endif
 
 ## Sps definitions
 
-# ifeq (,$(wildcard $(sps)/VERSION))
-#    $(error Not found: $(sps)/VERSION)
-# endif
-# SPS_VERSION0  = $(shell cat $(sps)/VERSION | sed 's|x/||')
-SPS_VERSION0  = 5.9-svs.5
+ifeq (,$(wildcard $(sps)/VERSION))
+   $(error Not found: $(sps)/VERSION)
+endif
+SPS_VERSION0  = $(shell cat $(sps)/VERSION | sed 's|x/||')
 SPS_VERSION   = $(notdir $(SPS_VERSION0))
 SPS_VERSION_X = $(dir $(SPS_VERSION0))
 
 ## Some Shortcut/Alias to Lib Names
-ifeq (aix-7.1-ppc7-64,$(ORDENV_PLAT))
-MODELUTILS_LIBS_V_NOSTUBS = $(MODELUTILS_LIBS_0)_$(MODELUTILS_VERSION) modelutils_massvp7_wrap $(LIBMUTMG) $(LIBGMM)
-else
-MODELUTILS_LIBS_V_NOSTUBS = $(MODELUTILS_LIBS_0)_$(MODELUTILS_VERSION) $(LIBMUTMG) $(LIBGMM)
-endif
-
-SPS_LIBS_DEP = $(RPNPHY_LIBS_V) $(MODELUTILS_LIBS_V_NOSTUBS) $(SPS_LIBS_V) $(RPNPHY_LIBS_V) $(MODELUTILS_LIBS_V_NOSTUBS) $(MODELUTILS_LIBS_DEP)
+SPS_LIBS_DEP = $(RPNPHY_LIBS_V) $(MODELUTILS_LIBS_NOSTUBS_V) $(SPS_LIBS_V) $(RPNPHY_LIBS_V) $(MODELUTILS_LIBS_NOSTUBS_V) $(MODELUTILS_LIBS_DEP)
 
 SPS_LIBS_MERGED = sps_base
 SPS_LIBS_OTHER  = 
@@ -43,6 +36,14 @@ SPS_ABS_FILES   = $(BINDIR)/$(mainsps) $(BINDIR)/$(mainsps_yyencode)
 #MODEL3_LIBAPPL = $(SPS_LIBS_V)
 #MODEL3_LIBPATH = $(LIBCHMPATH)
 
+## System-wide definitions
+
+RDE_LIBS_USER_EXTRA := $(RDE_LIBS_USER_EXTRA) $(SPS_LIBS_ALL_FILES_PLUS)
+RDE_BINS_USER_EXTRA := $(RDE_BINS_USER_EXTRA) $(SPS_ABS_FILES)
+
+ifeq (1,$(RDE_LOCAL_LIBS_ONLY))
+   SPS_ABS_DEP = $(SPS_LIBS_ALL_FILES_PLUS) $(RPNPHY_ABS_DEP)
+endif
 
 ##
 .PHONY: sps_vfiles
@@ -53,10 +54,10 @@ sps_version.inc:
 sps_version.h:
 	.rdemkversionfile "sps" "$(SPS_VERSION)" . c
 
-
 #---- Abs targets -----------------------------------------------------
 
 ## Sps Targets
+
 .PHONY: sps allbin_sps allbincheck_sps
 
 mainsps  = $(ABSPREFIX)sps$(ABSPOSTFIX)_$(BASE_ARCH).Abs
@@ -64,7 +65,7 @@ sps: | sps_rm $(BINDIR)/$(mainsps)
 	ls -l $(BINDIR)/$(mainsps)
 sps_rm:
 	rm -f $(BINDIR)/$(mainsps)
-$(BINDIR)/$(mainsps): | $(SPS_VFILES)
+$(BINDIR)/$(mainsps): $(SPS_ABS_DEP) | $(SPS_VFILES)
 	export MAINSUBNAME="sps" ;\
 	export ATM_MODEL_NAME="$${MAINSUBNAME} $(BUILDNAME)" ;\
 	export ATM_MODEL_VERSION="$(SPS_VERSION)" ;\
@@ -76,12 +77,12 @@ sps_yyencode: | sps_yyencode_rm $(BINDIR)/$(mainsps_yyencode)
 	ls -l $(BINDIR)/$(mainsps_yyencode)
 sps_yyencode_rm:
 	rm -f $(BINDIR)/$(mainsps_yyencode)
-$(BINDIR)/$(mainsps_yyencode): | $(MODELUTILS_VFILES)
+$(BINDIR)/$(mainsps_yyencode): $(SPS_ABS_DEP) | $(MODELUTILS_VFILES)
 	export MAINSUBNAME="sps_yyencode" ;\
 	export ATM_MODEL_NAME="$${MAINSUBNAME} $(BUILDNAME)" ;\
 	export ATM_MODEL_VERSION="$(SPS_VERSION)" ;\
 	export RBUILD_LIBAPPL="$(SPS_LIBS_V) $(SPS_LIBS_DEP)" ;\
-	export RBUILD_COMM_STUBS=$(LIBCOMM_STUBS) ;\
+	export RBUILD_COMM_STUBS="$(LIBCOMM_STUBS)  $(MODELUTILS_DUMMYMPISTUBS)";\
 	$(RBUILD4objNOMPI)
 
 allbin_sps: | $(SPS_ABS)

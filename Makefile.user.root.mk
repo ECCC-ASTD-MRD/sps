@@ -11,5 +11,5 @@ components_uninstall:
 	$(MYTIME) $(MAKE) -f Makefile.build.mk $(NOPRINTDIR) $@ $(MYMAKE_VARS)
 
 ifneq (,$(DEBUGMAKE))
-$(info ## ==== Makefile.user.mk [END] ========================================)
+$(info ## ==== $$sps/Makefile.user.mk [END] ==================================)
 endif

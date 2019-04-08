@@ -1,9 +1,7 @@
-VERSION
 BUILDINFO
 __build__
 __dist__
 *.orig
-bin/.env_setup.dot
 Makefile
 Makefile.build.mk
 Makefile.rules.mk
@@ -12,6 +10,7 @@ Makefile.dep.*.mk
 .rde.*.mk
 .ssmuse_gem
 build-*
+PREP
 RUNENT*
 RUNMOD*
 main*.Abs

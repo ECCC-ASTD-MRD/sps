@@ -4,37 +4,22 @@ $(info ## File: $$sps/Makefile.user.mk)
 $(info ## )
 endif
 
-VERBOSE=1
-#FFLAGS='-g -traceback -warn all -warn nounused -warn nointerfaces -noerror-limit'
-#FFLAGS='-g -C -traceback -warn all -warn nounused -warn nointerfaces -noerror-limit'
-#FFLAGS='-g -C -qinitauto=ff'
-
-FFLAGS=-g -traceback
-
 export ATM_MODEL_ISOFFICIAL := true
+export BUILDNAME = 
 RBUILD_EXTRA_OBJ0    := 
 
 COMPONENTS        := modelutils rpnphy sps
 COMPONENTS_UC     := $(foreach item,$(COMPONENTS),$(call rdeuc,$(item)))
 
-COMPONENTS2       := modelutils rpnphy $(COMPONENTS)
+COMPONENTS2       := modelutils rpnphy sps $(COMPONENTS)
 COMPONENTS2_UC    := $(foreach item,$(COMPONENTS2),$(call rdeuc,$(item)))
 
 COMPONENTS_VFILES := $(foreach item,$(COMPONENTS2_UC),$($(item)_VFILES))
 
-SRCPATH_INCLUDE := $(CONST_SRCPATH_INCLUDE)
-VPATH           := $(CONST_VPATH) #$(ROOT)/$(CONST_BUILDSRC)
+# SRCPATH_INCLUDE := $(CONST_SRCPATH_INCLUDE)
+# VPATH           := $(CONST_VPATH) #$(ROOT)/$(CONST_BUILDSRC)
 
 #------------------------------------
-ifneq (,$(ATM_MODEL_USERLIBS))
-ifeq (,$(COMP_RULES_FILE))
-ifeq (,$(wildcard $(HOME)/userlibs/$(EC_ARCH)/Compiler_rules))
-ifneq (,$(wildcard $(ATM_MODEL_USERLIBS)/$(EC_ARCH)/Compiler_rules))
-COMP_RULES_FILE = $(ATM_MODEL_USERLIBS)/$(EC_ARCH)/Compiler_rules
-endif
-endif
-endif
-endif
 
 MYSSMINCLUDEMK0 = $(foreach item,$(COMPONENTS),$($(item))/include/Makefile.ssm.mk)
 MYSSMINCLUDEMK = $(wildcard $(RDE_INCLUDE0)/Makefile.ssm.mk $(MYSSMINCLUDEMK0))
@@ -45,7 +30,19 @@ ifneq (,$(MYSSMINCLUDEMK))
    include $(MYSSMINCLUDEMK)
 endif
 
+ifeq (,$(DIRORIG_gem))
+DIRORIG_gem = $(gem)
+endif
+
 #------------------------------------
+ifeq (-d,$(RDE_BUILDDIR_SFX))
+COMP_RULES_FILE = $(MODELUTILS_COMP_RULES_DEBUG)
+#ifeq (intel13sp1u2,$(CONST_RDE_COMP_ARCH))
+#FFLAGS  = -C -ftrapuv #-warn all -warn nounused 
+#else
+#FFLAGS  = -C
+#endif
+endif
 
 .PHONY: vfiles2 obj2 lib2 abs2
 vfiles2: components_vfiles
@@ -90,7 +87,6 @@ COMPONENTS_UNINSTALL_ALL := $(foreach item,$(COMPONENTS_UC),$($(item)_UNINSTALL)
 components_install: $(COMPONENTS_INSTALL_ALL)
 components_uninstall: $(COMPONENTS_UNINSTALL_ALL)
 
-
 ifneq (,$(DEBUGMAKE))
-$(info ## ==== Makefile.user.mk [END] ========================================)
+$(info ## ==== $$sps/Makefile.user.mk [END] ==================================)
 endif
