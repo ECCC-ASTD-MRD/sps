@@ -3,7 +3,7 @@
 ! the EC-RPN License v2 or any later version found (if not provided) at:
 ! - http://collaboration.cmc.ec.gc.ca/science/rpn.comm/license.html
 ! - EC-RPN License, 2121 TransCanada, suite 500, Dorval (Qc), CANADA, H9P 1J3
-! - service.rpn@ec.gc.ca
+! - ec.service.rpn.ec@canada.ca
 ! It is distributed WITHOUT ANY WARRANTY of FITNESS FOR ANY PARTICULAR PURPOSE.
 !-------------------------------------------------------------------------- 
 
@@ -14,7 +14,7 @@ module phys_itf_mod
    use config_mod
    use cmcdate_mod
    use statfld_dm_mod
-   use phy_output_mod, only: phy_output0, phy_output1
+   use phy_output_mod, only: phy_output0, phy_output1_4
    use phys_prestep_mod
    implicit none
    private
@@ -41,7 +41,7 @@ module phys_itf_mod
    character(len=*),parameter :: HGRIDZ_S = 'localz'
    character(len=3),parameter :: OPT_GET = 'GET'
    character(len=3),parameter :: OPT_SET = 'SET'
-   integer,parameter :: COMPATIBILITY_LVL = 13
+   integer,parameter :: COMPATIBILITY_LVL = 17
    integer,parameter :: MAX_LEVELS = 1024
    integer,parameter :: OFFLINE_TRUE(1) = (/1/)
    integer,parameter :: PE_MASTER = 0
@@ -60,7 +60,7 @@ module phys_itf_mod
 
    interface phys_output
       module procedure phy_output0
-      module procedure phy_output1
+      module procedure phy_output1_4
    end interface
 
 contains
@@ -423,8 +423,8 @@ contains
       integer :: nlvls
       !---------------------------------------------------------------------
       call msg(MSG_INFOPLUS,'(phys) Checking options consistency')
-      F_istat = wb_get('sfc/zua',zua)
-      F_istat = min(wb_get('sfc/zta',zta), F_istat)
+      F_istat = wb_get('itf_phy/zua',zua)
+      F_istat = min(wb_get('itf_phy/zta',zta), F_istat)
       F_istat = min(wb_get('levels_cfgs/Lvl_list',Lvl_list,nlvls),F_istat)
       if (.not.RMN_IS_OK(F_istat)) then
          call msg(MSG_ERROR,'(phys_itf) Problem getting phy and levels cfgs to check options consistency')

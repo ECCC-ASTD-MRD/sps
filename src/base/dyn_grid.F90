@@ -3,7 +3,7 @@
 ! the EC-RPN License v2 or any later version found (if not provided) at:
 ! - http://collaboration.cmc.ec.gc.ca/science/rpn.comm/license.html
 ! - EC-RPN License, 2121 TransCanada, suite 500, Dorval (Qc), CANADA, H9P 1J3
-! - service.rpn@ec.gc.ca
+! - ec.service.rpn.ec@canada.ca
 ! It is distributed WITHOUT ANY WARRANTY of FITNESS FOR ANY PARTICULAR PURPOSE.
 !-------------------------------------------------------------------------- 
 
@@ -51,7 +51,7 @@ contains
    !/@*
    function dyn_grid_init(F_ni,F_nj,F_halox,F_haloy,F_periodx,F_periody,F_grid_id) result(F_istat)
       implicit none
-      !@objective Provide grid size info for the dyn grid/tile
+      !@objective Provide grid info for the dyn grid/tile
       !@arguments
       integer,intent(out) :: F_ni,F_nj           !- Dyn Tile Grid dims
       integer,intent(out) :: F_halox,F_haloy     !- Dyn Tile Halo Dims
@@ -62,6 +62,7 @@ contains
       !@author Stephane Chamberland, July 2008
       !@revisions
       !  2012-02, Stephane Chamberland: RPNPhy offline
+      !  2018-07, V.Lee: read tictacs (E grid only) for Grid info
    !*@/
       integer,external :: msg_getUnit,yyg_checkrot2
       real,pointer :: xgi(:,:), ygi(:,:)
@@ -82,6 +83,9 @@ contains
       Grd_typ_S = adjustl(Grd_typ_S)
       istat = clib_toupper(Grd_typ_S)
       
+      if (Grd_typ_S == 'TAPE') then
+         F_istat = dyn_tape_init(F_ni,F_nj,F_halox,F_haloy,F_periodx,F_periody,F_grid_id)
+      else
       Grd_yy_L = .false.
       G_islam_L = .false.
       G_isuniform_L = .false.
@@ -134,8 +138,6 @@ contains
 
       hx=0 ; hy=0
       SEL_GorL: select case(Grd_typ_S(1:1))
-
-         !TODO-later: implement case(Grd_typ_S=from_file)
 
       case('G')                             ! Global grid
 
@@ -308,9 +310,87 @@ contains
 !!$      print *,'(dyn_grid_init)',F_istat,F_ni,F_nj,F_halox,F_haloy,F_periodx,F_periody,F_grid_id ; call flush(6)
       call msg(MSG_DEBUG,'[END] dyn_grid_init')
       !---------------------------------------------------------------------
+      endif
       return
    end function dyn_grid_init
 
+   function dyn_tape_init(F_ni,F_nj,F_halox,F_haloy,F_periodx,F_periody,F_grid_id) result(F_istat)
+      implicit none
+      !@objective Provide grid info for the dyn grid/tile
+      !@arguments
+      integer,intent(out) :: F_ni,F_nj           !- Dyn Tile Grid dims
+      integer,intent(out) :: F_halox,F_haloy     !- Dyn Tile Halo Dims
+      logical,intent(out) :: F_periodx,F_periody !- Dyn Grid Periodicity
+      integer,intent(out) :: F_grid_id           !- ezscing grid id
+      !@return
+      integer :: F_istat
+      !@author Stephane Chamberland, July 2008
+      !@revisions
+      !  2012-02, Stephane Chamberland: RPNPhy offline
+      !  2018-07, V.Lee: read tictacs (E grid only) for Grid info
+   !*@/
+      character*1    Grd_S
+      character*2    typ_S
+      character*4    var_S
+      character*12   etik_S
+      integer dte, det, ipas, p1, p2, p3, g1, g2, g3, g4, bit, &
+              dty, swa, lng, dlf, ubc, ex1, ex2, ex3,ip1,ip2,ip3
+      integer :: ni1,nj1,nk1,ni,nj,nk
+      integer :: iun,key
+      character(len=*),parameter :: INPUT_HGRID = 'tape1'
+      character(len=RMN_PATH_LEN) :: config_dir0_S
+      real,allocatable, dimension(:) :: xg, yg
+      real :: xlat1,xlat2,xlon1,xlon2
+      !---------------------------------------------------------------------
+      call msg(MSG_DEBUG,'[BEGIN] dyn_tape_init')
+      F_istat = RMN_OK
+      F_istat = wb_get('path/config_dir0',config_dir0_S)
+      iun=0
+
+      if (fnom(iun,trim(config_dir0_S)//'/'//INPUT_HGRID,'RND+OLD',0).ge.0) then
+         if (fstouv(iun,'RND').lt.0) then
+            call msg(MSG_ERROR, '(dyn_grid_tape) Problem opening file')
+            stop
+         endif
+          key = fstinf (iun,ni1,nj1,nk1,-1,' ',-1,-1,-1,' ','>>  ')
+          F_istat =fstprm ( key, dte, det, ipas, ni1, nj1, nk1, bit, &
+                    dty, ip1, ip2, ip3, typ_S, var_S, etik_S, grd_S, g1, &
+                     g2, g3, g4, swa, lng, dlf, ubc, ex1, ex2, ex3 )
+          F_ni=ni1
+          allocate(xg(F_ni))
+          F_istat =fstluk (xg,key,ni1,nj1,nk1)
+          key = fstinf (iun,ni1,nj1,nk1,-1,' ',-1,-1,-1,' ','^^  ')
+          F_nj=nj1
+          F_istat =fstprm ( key, dte, det, ipas, ni1, nj1, nk1, bit, &
+                    dty, ip1, ip2, ip3, typ_S, var_S, etik_S, grd_S, g1, &
+                     g2, g3, g4, swa, lng, dlf, ubc, ex1, ex2, ex3 )
+          allocate(yg(F_nj))
+          F_istat =fstluk (yg,key,ni1,nj1,nk1)
+          call cigaxg ( 'E', xlat1,xlon1, xlat2,xlon2, g1,g2,g3,g4 )
+          F_istat=fstfrm(iun)
+      else
+          call msg(MSG_ERROR, '(dyn_grid_tape) cannot open'//INPUT_HGRID)
+      endif
+
+      F_periodx = .false.
+      F_periody = .false.
+
+      G_grid_id = ezgdef_fmem(F_ni,F_nj,'Z','E',g1,g2,g3,g4, xg,yg)
+
+      allocate( m_xgi_8(F_ni,1), m_ygi_8(1,F_nj) )
+      m_xgi_8(:,1) = dble(xg)
+      m_ygi_8(1,:) = dble(yg)
+
+      deallocate(xg,yg)
+
+      F_halox = 0
+      F_haloy = 0
+      F_grid_id = G_grid_id
+
+      call msg(MSG_DEBUG,'[END] grid_tape_init')
+      !---------------------------------------------------------------------
+      return
+   end function dyn_tape_init
 
    !/@*
    function dyn_grid_post_init(F_imin,F_imax,F_jmin,F_jmax,F_ni,F_nj) result(F_istat)

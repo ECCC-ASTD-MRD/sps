@@ -3,7 +3,7 @@
 ! the EC-RPN License v2 or any later version found (if not provided) at:
 ! - http://collaboration.cmc.ec.gc.ca/science/rpn.comm/license.html
 ! - EC-RPN License, 2121 TransCanada, suite 500, Dorval (Qc), CANADA, H9P 1J3
-! - service.rpn@ec.gc.ca
+! - ec.service.rpn.ec@canada.ca
 ! It is distributed WITHOUT ANY WARRANTY of FITNESS FOR ANY PARTICULAR PURPOSE.
 !-------------------------------------------------------------------------- 
 
@@ -137,12 +137,17 @@ contains
       integer,parameter :: MAX_LEVELS = 1024
       real, parameter :: epsilon_4 = 1.e-5
       logical :: read_hu_L, adapt_L
-      real :: zua, zta, Lvl_list(MAX_LEVELS) , max_level
+      real :: Lvl_list(MAX_LEVELS) , max_level
+      real :: zta, zua = -1.
       integer :: nlvls
       !---------------------------------------------------------------------
       call msg(MSG_INFOPLUS,'(dyn_itf) Checking options consistency')
       F_istat = wb_get('sps_cfgs/read_hu_l',read_hu_L)
       F_istat = min(wb_get('sps_cfgs/adapt_L',adapt_L),F_istat)
+      F_istat = min(wb_get('sps_cfgs/zta',zta),F_istat)
+      F_istat = min(wb_put('itf_phy/zta',zta),F_istat)
+      F_istat = min(wb_get('sps_cfgs/zua',zua),F_istat)
+      F_istat = min(wb_put('itf_phy/zua',zua),F_istat)
       if (.not.RMN_IS_OK(F_istat)) then
          call msg(MSG_WARNING,'(dyn_itf) Problem getting sps_cfgs params to check options consistency')
          return

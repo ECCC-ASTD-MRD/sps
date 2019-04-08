@@ -3,7 +3,7 @@
 ! the EC-RPN License v2 or any later version found (if not provided) at:
 ! - http://collaboration.cmc.ec.gc.ca/science/rpn.comm/license.html
 ! - EC-RPN License, 2121 TransCanada, suite 500, Dorval (Qc), CANADA, H9P 1J3
-! - service.rpn@ec.gc.ca
+! - ec.service.rpn.ec@canada.ca
 ! It is distributed WITHOUT ANY WARRANTY of FITNESS FOR ANY PARTICULAR PURPOSE.
 !-------------------------------------------------------------------------- 
 
@@ -111,7 +111,7 @@ subroutine sps()
       seconds_since = model_timeout_alarm(timeout)
       call drv_time_increment(stepno,is_chkpt,is_last,is_stat,F_timeFlags_S=TIME_FLAGS,F_delta_step=delta_step)
       delta_step = 1
-      write(tmp_S,*) "\n==== Processing Stepno: ",stepno,'/',steps_total,'[chkpt=',is_chkpt,', last=',is_last,"] ============\n"
+      write(tmp_S,'(a,a,I0,a,I0,a,L1,a,L1,a,a)') new_line(' '), "==== Processing Stepno: ",stepno,'/',steps_total,' [chkpt=',is_chkpt,', last=',is_last,"] ============", new_line(' ')
       call msg(MSG_INFO,tmp_S)
       write(tmp_S,*) stepno
 
