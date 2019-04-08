@@ -1,0 +1,11 @@
+if [[ -z "${ATM_MODEL_BNDL}" ]] ; then
+   . s.ssmuse.dot ENV/SPS/1.1.3
+elif [[ ${ATM_MODEL_BNDL} != ENV/SPS/1.1.3 ]] ; then
+   cat 1>&2 <<EOF1
+
+   ** WARNING **
+   Mismatch of current ${ATM_MODEL_BNDL} in your environment and the experiment ENV/SPS/1.1.3 in 
+   You should probably load this experiment in a new shell.
+
+EOF1
+fi

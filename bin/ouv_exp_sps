@@ -1,0 +1,156 @@
+#!/bin/ksh
+
+myself=$0
+DESC='Open a new RDE experiment with pre-set SRCPATH'
+USAGE="USAGE: ${myself##*/} [-h] [-v] [-f] [--dodeps]"
+
+#---- Functions ------------------------------------------------------
+#====
+usage_long() {
+         toto=$(echo -e $USAGE)
+         more <<EOF
+$DESC
+
+$toto
+
+Options:
+    -h, --help     : print this help
+    -v, --verbose  :  
+    -f, --force    : replace existing source path file if any
+        --nodeps   : do not add known dependencies to the src path
+Will produce SRCPATH for all known ARCH \$(rdevar rde_known_base_arch_list)
+
+EOF
+}
+
+myverbose=
+myforce=0
+nodeps=0
+#EC_ARCH_LIST="$(rdevar rde_known_base_arch_list)"
+EC_ARCH_LIST="${EC_ARCH_LIST:-$(rdevar rde_known_base_arch_list)}"
+#TODO: 
+while [[ $# -gt 0 ]] ; do
+   case $1 in
+      (-h|--help) usage_long; exit 0;;
+      (-v|--verbose) myverbose=-v ;;
+      (-f|--force) myforce=1 ;;
+      (--nodeps) nodeps=1 ;;
+      (-*|*) echo "ERROR: Unrecognized option $1"
+         echo -e $USAGE
+         echo "---- ABORT ----"
+         exit 1;;
+   esac
+   shift
+done
+
+if [[ x$myforce == x1 ]] ; then
+   srcpathfile="$(rdevar srcpathfile 2>/dev/null || true)"
+   rm -f ${srcpathfile:-.rde.srcpath.dot}
+fi
+
+if [[ x$vgrid != x  ]] ; then
+   [[ -d ${vgrid}/include ]] && vgrid_include=${vgrid}/include
+   [[ -d ${vgrid}/src ]] && vgrid_src=${vgrid}/src
+fi
+
+if [[ x$rpncomm != x  ]] ; then
+   [[ -d ${rpncomm}/include ]] && rpncomm_include=${rpncomm}/include
+   [[ -d ${rpncomm}/src ]] && rpncomm_src=${rpncomm}/src
+fi
+
+if [[ x$modelutils == x  ]] ; then
+   cat <<EOF
+ERROR: \$modelutils not defined or does not exists
+       modelutils=$modelutils
+       Cannot setup the experiment diretory
+
+       Please make sure you loaded the full GEM development environment
+---- ABORT ----
+EOF
+   exit 1
+fi
+if [[ x$rpnphy == x  ]] ; then
+   cat <<EOF
+ERROR: \$rpnphy not defined or does not exists
+       rpnphy=$rpnphy
+       Cannot setup the experiment diretory
+
+       Please make sure you loaded the full GEM development environment
+---- ABORT ----
+EOF
+   exit 1
+fi
+
+if [[ x$sps == x || ! -d $sps/src ]] ; then
+   cat <<EOF
+ERROR: \$sps not defined or src subdir does not exists
+       sps=$sps
+       Cannot setup the experiment diretory
+
+       Please make sure you loaded the full GEM development environment
+---- ABORT ----
+EOF
+   exit 1
+fi
+
+
+SRCLIST="${modelutils}/include ${modelutils}/src ${rpnphy}/include ${rpnphy}/src ${sps}/include ${sps}/src"
+TOPDIRS="${modelutils} ${rpnphy} ${sps}"
+if [[ $nodeps == 1 ]] ; then
+   SRCLIST="${modelutils}/include ${rpnphy}/include ${sps}/include ${sps}/src"
+   TOPDIRS="${sps}"
+fi
+
+if [[ $force == 1 ]] ; then
+   rm -f $(rdevar srcpathfile)
+fi
+if [[ -f $(rdevar srcpathfile) ]] ; then
+    cat <<EOF
+ERROR: Experiment diretory already set
+       To overwrite use:
+          ${0##*/} --force
+---- ABORT ----
+EOF
+    exit 1
+fi
+
+for myarch in $EC_ARCH_LIST ; do
+   myarchold=$(rdevar --arch ${myarch} base_arch)
+   if [[ "x${myverbose}" == "x-v" ]] ; then
+      echo "+ rdeaddsrc ${myverbose} -R --arch ${myarchold} --reset --topdirs '${TOPDIRS}' ${SRCLIST}"
+   fi
+   rdeaddsrc ${myverbose} -R --arch ${myarchold} --reset --topdirs "${TOPDIRS}" ${SRCLIST}
+done
+
+setenvfile=$(rdevar rde_setenv_dot)
+if [[ $force == 1 ]] ; then
+   rm -f ${setenvfile} .ssmuse_sps
+fi
+
+if [[ ! -f ${setenvfile} ]] ; then
+cat > ${setenvfile} <<EOF
+if [[ -z "\${ATM_MODEL_BNDL}" ]] ; then
+   . s.ssmuse.dot ${ATM_MODEL_BNDL:-NO_ATM_BNDL}
+elif [[ \${ATM_MODEL_BNDL} != ${ATM_MODEL_BNDL:-NO_ATM_BNDL} ]] ; then
+   cat 1>&2 <<EOF1
+
+   ** WARNING **
+   Mismatch of current \${ATM_MODEL_BNDL} in your environment and the experiment ${ATM_MODEL_BNDL:-NO_ATM_BNDL} in ${refload}
+   You should probably load this experiment in a new shell.
+
+EOF1
+fi
+export SPS_DEV_UPDATES="${SPS_DEV_UPDATES}"
+if [[ -n "\${SPS_DEV_UPDATES}" ]] ; then . s.ssmuse.dot \${SPS_DEV_UPDATES} ; fi
+
+export SPS_DEV_SUITE=${SPS_DEV_SUITE}
+export SEQ_EXP_HOME=${SEQ_EXP_HOME}
+EOF
+fi
+
+if [[ x$myforce == x1 ]] ; then
+   rm -f .ssmuse_sps
+fi
+if [[ ! -f .ssmuse_sps ]] ; then
+   ln -s ${setenvfile} .ssmuse_sps 
+fi

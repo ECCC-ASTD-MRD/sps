@@ -1,0 +1,193 @@
+#----------------------------------------------------#
+#            LAM-2.5km national grid                 #
+#----------------------------------------------------#
+
+ &grid
+  Grd_typ_S  = 'LU'    ,
+  Grd_ni     = 2500    ,     Grd_nj    = 1310
+  Grd_dx     = 0.0225  ,     Grd_dy    = 0.0225
+  Grd_iref   = 1060    ,     Grd_jref  = 760
+  Grd_lonr   = 180.0   ,     Grd_latr  = 2.75
+  Grd_xlon1  = -100.00 ,     Grd_xlat1 = 53.00
+  Grd_xlon2  =  -85.00 ,     Grd_xlat2 = 50.00
+  Grd_maxcfl = 4       ,
+/
+
+ &step
+  Step_runstrt_S = "PIL_RUNSTRT_S"
+  Step_rsti       = 9999       ,
+  Step_gstat     = 60         ,
+  Step_dt        = 60.
+  Step_nesdt     = STEP_NESDT ,
+  Fcst_end_S     = 'FORECAST_RANGE'   
+/
+
+ &adw_cfgs
+  Adw_nosetint_L   = .true.    ,
+/
+
+ &gem_cfgs
+
+  Vtopo_start=0
+  Vtopo_ndt = 60
+
+   hyb = 0.01 ,
+0.0181101 ,
+0.0286373 ,
+0.0400858 ,
+0.0510687 ,
+0.0607352 ,
+0.0686348 ,
+0.0749024 ,
+0.0796839 ,
+0.0834695 ,
+0.0871801 ,
+0.091323 ,
+0.0959012 ,
+0.101004 ,
+0.106806 ,
+0.113315 ,
+0.120711 ,
+0.129091 ,
+0.138643 ,
+0.149646 ,
+0.162389 ,
+0.176905 ,
+0.192333 ,
+0.208690 ,
+0.225994 ,
+0.244170 ,
+0.263233 ,
+0.283293 ,
+0.304369 ,
+0.326386 ,
+0.34936 ,
+0.373213 ,
+0.398155 ,
+0.424011 ,
+0.450795 ,
+0.478526 ,
+0.507218 ,
+0.536787 ,
+0.567246 ,
+0.59861 ,
+0.630894 ,
+0.6639 ,
+0.69721 ,
+0.728879 ,
+0.758965 ,
+0.787206 ,
+0.813775 ,
+0.838635 ,
+0.861861 ,
+0.883425 ,
+0.903409 ,
+0.922017
+0.939116 ,
+0.954914 ,
+0.969398 ,
+0.982782 ,
+0.994254 ,
+
+  Grd_rcoef = 0.,8.            , Cstv_ptop_8    = 740.        ,
+
+  Sol_type_S      = 'DIRECT'   , Sol_precond_S = 'JACOBI'     ,
+
+  Cstv_tstr_8     = 240.0      ,
+
+  Hzd_type_S      = 'HO_EXP'   , Hzd_pwr         = 4          ,
+                                 Hzd_lnr         = 0.4        ,
+  Hzd_pwr_theta   = 6          , 
+  Hzd_lnr_theta   = 0.02      ,
+
+  Vspng_coeftop   =  200000.   , Vspng_nk        = 4  
+ 
+  Init_balgm_L    = .false.    , Init_dftr_L     = .false.    ,
+  Init_dfwin_L    = .true.     , Init_dfnp       = 13         ,
+  Init_dfpl_8     = 21600.     ,
+
+  Schm_hydro_L    = .false.    ,
+  Schm_itcn       = 2          , Schm_modcn      = 1          ,
+  Schm_itnlh      = 2          , Schm_itraj      = 3          ,
+  Schm_adcub_L    = .true.     ,
+  Schm_psadj_L    = .false.    ,
+  Schm_xwvt3      = 0          , Schm_wload_L    = .true.     ,
+  Schm_pcsty_L    = .false.    ,
+  Schm_hzdadw_L   = .true.     ,
+
+  Out3_nbitg      = 16         , Out3_cliph_L    = .true.     ,
+  Out3_cubzt_L    = .false.    , Out3_cubuv_L    = .false.    ,
+  Out3_cubds_L    = .false.    , Out3_cubqs_L    = .false.    ,
+  Out3_cubdd_L    = .false.    , Out3_cubqq_L    = .false.    ,
+  Out3_cubww_L    = .false.    ,
+  Out3_linbot     =  3         ,
+  Out3_debug_L    = .false.    ,
+
+  Out3_etik_s     = 'ETIKET',
+  Out3_postfreq   = 120        , Out3_fullplane_L = .true.
+
+  Out3_lieb_levels= 5000., 4900., 4800., 4700., 4600., 4500., 4400., 4300., 4200., 4100.,
+                    4000., 3900., 3800., 3700., 3600., 3500., 3400., 3300., 3200., 3100.,
+                    3000., 2900., 2800., 2700., 2600., 2500., 2400., 2300., 2200., 2100.,
+                    2000., 1900., 1800., 1700., 1600., 1500., 1400., 1300., 1200., 1100.,
+                    1000.,  900.,  800.,  700.,  600.,  500.,  400.,  300.,  200.,  100.,
+
+
+  stat_liste = 'UT1','VT1','WT1','TT1','TR/HU:P',
+               'TR/QB:P','TR/QL:P','TR/QI:P','TR/QN:P','TR/QJ:P','TR/QH:P',
+               'TR/NC:P','TR/NR:P','TR/NI:P','TR/NN:P','TR/NG:P','TR/NH:P'
+
+/
+  Schm_moist_L    = .true.     , 
+
+ &physics_cfgs
+
+  SCHMSOL         = 'ISBA'     ,
+
+  RADIA           = 'cccmarad' , KNTRAD          = 15         ,
+  RADFILES        = 'std'      , FOMIC           = .false.    ,
+  RADFLTR         = .true.     , STRATOS         = .false.    ,
+  TS_FLXIR        = .false.    , LMETOX          = .false.    ,
+
+  GWDRAG          = 'nil'      , NON_ORO         = .false.    ,
+
+  LONGMEL         = 'blac62'   , TDIAGLIM        = .true.     ,
+  FLUVERT         = 'moistke'  , EVAP            = .true.     ,
+  AGREGAT         = .true.     ,
+  DRYLAPS         = .true.     , ICEMELT         = .true.     ,
+  ADVECTKE        = .false.    , BETA2           = 1.0        ,
+
+  PARSOL      = 2.3E+06,.8E+06,2.0E+06,0.5E-06,0.1E-06,1.1E-06,
+  SHLCVT      = 'nil', 'ktrsnt',
+
+  CONVEC          = 'NIL'      , STCOND         = 'my_dm'     ,
+  SATUCO          = .true.     , INILWC         = .true.      ,
+  PCPTYPE         = 'NIL'      , MOYHR          = 0           ,
+
+  DIAG_TWIND      = .true.     ,
+
+  SNOWMELT        = .false.    , STOMATE        = .false.     ,
+  DRAG            = .true.     , CHAUF          = .true.      ,
+
+  HC2             = 0.8        ,
+  HF2             = 0.8        , HM2            = 0.8         ,
+
+  DZSEDI           = 40        ,
+
+  KFCPCP          = 'conspcpn' , KFCMOM         = .false.     ,
+  KFCRAD          = 1500.      , KFCDEPTH       = 4000.       ,
+  KFCDLEV         = 0.5        , KFCDET         = 0.          ,
+  KFCTIMEC        = 2700.      , KFCTIMEA       = 2700.       ,
+  KFCTRIG4        = 48,48,0.05,0.12                           ,
+
+  Z0TLAT          = 25., 30.   ,
+  BKGALB          = .false.    , QCO2           = 360.0       ,
+  LIMSNODP        = .true.    ,
+  Z0TRDPS300      = .true.    ,
+
+  REFRACT         = .true.    , 
+  
+/
+ &series
+
+/

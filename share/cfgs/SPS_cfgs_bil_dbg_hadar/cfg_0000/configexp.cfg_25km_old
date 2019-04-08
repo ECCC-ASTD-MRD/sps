@@ -1,0 +1,4 @@
+UM_EXEC_climato=/cnfs/dev/mrb2/armn/armnbil/suite_hubs/CaLDAS_20130821/constants/climato
+UM_EXEC_geophy=/cnfs/dev/mrb2/armn/armnbil/suite_hubs/CaLDAS_20131018/constants/geophy/yin
+UM_EXEC_inrep=/users/dor/armn/bil/data/cnfs/FORCAGES/pour_test_maestro_interp0_jul29/inrep/yin/2013072900_001
+UM_EXEC_anal=/users/dor/armn/bil/data/cnfs/FORCAGES/pour_test_maestro_interp0_jul29/anal/yin/2013072900_001

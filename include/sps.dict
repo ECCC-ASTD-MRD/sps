@@ -1,0 +1,134 @@
+version=100
+
+
+@ptopo_cfgs
+#mandatory(desc)
+options(WB_REWRITE_UNTIL)
+define(npx[i4,0],desc='nb of proc along X on a single grid')
+define(npy[i4,0],desc='nb of proc along Y on a single grid')
+define(nblocx[i4,0],desc='nb of proc per bloc (Output) along X on a single grid')
+define(nblocy[i4,0],desc='nb of proc per bloc (Output) along Y on a single grid')
+define(ninblocx[i4,0],desc='nb of proc per bloc (Input) along X on a single grid')
+define(ninblocy[i4,0],desc='nb of proc per bloc (Input) along Y on a single grid')
+npx = 1
+npy = 1
+nblocx = -1
+nblocy = -1
+ninblocx = -1
+ninblocy = -1
+#should add Ptopo_smtphy, Ptopo_smtdyn, Ptopo_bind_L
+
+
+@grid_cfgs
+#mandatory(desc)
+options(WB_REWRITE_UNTIL)
+define(Grd_typ_S[c4,0],desc='Type of grid described using 2 characters: GU (global uniform), GV (global variable resolution), GY (Gloabl Yin-Yang), GI (Global Icosahedral) LU (LAM uniform)')
+define(Grd_ni[i4,0],desc='number of points along X axis')
+define(Grd_nj[i4,0],desc='number of points along Y axis')
+define(Grd_nila[i4,0],desc='nb of points along X axis for core in variable grid')
+define(Grd_njla[i4,0],desc='nb of points along X axis for core in variable grid')
+define(Grd_maxcfl[i4,0],desc='Courrant number, Determines the # of points for the pilot region (LAM), Pilot area=Grd_maxcfl +Grd_bsc_base+Grd_bsc_ext1')
+define(grd_dx[r4,0],desc='X axis resolution [deg] (LU or uniform part of GV)')
+define(grd_dy[r4,0],desc='Y axis resolution [deg] (LU or uniform part of GV)')
+define(Grd_dxmax[r4,0],desc='max dx for GV grids')
+define(Grd_dymax[r4,0],desc='max dy for GV grids')
+define(Grd_iref[i4,0],desc='I reference point (within  Grd_ni)')
+define(Grd_jref[i4,0],desc='J reference point (within  Grd_nj)')
+define(Grd_latr[r4,0],desc='latitude on rotated grid of reference point (Grd_iref,Grd_jref)')
+define(Grd_lonr[r4,0],desc='longitude on rotated grid of reference point (Grd_iref,Grd_jref')
+define(Grd_xlon1[r4,0],desc='geographic longitude of a point on the equator of the computational domain')
+define(Grd_xlat1[r4,0],desc='geographic latitude of the center of the computational domain')
+define(Grd_xlon2[r4,0],desc='geographic longitude of a point on the equator of the computational domain')
+define(Grd_xlat2[r4,0],desc='geographic latitude of a point on the equator of the computational domain')
+define(Grd_overlap[r4,0],desc='nb of degrees to overlap along latitude axis for Yin-Yang grids')
+define(Grd_gauss_L[l4,0],desc='.true. to set for a Gaussian grid')
+define(Grd_ico_ndiv[i4,0],desc='Nb of grid divition for Ico grid')
+Grd_typ_S = 'GU'
+Grd_ni    = 0
+Grd_nj    = 0
+Grd_nila  = 0
+Grd_njla  = 0
+Grd_maxcfl= 1
+grd_dx    = 0.
+grd_dy    = 0.
+Grd_dxmax = 360.
+Grd_dymax = 180.
+Grd_iref  = 1
+Grd_jref  = 1
+Grd_latr  = 0.
+Grd_lonr  = 0.
+Grd_xlon1 = 180.
+Grd_xlat1 = 0.
+Grd_xlon2 = 270.
+Grd_xlat2 = 0.
+Grd_overlap = 0.
+Grd_gauss_L = .false.
+Grd_ico_ndiv = 6
+
+
+@levels_cfgs
+#mandatory(desc)
+options(WB_REWRITE_UNTIL)
+define(Lvl_typ_S[c4,0],desc='Type of levels')
+define(Lvl_nk[i4,0],desc='')
+define(Lvl_list[r4,1024],desc='List of model levels,  0.0 < HYB < 1.0')
+define(Lvl_rcoef[r4,2],desc='Pair of coefficients (min,max) to control the flattenning of the vertical coordinate')
+define(Lvl_ptop_8[r8,0],desc='Basic state pressure at the top (Pa)')
+define(Lvl_tstr_8[r8,0],desc='T*  (basic state temperature) (K)')
+define(Lvl_NoTopThL_L[l4,0],desc='.true. for No Top Thermo Level (level 3/4), notop = (NoTopThL_L) ? 1 : 0;')
+define(Lvl_Tlift_L[l4,0],desc='.true. last thermo level at last momentum level')
+Lvl_typ_S = 'HU'
+Lvl_nk = -1
+Lvl_list = -1.
+Lvl_rcoef = 1.,1.
+Lvl_ptop_8 = -1.0
+Lvl_tstr_8 = 240.0
+Lvl_NoTopThL_L = .true.
+Lvl_Tlift_L = .false.
+
+
+@time_cfgs
+options(WB_REWRITE_UNTIL)
+define(Step_runstrt_S[c16,0],desc='Starting date for model run  (yyyymmdd.hhmmss)')
+define(Step_leapyears_L[l4,0],desc='account for leap years')
+define(Step_total[i4,0],desc='Total number of timesteps for model run')
+define(Step_rsti[i4,0],desc='Number of timesteps to save a restart file')
+define(Step_bkup[i4,0],desc='Number of timesteps to save a restart file backup if restart is not true')
+define(Step_gstat[i4,0],desc=' Number of timesteps for a global stat (glbstat)')
+define(Step_dt[r8,0],desc='Length of model timestep (sec)')
+#step_spinphy, step_nesdt
+Step_runstrt_S = '20080101.000000'
+Step_leapyears_L = .true.
+Step_total = 0
+Step_rsti  = -1
+Step_bkup  = -1
+Step_gstat = -1
+Step_dt    = -1.
+
+@sps_cfgs
+options(WB_REWRITE_UNTIL)
+define(ip1a[i4,0],desc='ip1 value of up-air fields to be read')
+define(ip1at[i4,0],desc='ip1 value of up-air thermo fields to be read')
+#define(filtpr_8[r8,0],desc='')
+define(adapt_L[l4,0],desc='.true. to perform terrain adaptation')
+define(lapserate[r4,0],desc='Lapse rate for terrain adaptation')
+define(clip_hu_L[l4,0],desc='Clip negative values of HU')
+define(read_gz_L[l4,0],desc='Read GZ instead of computing it if present')
+define(read_hu_L[l4,0],desc='Read HU instead HR (no adaptation, no clip_hr_L)')
+define(stat_by_level_L[l4,0],desc='Print stats levels by level if true')
+define(stat_list_S[c32,64],desc='List of field apearing on phy_blocstat')
+define(int_accu_S[c16,0],desc='')
+define(max_neg_pr0[r4,0],desc='Maximum negative Pr0 value')
+ip1a  = 12000 
+ip1at = -1 
+int_accu_S = 'CONST'
+#filtpr_8 = 0.4
+adapt_L = .true.
+lapserate = 0.0065
+clip_hu_L = .false.
+read_gz_L = .false.
+read_hu_L = .false.
+stat_list_S = ' '
+stat_by_level_L = .false.
+max_neg_pr0 = -1.E-5
+@

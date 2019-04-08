@@ -1,0 +1,25 @@
+ etk_S=1.1.2
+ units_S=hour;
+ datyp=134;
+ closeopen=hours,3;
+ nbits=16;
+ ip3=0;
+ ndigits=6;
+ linbot=0;
+ vinterp_S=cubic;
+ debug_L=f;
+ flip_L=f;
+ rewrite_L=f;
+
+ levels=1,model,all;
+ 
+ grid=1,model;
+
+ steps=1,hour,<0.,720.,3.>;
+ steps=2,hour,<0.,720.,12.>;
+ steps=3,hour,12.;
+ 
+ sortie_p([TJ,TDK,TG,DQ,UD,VD,FV,FC,TM,LG,PR], grid, 1, levels, 1, steps, 2)
+
+ sortie_p([I0,I1,I2,I3,I4,I5,I6,I7,I8,I9,SD,DN]    , grid, 1, levels, 1, steps, 2)
+

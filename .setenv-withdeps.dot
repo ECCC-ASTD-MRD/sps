@@ -1,0 +1,70 @@
+#!/bin/ksh
+
+if [[ -d $(pwd)/vgrid ]] ; then
+   export vgrid=${vgrid:-$(pwd)/vgrid}
+fi
+if [[ -d $(pwd)/rpncomm ]] ; then
+   export rpncomm=${rpncomm:-$(pwd)/rpncomm}
+fi
+
+export modelutils=${modelutils:-$(pwd)/modelutils}
+export rpnphy=${rpnphy:-$(pwd)/rpnphy}
+export sps=${sps:-$(pwd)/sps}
+
+if [[ ! -d $modelutils ]] ; then
+   cat<<EOF
+ERROR: cannot find modelutils
+       you may either link modelutils dir
+          ln -s /PATH/TO/MODELUTILS modelutils
+       or define the env var
+          export modelutils=/PATH/TO/MODELUTILS
+       then re-source this file
+EOF
+   exit 1
+fi
+
+if [[ ! -d $rpnphy ]] ; then
+   cat<<EOF
+ERROR: cannot find rpnphy
+       you may either link rpnphy dir
+          ln -s /PATH/TO/RPNPHY rpnphy
+       or define the 
+          export rpnphy=/PATH/TO/RPNPHY
+       then re-source this file
+EOF
+   exit 1
+fi
+
+if [[ ! -d $sps ]] ; then
+   cat<<EOF
+ERROR: cannot find sps
+       you may either link sps dir
+          ln -s /PATH/TO/SPS sps
+       or define the 
+          export sps=/PATH/TO/SPS
+       then re-source this file
+EOF
+   exit 1
+fi
+
+__here=$(pwd)
+cd $modelutils ; . ./.setenv.dot ; cd ${__here}
+. s.ssmuse.dot ENV/modeldata/modeldata_4.2.0
+unset __here
+
+for item in modelutils rpnphy sps; do
+   if [[ -d $item/bin ]] ; then
+      export PATH=$(pwd)/$item/bin:$PATH
+   fi
+   if [[ -d $item/lib/python ]] ; then
+      export PYTHONPATH=$(pwd)/$item/lib/python:$PYTHONPATH
+   fi
+done
+
+if [[ -d rde ]] ; then
+   export rde_version=dev
+   export rde=$(pwd)/rde
+   . $rde/bin/.rde.env_setup.dot rde ${rde_version} all $rde $rde
+fi
+
+export PATH=$(pwd)/$(rdevar build/bin):$PATH

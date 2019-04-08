@@ -1,0 +1,68 @@
+#!/bin/ksh
+#
+set -e
+
+if [[ -r ${sps}/share/Makefile.user.mk ]] ; then
+   if [[ "x$1" == "x-f" && -r Makefile.user.mk ]] ; then
+      echo "Saving a copy of previous Makefile.user.mk to Makefile.user.mk-$$"
+      mv Makefile.user.mk Makefile.user.mk-$$
+   fi
+   if [[ ! -r Makefile.user.mk ]] ; then
+      echo "Copying release Makefile.user.mk"
+      cp ${sps}/share/Makefile.user.mk .
+   fi
+fi
+
+
+rdemklink $1
+
+#storage=$(model_path storage)
+storage=$(rdevar storage)
+BUILDRUN=$(rdevar build/run)
+BUILDBIN=$(rdevar build/bin)
+
+logfile=$(pwd)/.linkit.log
+echo ${TRUE_HOST:-$(hostname)}:$storage >> $logfile
+
+for item in sps; do
+   absname=${item}_${BASE_ARCH}.Abs
+   /bin/rm -f ${absname}
+   if [[ x$1 == x-f ]] ; then
+      /bin/rm -f ${BUILDBIN}/${absname}
+   fi
+   ln -s ${BUILDBIN}/${absname} ${absname}
+   touch ${BUILDBIN}/${absname}
+   if [[ ! -s ${BUILDBIN}/${absname} ]] ; then
+      if [[ -n "${SPS_DEV_UPDATES}" ]] ; then
+         cat > ${BUILDBIN}/${absname} <<EOF
+#!/usr/bin/env ksh
+message="Rebuild SPS executable with 'make sps' to include updates ${SPS_DEV_UPDATES}"
+if [[ -n "\${MP_CHILD}" && \${MP_CHILD} -eq 0 ]] ; then
+  printf "\nERROR: \${message}\n\n" 1>&2
+  if [[ -n "\${SEQ_NODE}" ]] ; then
+    nodelogger -n \${SEQ_NODE} -s abort -d \${SEQ_DATE} \${SEQ_LOOP_ARGS} -m \"\${message}\"
+  fi
+fi
+exit 1
+EOF
+         echo "Creating update stub. Run 'make sps' to update build for execution."
+         chmod a+x ${BUILDBIN}/${absname}
+      else
+         abspath2=$(cd / && which ${absname} || true)
+         if [[ x$abspath2 != x ]] ; then
+            echo "Copying release binary: $abspath2"
+            cp $abspath2 ${BUILDBIN}/${absname}
+         else
+            echo "Release binary not found: $abspath"
+         fi
+      fi
+   fi
+   chmod 755 ${BUILDBIN}/${absname}
+done
+
+for item in RUNMOD ; do
+   #/bin/rm -rf ${BUILDRUN}/$item
+   mkdir -p ${BUILDRUN}/$item 2> /dev/null
+   /bin/rm -f ${item}_${ORDENV_PLAT}
+   ln -sf ${BUILDRUN}/$item ${item}_${ORDENV_PLAT} || true
+done

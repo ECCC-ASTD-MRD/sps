@@ -1,0 +1,37 @@
+ etk_S=4x4;
+ units_S=hour;
+ datyp=134;
+ closeopen=hours,24;
+ nbits=16;
+ ip3=0;
+ ndigits=6;
+ linbot=0;
+ vinterp_S=cubic;
+ debug_L=f;
+ flip_L=f;
+ rewrite_L=f;
+
+ levels=1,model,diag;
+ levels=2,model,all;
+
+ grid=1,model;
+
+ steps=1,hour, 0.; 
+ steps=2,hour,<3.,3.,3.>;
+ steps=3,step,-1;
+
+ sortie_p(['I0','I1','I2','I3','I4','I5','I6','I7','I9','DN','SD'],             grid, 1, levels, 2, steps, 3)
+ sortie_p(['TJ','TDK'],                                                         grid, 1, levels, 2, steps, 3)
+
+ #sortie_p(['T8','DBGM','2W','AL','H8','P8','U8','V8','N1'],                     grid, 1, levels, 2, steps, 3)
+ sortie_p(['T8','2W','AL','H8','P8','U8','V8','N1'],                     grid, 1, levels, 2, steps, 3)
+
+ sortie_p(['z0','z0t','zu','zh','u1','u3'],                                     grid, 1, levels, 2, steps, 3)
+
+
+ sortie_p(['PR','WT'],                                                          grid, 1, levels, 2, steps, 2)
+ sortie_p(['FC','FV','FI','FB','SI','FL'],                                      grid, 1, levels, 2, steps, 3)
+ sortie_p('Z0',                                                                 grid, 1, levels, 2, steps, 1)
+ sortie_p(['GL','2S'],                                                          grid, 1, levels, 2, steps, 1)
+ 
+ xnbit([WT,Z0],bits,32)

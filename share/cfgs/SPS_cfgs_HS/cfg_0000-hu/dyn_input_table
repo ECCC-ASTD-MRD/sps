@@ -1,0 +1,11 @@
+in=MF;         freq=0;   search=GEOP;  interp=cubic;  levels=0;
+in=MFBR;       freq=0;   search=GEOP;  interp=cubic;  levels=0;
+in=P0;         freq=0,1; search=INREP; interp=cubic;  levels=0;  timeint=linear
+in=GZ;         freq=0,1; search=INREP; interp=cubic;  levels=-1; timeint=linear
+in=UU; in2=VV; freq=0,1; search=INREP; interp=cubic;  levels=-1; timeint=linear
+in=HR;         freq=0,1; search=INREP; interp=linear; levels=-1; timeint=linear
+in=HU;         freq=0,1; search=INREP; interp=linear; levels=-1; timeint=linear
+in=TT;         freq=0,1; search=INREP; interp=cubic;  levels=-1; timeint=linear
+#in=DXDY;       freq=0;   search=INREP; interp=cubic; levels=0;
+#in=ME;         freq=0,1;   search=INREP; interp=cubic; levels=0; timeint=linear
+#in=WW;         freq=0,1; search=INREP; interp=cubic; levels=-1; timeint=linear

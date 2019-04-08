@@ -1,0 +1,717 @@
+>>    Horizontal position in a Y or Z grid                         DEG|M
+^^    Vertical position in a Y or Z grid                           DEG|M
+++    Reserved for Future Use                                      NIL
+1A    Visible Albedo                                               %
+1T    Temperature at the tropopause                                deg C
+1P    Tropopause pressure                                          hPa
+1Z    Tropopause height                                            km
+2A    Latitude                                                     deg
+2B    Roughness Length                                             m
+2F    Glacier ice mask                                           
+2Z    Tropopause height (edyntrp-glbdiag)                          ft
+3A    Longitude                                                    deg
+3G    500 hpa Geopotential anomaly in 3 classes                  
+3N    Mean sea level pressure anomaly in 3 classes               
+3U    Wind anomaly (U component) in 3 classes                    
+3V    Wind anomaly (V component) in 3 classes                    
+3Z    1000-500 hpa Thickness anomaly in 3 classes                
+3P    Precipitation anomaly in 3 classes                         
+3T    Temperature anomaly in 3 classes                           
+4A    Oceanic Ice Cover                                            no units
+5A    Soil Volume Water Content                                    % per volume
+5P    Fraction of grid covered by snow                             nil
+6A    Land/Sea Mask                                                no units
+7A    Snow Depth                                                   cm
+8A    SST Temperature                                              K
+9A    Surface Temperature at zero timestep                         K
+A1    Accumulation of convective liquid precipitation              M
+A2    Accumulation of stratiform liquid precipitation              M
+A3    Accumulation of convective solid precipitation               M
+A4    Accumulation of stratiform solid precipitation               M
+AA    Ammonium aerosols (NH4)                                      PPB
+AB    Incoming visible accumulated flux (accumulated IV)           J/M2
+AC    Particulate concentration ( 2.5 <= Diam < 10 Microns)        micrograms/M3
+AD    Incoming I.R. accumulated flux (accumulated FI)              J/M2
+AE    Total Accumulated Stratiform Precipitation                   m
+AF    Concentration of fine particulate (Diam. < 2.5 Microns)      micrograms/M3
+AFSD  Accumulated FSD (cccmarad)                                   J/M2
+AFSF  Accumulated FSF (cccmarad)                                   J/M2
+AFSI  Accumulated FSI (cccmarad)                                   J/M2
+AFSV  Accumulated FSV (cccmarad)                                   J/M2
+AG    Accumulated heat flux in soil                                J/M2
+AH    Surface accumulated sensible heat flux (accumulated FC)      J/M2
+AI    Surface accumulated net I.R. flux (SI accumule)              J/M2
+AL    Albedo                                                     
+AM    Ammonia Gas (NH3)                                            PPB
+AMX   Accumulated Mixed Precipitation (Milbrant and Yau)           m
+AM1X  ammonium fine (2.5um) (CAM SPECIES)                           ug/m3
+AM2X  ammonium coarse (10um) (CAM SPECIES)                          ug/m3
+AN    Cloud albedo                                                 NIL
+AO    Organic aerosols                                             PPB
+AP    Planetary albedo                                           
+APAR  Accumulated PARR (cccmarad)                                  J/M2
+AR    Outgoing I.R. flux                                           J/M2
+AS    Visible flux absorbed at surface (Accumulated FS)            J/M2
+ASG   Accumulation of Graupel, Grid-scale cond (Milbrant and Yau)  m
+ASH   Accumulation of Hail, Grid-scale cond (Milbrant and Yau)     m
+ASN   Accumulation of Snow, Grid-scale cond (Milbrant and Yau)     m
+AU    Outgoing accumulated visible flux (accumulated EV)           J/M2
+AV    Accumulated surface flux of latent heat (accumulated FV)     J/M2
+AW    Accumulated surface momentum flux (accumulated FQ)           PA*S
+BE    Buoyant energy                                               J/KG
+BI    Severe Storm Index                                         
+BH    Top of boundary layer ( stable case )                        M
+BN    Height of mixing layer at Tmin                               M
+BP    Cloud top pressure                                           M
+BPNO  Nitrogen monoxide biogenic emission after BEIS3              g
+BR    Radar base reflectivity                                      dBZ
+BS    Vertical Wind Shear between                                  1/S
+BV    Radar Base Velocity                                          M/S
+BX    Height of mixing layer at Tmax                               M
+BY    Buoy information                                             NIL
+C0    First freezing level                                         ft
+C1    Second freezing level                                        PIEDS
+C2    Third freezing level                                         PIEDS
+C3    Carbonate Aerosols (C03--)                                   PPB
+CA    Calcium Aerosols (CA++)                                      PPB
+CC    Velocity potential                                           M-2/S
+CD    Thickness between C2-C1 freezing layers                      PIEDS
+CF    Nuage Total                                                  NIL
+CH    Xu transfer coefficient, thermal fields                      M/S
+CI    Calcium Ion in Solution (CA++)                               PPB
+CK    Convective clouds                                            NIL
+CL    Large scale clouds                                           NIL
+CM1X  crustal material/soil/dust fin (2.5um)                        ug/m3
+CM2X  crustal material/soil/dust coarse (10um)                      ug/m3
+CN    CONVECTIVE INHIBITION                                        J/KG
+CO    Carbon Monoxide Gas (CO)                                     PPB
+CP    Convective Available Potential Energy                        J/KG
+CR    Radar Composite Reflectivity                                 dBZ
+CS    Small Scale Clouds                                           NIL
+CT    Cloud Type (Coded) (QPF)                                   
+CV    Thermal Coefficient for canopy                             
+CX    Cosine of solar angle                                        NIL
+D2    Rooting soil depth                                           M
+D3    Pressure tendency last three hours                           hPA
+DD    Divergence                                                   S-1
+DE    Direction of Wind (or Sea) waves                             DEG
+DL    Latitude-Longitude                                           DEG
+DLIM  2 m air temperature modification by tdiaglim=true            K
+DMC   Mean mass diameter of cloud                                  m
+DMG   Mean mass diameter of graupel                                m
+DMH   Mean mass diameter of hail                                   m
+DMI   Mean mass diameter of ice                                    m
+DMR   Mean mass diameter of rain                                   m
+DMS   Mean mass diameter of snow                                   m
+DN    Snow density                                                 KG/M3
+DP    Isobaric divergence                                          S-1
+DQ    Screen Level Specific Humidity                               inconnue
+DR    Water drainage at bottom of soil layer                       M3/M3
+DS    Direction of swell                                           DEG
+DT    Surface temperature correction                               C
+DW    Dew (QPF)                                                    NIL
+DZ    Thickness between two levels (GZ)                            DAM
+E1    Vertical coordinate at model top                             NIL
+E2    Overland runoff                                              kg/m2
+E4    Diffusive tendency of EN                                     M2/S3
+EA2   Alkene emission                                              g/s
+EA3   Alkane emission                                              g/s
+EALD  acetaldehyde emission                                        g/s
+EARO  aromatic emission                                            g/s
+EB    Thermal production                                           M2/S3
+ECC   Total effective cloud cover (cccmarad)                      
+ECO   carbon monoxide emission                                     g/s
+EC1X  elemental carbon fine (2.5um)                                 ug/m3
+EC2X  elemental carbon coarse (10um)                                ug/m3
+ECCH  Fffective mid level cloud clover (cccmarad)                  
+ECCL  Effective low level cloud cover (cccmarad)                   
+ECCM  Effective mid level cloud cover (cccmarad)                   
+EC38  propane emission                                             g/s
+ECRE  o-creosol emission                                           g/s
+ECM1  crustal material fine emissions (2.5um)                       g/s
+ECM2  crustal material coarse emissions (10um)                      g/s
+ED    Viscous dissipation                                          M2/S3
+EETH  Ethene emission                                              g/s
+EEC1  elemental carbon emissions fine (2.5um)                       g/s
+EEC2  elemental carbon emissions coarse (10um)                      g/s
+EH    Radar echo tops height                                       M
+EHCH  formaldehyde emission                                        g/s
+EHON  nitrous acid emission                                        g/s
+EI    Outgoing infrared energy exiting the atmosphere              W/M2
+EISO  isoprene emission                                            g/s
+EM    Mechanical production                                        M2/S3
+EMEK  methyl ethyl ketone emission                                 g/s
+EN    Turbulent kinetic energy                                     M2/S2
+ENO   Nitrogen monoxide emmision                                   g/s
+ENH3  ammonia emission                                             g/s
+ENO2  nitrogen dioxide emmision                                    g/s
+EP    Precipitable water between eta-1.0 and 0.4                   MM
+EPC1  primary organic carbon emissions fine(2.5um)                 g/s
+EPC2  primary organic carbon emissions coarse                      g/s
+ER    Turbulent energy variation rate (RES)                        M2/S3
+ES    Dew point depression                                         C
+ESIO  isoprene biogenic emission (std summer)                      g
+ESMO  monoterpenes biogenic emission-(std summer)                  g
+ESNO  Nitrogen monoxide biogenic emission (std summer)             g
+ESO2  sulphur dioxide emission                                     g/s
+ESO4  sulphate emission                                            g/s
+ESU1  sulphate emissions fine (2.5um)                               g/s
+ESU2  sulphate emissions coarse (10um)                              g/s
+ESVO  VOC biogenic emission (std summer)                           g
+ET    Turbulent transport                                          M2/S3
+ETOL  toluene emission                                             g/s
+EV    Outgoing visible energy exiting the atmosphere               W/M2
+EWNO  Nitrogen monoxide biogenic emission (std winter)             g
+EWIO  isoprene biogenic emission (std winter)                      g
+EWMO  monoterpenes biogenic emission (std winter)                  g
+EWVO  VOC biogenic emission (std winter)                           g
+F1    Energy accumulation in the boundary layer                    J.M-2
+F2    Thickness of the boundary layer                              M
+F3    Temperature spread between surface and sigma                 K
+F4    Sensible Heat Flux over Soil (Instantaneous)                 W/m2
+F5    Sensible Heat Flux over Glacier (Instantaneous)              W/m2
+F6    Sensible Heat Flux over Water (Instantaneous)                W/m2
+F7    Sensible Heat Flux over Ice (Instantaneous)                  W/m2
+FB    Downward solar flux                                          W/M2
+FC    Upward surface sensible heat flux                            W/M2
+FD    Error amplification factor                                   NIL
+FE    Evaporation factor                                           NIL
+FH    Upward accumulated short wave flux (accumulated HV)          J/M2
+FI    Surface incoming infrared flux                               W/M2
+FL    Soil heat flux                                               W/M2
+FN    Cloud fraction                                               NIL
+FO    Frost (QPF)                                                  NIL
+FP    Probability of precipitation forecast                      
+FQ    Momentum flux at surface                                     PA
+FR    Freezing rain (QPF)                                          m
+FR1   Accumulated freezing drizzle (Milbrant and Yau)              m
+FR2   Accumulated freezing rain (Milbrant and Yau)                 m
+FS    Solar flux absorbed at surface                               W/M2
+FSD   Direct solar downward flux at the surface (cccmarad)         W/M2
+FSF   Diffuse solar downward flux at the surface (cccmarad)        W/M2
+FSI   Near infrared solar downward flux at the surface (cccmarad)  W/M2
+FSV   Visible downward flux at the surface (cccmarad)              W/M2
+FU    Highest freezing level                                       100*ft
+FV    Upward surface latent heat flux                              W/M2
+FW    Rime + Clear Icing                                         
+G3    Radiative Temperature                                      
+G6    Precipitation Rate-Liquid                                  
+G7    Precipitation Rate-Solid                                   
+GA    Glacier mask                                               
+GG    Stomatal Resistance Parameter                              
+GI    Rime Icing                                                   kg/kg
+GS    soil/water/snow/ice/mask                                   
+GL    Ice fraction                                                 NIL
+GR    Precipitation type - ice pellets                           
+GU    Gravity wave drag tendency of UU                             M/S/DAY
+GV    Gravity wave drag tendency of VV                             M/S/DAY
+GZ    Geopotential height                                          DAM
+H     Height of boundary layer                                     M
+H_CB  Height of cloud base (diagnostic)                            m
+H_M2  Height of highest melting level (diagnostic)                 m
+H_ML  Height of lowest melting level (diagnostic)                  m
+H_SN  Height of snow level (diagnostic)                            m
+H2    Terrain height variance                                      M
+HA    Hail (QPF)                                                   NIL
+HC    Thermal capacity of ground                                   J/M3/K
+HD    Radar Hourly Digital Precipitation Array                     M
+HE    Soil moisture (ECMWF)                                      
+HF    Surface Vapour Flux (t-dt)                                 
+HH    Hour (time series, time axis)                                HEURE
+HI    Hydrogen ion in solution (H+)                                PPB
+HL    Relative helicity                                            M2/S2
+HO    Hydroxyl free radical (HO)                                   PPB
+HP    Hydrogen peroxide gas (H2O2)                                 PPB
+HR    Relative humidity                                          
+HS    Soil moisture                                                NIL
+HT    Pressure at top of cloud                                     KPa
+HU    Specific humidity                                            KG/KG
+HV    Upward short-wave flux                                       W/M2
+HX    Peroxyl free radical (HYDRO)                                 PPB
+HY    Descriptor - GEM hybrid vertical coordinate                  NIL
+I0    Surface and soil temperatures                                K
+I1    Soil volumetric water contents                               M3/M3
+I2    Soil volumetric ice contents                                 M3/M3
+I3    Water retained on the vegetation                             KG/M2
+I4    Water in the snow pack                                       KG/M2
+I5    Snow mass                                                    KG/M2
+I6    Albedo of snow                                               NIL
+I7    Sea ice temperature                                          K
+I8    Sea ice thickness                                            K
+I9    Glacier temperature                                          K
+IA    Ammonium ion in solution (NH4+)                              PPB
+IB    Integrated Supercooled Liquid water                          Kg/m2
+IC    Vertical Integral of liquid water                            KG/M2
+ICR   Total liquid water path for radiation                        KG/M2
+IIR   Total ice water path for radiation                           KG/M2
+ID    Infrared temperature                                       
+IE    Vertical Integrate of total condensate                       KG/M2
+IH    Water vapor vertical integration                             KG/M2
+II    Ferric Ion in Solution (FE+++)                               PPB
+IL    Maximum Lifted Index at low levels                           K
+IM    Manganese Ion in Solution (MN++)                             PPB
+IN    Nitrate Ion in Solution (NO3--)                              PPB
+IO    Inverse Moni-Obukhov Length                                  m-1
+IP    Hydrogen Peroxide in Solution (H2O2)                         PPB
+IR    Ferric Aerosols (FE+++)                                      PPB
+IS    Sulphate Ion in Solution (SO4--)                             PPB
+IV    Incoming Solar Radiation at Top of Atmosphere                W/M2
+IW    Water Optical Path (according to Sundqvist)                  kg/m2
+IY    Integral of Upper troposphere (700hpa) Water Vapour          m
+IZ    Water Vapor Radiance                                         nil
+J1    Percentage of Sand in Soil                                   nil
+J2    Percentage of Clay in Soil                                   nil
+J4    Leaf Area Index                                              m2/m2
+J5    Water Content at Field Capacity                              m3/m3
+J6    Water Content at Saturation                                  m3/m3
+J7    Water Content at Wilting Point                               m3/m3
+J8    Area-averaged Surface Temperature                            k
+J9    Area-averaged Surface Humidity                               kg/kg
+K0    Radiative Surface Remperature                                k
+K1    vegetation fraction                                          nil
+K7    Cloud ice mixing fraction in convective updrafts             kg/kg
+K8    Cloud water mixing fraction in convective updrafts           kg/kg
+KC    Index of the 1st Level of the Boundary Layer               
+KF    Convective Precipitation Rate                              
+KH    Diffusivity (Heat and Humidity)                              m2/s
+KM    Diffusivity (Wind)                                           m2/s
+KS    Soil Thermal Diffusivity                                     m2/s
+KT    Vertical Diffusion Coefficient for Heat                      m2/s
+L0    Freezing Level                                               pieds
+L1    Radar Composite Reflectivity (Layer 1)                       dbz
+L2    Radar Composite Reflectivity (Layer 2)                       dbz
+L3    Radar Composite Reflectivity (Layer 3)                       dbz
+L7    Vertical integral of liquid mixing fraction in
+                 convective updrafts    kg/kg
+L8    Vertical integral of cloud ice mixing fraction in
+                 convective updrafts    kg/kg
+LA    Geographical Latitude                                        deg
+LAI   Leaf Area index (BEIS3)                                     
+LC    Carbonate Iion in Solution (CO3)                             ppb
+LD    Maximum Turbulence Index                                     s-2
+LG    Continuous Ice Fraction                                      nil
+LH    Launching Height                                             m2
+LI    Surface Lifted Index                                         k
+LO    Geographical longitude                                       deg
+LQ    Natural logarithm of Specific Humidity                       ln(kg/kg)
+LS    Sulphur Dioxide in Solution (SO2)                            ppb
+LT    Base Layer of High Altitude Turbulence                       pieds
+LTG   Lightning                                                    no units
+LZ    Ozone in Solution (O3)                                       ppb
+M3    Air Density                                                  kg/m3
+M4    Cosine of the Solar Angle                                    deg
+M9    Height of water lying on surface                             m
+MA    Manganese Aerosols (mn++)                                    ppb
+MC    Mountains (193x97) (ECMWF)                                   m
+ME    Mountain (sources:USGS,USNAVY,GLOBE,NCAR,CRC)                m
+MF    Filtered Topography                                          m
+MG    Ocean/Continent Mask                                       
+MH    masque terre-eau                                             nil
+MI    Magnesium Ion in solution (MG++)                             ppb
+ML    Land-Fresh Water-Sea Water Mask                            
+MM    Magnesium Aerosols (MG++)                                    ppb
+MN    Mountain (NCAR)                                              m
+MO    Mountain (OREGON)                                            m
+MP    Significant Wave Mean Period                                 s
+MQ    Land-sea Mask                                                nil
+MT    Mountain (Model Geopotential)                                m2.s-2
+MX    Filtered Geopotential Topography                             m2/s2
+MY    Non-Filtered Topography                                      m
+N0    Accumulation of Surface Runoff                               mm
+N1    First level potential temperature                            K
+N2    Nitrogen dioxide gas (NO2)                                   ppb
+N2RB  nitrogen dioxide molecular diffusion resistance              s/m
+N2RC  nitrogen dioxide total surface resistance                    s/m
+N3    Nitrate Aerosols (NO3)                                       ppb
+N4    Accumulated Incident solar Flux 
+                before Surface Absorption                    J/m2
+NA    Nitrite Aerosols (NO2)                                       ppb
+NB    Low Cloud                                                    nil
+NC    Convective Cloud Fraction                                    nil
+NCT1  Number concentration of cloud droplets (Mil/Yau-dbl momment) m-3
+NGT1  Number concentration graupel particles (Mil/Yau-dbl momment) m-3
+NHT1  Number concentration hail particles (Mil/Yau-dbl momment)    m-3
+NI1X  nitrate fine (2.5um) (CAM SPECIES)                            ug/m3
+NI2X  nitrate coarse (10um) (CAM SPECIES)                           ug/m3
+NIT1  Number concentration ice crystals (Mil/Yau-dbl momment)      m-3
+NNT1  Number concentration snow crystals (Mil/Yau-dbl momment)     m-3
+NRT1  Number concentration rain drops (Mil/Yau-dbl momment)        m-3
+NE    Snow Cover                                                 
+NF    Accumulated Cloud Cover (NT)                                 s
+NG    Nitric Acid Gas (HNO3)                                       ppb
+NH    High Cloud                                                   nil
+NI    Nitrite Ion in Solution (NO2)                                ppb
+NM    Middle Level Cloud                                           nil
+NO    Nitric Oxide Gas (NO)                                        ppb
+NORB  nitrogen monoxide molecular diffusion resistance             s/m
+NORC  nitrogen monoxide total surface resistance                   s/m
+NP    Atmospheric Water Content (Snow and Rain)                    kg/kg
+NR    Net Radiation Budget of the Ground                           w/m2
+NS    Stratiform Cloud Fraction                                    nil
+NT    Total Cloud Cover                                            nil
+NU    Cloud fraction                                               nil
+NV    Nitrous Acid Gas (hno2)                                      ppb
+NW    Precipitation Type (RA 1:RS:ZR:GR:SN:NONE 6)               
+NWOC  secondary organic created in timestep                        ug/kg
+O1    Accumulation of Base Drainage                                mm
+O3    Total Ozone                                                  dobson
+O3RB  ozone molecular diffusion resistance                         s/m
+O3RC  ozone total surface resistance                               s/m
+O7    Accumulation of sublimation from snow                        J/m2
+OC    Mask (ECMWF)                                               
+OC1X  secondary organic carbon fine(2.5um)                         ug/m3
+OC2X  secondary organic carbon coarse(10um)                        ug/m3
+OD    Monatomic Oxygen (ID State) (O(ID))                          ppb
+OL    Monin-Obukhov Length                                         m
+OP    Monatomic Oxygen (3p State) (O(3P))                          ppb
+OT    Mean Ocean Temperature 12 months (QPF)                     
+OZ    Ozone Gas (O3)                                               ppb
+P0    Surface Pressure                                             mb
+P1    Convective Liquid Precipitation Rate                         m/s
+P2    Stratiform Liquid Precipitation Rate                         m/s
+P3    Convective Solid Precipitation Rate                          m/s
+P4    Stratiform Solid Precipitation Rate                          m/s
+PA    PAN gas (PAN)                                                ppb
+PARR  Photosynthetic active radiation (cccmarad)                   W/M2
+PB    Accumulated explicit precipitation (PR-PC)                   m
+PC    Accumulated implicit precipitation                           m
+PC1X  primary organic carbon fine(2.5um)                           ug/m3
+PC2X  primary organic carbon coarse (10um)                         ug/m3
+PD    Peak Period                                                  s
+PE    Ice Pellets (QPF)                                            m
+PE1   Accumulated Ice Pellets (Mil-Yau)                            m
+PE2   Accumulated hail (Mil-Yau)                                   m
+PE2L  Accumulated large hail (Mil-Yau)                             m
+PG    Mountain (QPF)                                               mb
+PH    Height of sigma 1, minus the mean                            m2.s-2
+PI    GOES Pixel Longitudinal Position                           
+PJ    GOES Pixel Latitudinal Position                            
+PL    Large Scale Precip (QPF)                                     nil
+PM    Amount of Precipitation (ECMWF)                              cm
+PN    Sea Level Pressure                                           mb
+PP    Courant Function                                             m-2/s
+PR    Quantity of Precipitation                                    m
+PS    Soil Conductivity                                            w.m-2.k-1
+PT    Pressure at the Top of the Model                             mb
+PU    Wind Path                                                    kt*h
+PW    Water Vapor Vertical Integral                                cm
+Q0    Amount of Water in the Ground (0-0.07m deep)                 kg.m-2
+Q1    Amount of Water in the Ground (0-.50m deep)                  kg.m-2
+Q2    Amount of Water in the Ground (0- 1 m deep)                  kg.m-2
+Q4    Humidification (Fritsch-Chappell)                            s-1
+Q5    NP Tendency (convection and condensensation)                 s-1
+Q6    QC Tendency (Kain-Fritsch)                                   s-1
+Q7    NP Tendency (Kain-Fritsch)                                   s-1
+QA    Humidification by Convective Adjustment                      s-1
+QBT1  3D cloud droplets mixing ratio (Milbrandt-Yau)               kg/kg
+QC    Mixing ratio of total condensate (Sundquivst)                kg/kg
+QCT1  Mixing ratio of cloud (liquid) (Milbrandt-Yau+Kong-Yau)      kg/kg
+QD    Mixing Ratio of condensate(expl+impl)--liquid(M-Yau/K-Yau)--total(Sund)   kg/kg
+QE    Cloud Ice Content at T+DT                                    kg/kg
+QF    Humidification by Surface Flux                               s-1
+QG    Specifique Humidity at Ground Level                          kg/kg
+QGT1  Mixing ratio of graupel (Milbrandt-Yau+Kong-Yau)             kg/kg
+QHT1  Mixing ratio of hail (Milbrandt-Yau)                         kg/kg
+QJT1  3D graupel particles mixing ratio (Milbrandt-Yau)            kg/kg
+QI    Mixing ratio of ice (crystals) (Mil-Yau+Kong-Yau)            kg/kg
+QIT1  Mixing ratio of ice (crystals) (Mil-Yau+Kong-Yau)            kg/kg
+QK    Moistening due to Convection                                 k/day
+QLT1  3D rain drops mixing ratio (Milbrandt-Yau)                   kg/kg
+QM    Minimum Value of Q0                                          kg.m-2
+QNT1  Mixing ratio of snow (Milbrandt-Yau)                         kg/kg
+QP    Isobaric Vorticity                                           s-1
+QQ    Absolute Vorticity                                           s-1
+QR    Relative Vorticity                                           s-1
+QRT1  Mixing ratio of rain (Milbrandt-Yau+Kong-Yau)                kg/kg
+QW    Cloud Water Content at T+DT                                  kg/kg
+QT    QC Tendancy (convection and condensation)                    s-1
+R0    Instantaneous diag. solid/liquid ratio (Dube)                kg/kg
+R1    hydrocarbon Gas, 1st Reactive Grouping                       ppb
+R2    Hydrocarbon gas, 2nd reactive grouping                       ppb
+R3    Hydrocarbon gas, 3rd Reactive Grouping                       ppb
+R4    Hydrocarbon gas, 4th Reactive Grouping                       ppb
+R5    Hydrocarbon gas, 5th Reactive Grouping                       ppb
+R6    Hydrocarbon gas, 6th Reactive Grouping                       ppb
+RA    Precipitation Type - Rain                                  
+RB    Bulk Richardson Number                                       nil
+RC    Convective Precipitation Rate                                m/s
+RD    Aerodynamic Resistance                                       m/s
+RE    Wind Chill Factor                                            nil
+RF    Liquid Precipitation Flux                                    kg/m2/s
+RFR1  Precipitation rate-freezing drizzle (Mil-Yau)                m/s
+RFR2  Precipitation rate-freezing rain (Mil-Yau)                   m/s
+RH    Outgoing Infrared Flux                                       w/m2
+RI    Rime Icing                                                 
+RJ    Rejection Factor(from ISBA pseudo-analysis)                
+RMX   Precipitation rate-Mixed precipitation (Mil-Yau)             m/s
+RN    Rain (QPF)                                                   m
+RN1   Accumulated liquid drizzle (Mil-Yau)                         m
+RN2   Accumulated liquid rain (Mil-Yau)                            m
+RO    Alkoxyl Free Radical (RO)                                    ppb
+RPE1  Precipitation rate-Ice pellets (Mil-Yau)                     m/s
+RPE2  Precipitation rate-Hail (Mil-Yau)                            m/s
+RPEL  Precipitation rate-Large hail (Mil-Yau)                      m/s
+RR    Rainfall Rate                                                m/s
+RRN1  Precipitation rate-Liquid drizzle (Mil-Yau)                  m/s
+RRN2  Precipitation rate-Liquid rain (Mil-Yau)                     m/s
+RS    Stomatal Resistance                                          s/m
+RS2L  Instantaneous solid to liquid ratio (Mil-Yau)                kg/kg
+RSG   Graupel Precipitation Rate, (Grid Scale Cond.)               m/s
+RSH   Hail Precipitation Rate, (Grid Scale Cond.)                  m/s
+RSN   Snow Precipitation Rate, (Grid Scale Cond.)                  m/s
+RSN1  Precipitation rate-Ice crystals (Mil-Yau)                    m/s
+RSN2  Precipitation rate-Snow (Mil-Yau)                            m/s
+RSN3  Precipitation rate-Graupel (Mil-Yau)                         m/s
+RSND  Precipitation rate-Solid total snow (Mil-Yau)                m/s
+RT    Total Precipitation Rate                                     m/s
+RU    Surface Run-off (precipitation - evaporation)                kg/m2
+RX    Peroxyl Free Radical (Alkyl) (RO2)                           ppb
+S     Sigma Level (2000. + 10000. * sigma)                         nil
+S2    Sulphur Dioxide Gas (SO2)                                    ppb
+S2L   Solid/Liquid ratio (Mil-Yau)                                 kg/kg
+S4    Sulphate Aerosols (SO4)                                      ppb
+SA    Mean Effective Ocean Area 12 months (QPF)                  
+SB    Boundary Layer Height (sigma)                                nil
+SC    Snow Cover (12 months) (QPF)                                 nil
+SD    Snow Depth                                                   cm
+SDWD  Standard deviation-Sfc wind direction turbulence             deg true 
+SDWS  Standard deviation-Sfc wind speed turbulence                 m/s 
+SE    Top of the Boundary Layer (sigma)                            nil
+SF    Solid Precipitation Flux                                     kg/m2/s
+SG    Sulphuric Acid Gas (H2SO4)                                   ppb
+SH    Sigma Level (Temperature, Humidity)                        
+SH    Probability of Precipitation (code 0 to 15)                
+SI    Net Infrared Flux at the Ground                              w/m2
+SIFI  Upward IR Radiation at sfc (Instantaneous)                   W/m2
+SL    Sulphite Ion in Solution (SO3)                               ppb
+SLQR  Snow-to-Liquid Ratio (Dube)                                  mm/mm
+SK    Snow stored on Canopy                                        inconnue
+SLW   Total supercooled liquid water content-microphysics(Mil-Yau) kg/m3
+SM    Land-Sea Mask (12 months) (QPF)                            
+SN    Snow (QPF)                                                   m
+SND   Total Unmelted snow                                          m
+SNLR  Snow accumulation with SLQR ratio                            m
+SN10  Snowfall accumulation using classic 10:1 ratio               cm
+SN1   Accumulated ice crystals (Mil-Yau)                           m
+SN2   Accumulated snow (Mil-Yau)                                   m
+SN3   Accumulated graupel (Mil-Yau)                                m
+SO    Soot Aerosols (soot(c))                                      ppb
+SP    Small Scale Precip (QPF)                                     nil
+SR    Precipitation Type - Snow-Rain                             
+SQ    Swell Period                                                 s
+SS    Soot Suspension in Liquid Phase (c)                          ppb
+SS1X  sea salt fine (2.5um)                                         ug/m3
+SS2X  sea salt coarse (10um)                                        ug/m3
+ST    Adjustment Accumulator                                     
+ST    Stations Height                                              m
+SU1X  sulphate fine (2.5um)                                         ug/m3
+SU2X  sulphate coarse (10um)                                        ug/m3
+SV    Sigma Level (Wind, Geopotentiel)                           
+SW    SWEAT index                                                  nil
+SZ    Swell Height                                                 m
+T*    Representative Temperature at a given level                  k
+T1    Temperature at the Top of the Cloud                          k
+T2    Heating Rate due to Solar Radiation                          k/s
+T3    Total Radiative Heating                                      k/s
+T4    Convective Heating (Fritsch-Chappell)                        k/s
+T5    Median Temperature 50% Histogram                             k
+T6    Precipitation Types RA/RS/ZR/IP/SN/NIL                     
+T7    Minimum Temperature                                          C
+T8    Maximum Temperature                                          C
+T9    Temperature 90% Histogram                                    k
+TA    Total Precipitation Latent Heating Rate                      k/s
+TA2   C2 Alkene                                                    ug/kg
+TA3   C3 Alkane                                                    ug/kg
+TALD  acetaldehyde                                                 ug/kg
+TAM1  ammonium fine (2.5um) (CAM SPECIES)                           ug/kg
+TAM2  ammonium coarse (10um) (CAM SPECIES)                          ug/kg
+TARO  Aromatic                                                     ug/kg
+TB    Mean temperature 12 months (QPF)                             C
+TBZO  phenoxy radical                                              ug/kg
+TC    Total Clouds (QPF)                                           nil
+TCC   true cloud cover (cccmarad)                                 
+TCM1  crustal material/soil/dust fin (2.5um)                        ug/kg
+TCM2  crustal material/soil/dust coarse (10um)                      ug/kg
+TCO   carbon monoxide                                              ug/kg
+TC38  propane                                                      ug/kg
+TCR1  criegee radical #1                                           ug/kg
+TCR2  criegee radical #2                                           ug/kg
+TCRE  o-creosol                                                    ug/kg
+TD    Dew Point Temperature                                        C
+TDIA  general dicarbonyl                                           ug/kg
+TE    Surface Temperature (ECMWF)                                  K
+TEC1  elemental carbon fine (2.5um)                                 ug/kg
+TEC2  elemental carbon coarse (10um)                                ug/kg
+TETH  Ethene                                                       ug/kg
+TF    Surface Flux Heating                                         k/s
+TG    Radiative Agregate Temperature                               k
+TH    Potential Temperature                                        k
+TH22  hydrogen peroxide                                            ug/kg
+THCH  formaldehyde                                                 ug/kg
+THN3  nitric acid                                                  ug/kg
+THN4  pernitric acid                                               ug/kg
+THO2  hydroperoxyl radical                                         ug/kg
+THON  nitrous acid                                                 ug/kg
+TI    Infrared Heating                                             k/s
+TISO  isoprene                                                     ug/kg
+TJ    Screen Level Temperature                                     K
+TK    Convective Precipitation Latent Heating Rate                 k/s
+TL    Solar Heating                                                k/s
+TM    Sea Temperature                                              k
+TMC3  CH3CO3 radical                                               ug/kg
+TMEK  methyl ethyl ketone                                          ug/kg
+TMGL  methyl glyoxal                                               ug/kg
+TN    Precipitation Type - Snow                                  
+TNO   Nitrogen monoxide                                            ug/kg
+TNO3  nitric acid                                                   ug/kg
+TN25  dinitrogen pentoxide                                          ug/kg
+TNH3  ammonia                                                      ug/kg
+TNI1  nitrate fine (2.5um) (CAM SPECIES)                            ug/kg
+TNI2  nitrate coarse (10um)(CAM SPECIES)                            ug/kg
+TNOL  2 m air temperature before modification by tdiaglim=true     K
+TNO2  nitrogen dioxide                                             ug/kg
+TO    Total Warming                                                k/s
+TO3   ozone                                                        ug/kg
+TOC1  secondary organic carbon fine(2.5um)                          ug/kg
+TOC2  secondary organic carbon coarse (10um)                        ug/kg
+TO1D  excited-state oxygen                                         ug/kg
+TO3P  ground-state oxygen                                          ug/kg
+TOH   hydroxyl radical                                             ug/kg
+TP    Deep Soil Temperature                                        c
+TPAN  peroxyacetyl nitrate                                         ug/kg
+TPC1  primary organic carbon fine(2.5um)                            ug/kg
+TPC2  primary organic carbon coarse (10um)                          ug/kg
+TQ    Turbulence (nil:light:moderate:strong)                     
+TR    Deep Soil Temperature (regional)                             c
+TR2N  alkyl nitrate forming organic peroxyl radical                ug/kg
+TR2R  general organic peroxyl radical #1                           ug/kg
+TR22  general organic peroxyl radical #2                           ug/kg
+TRN3  alkyl nitrate                                                ug/kg
+TRO2  total RO2 radicals                                           ug/kg
+TROO  organic peroxide                                             ug/kg
+TS    Air Temperature at Ground Level                              c
+TSO2  Sulphur dioxide                                              ug/kg
+TSO4  Sulphate                                                     ug/kg
+TSS1  sea salt fine (2.5um)                                         ug/kg
+TSS2  sea salt coarse (10um)                                        ug/kg
+TSU1  sulphate fine (2.5um)                                         ug/kg
+TSU2  sulphate coarse (10um)                                        ug/kg
+TT    Air Temperature                                              c
+TTOL  Toluene                                                      ug/kg
+TU    UU Tendancy                                                  m/s2
+TV    VV Tendancy                                                  m/s2
+TW    Potential Wet-bulb Temperature                               c
+TWA1  particle bound water fine (2.5um) (CAM SPECIES)               ug/kg
+TWA2  particle bound water coarse (10um) (CAM SPECIES)              ug/kg
+TX    Surface Temperature TM (Ocean)  and TP (Land)                k
+TY    Precipitation type (coded) (QPF)                             nil
+TZ    Temperature as seen by Satellite                             k
+UD    U component of wind (Screen Level)                           m/s
+UDWE  Diag. level true geographical W-E horizontal wind component  m/s
+UE    Friction Speed U*                                            m/s
+UH    Specific humidity at T+DT                                    kg/m3 
+UP    Wind Speed at T+DT along x axis                              m/s
+US    U-Component of the Wind at Ground Level                      m/s
+UT    Top of Turbulence Layer at High Altitude                     pieds
+UT1   Staggered image winds (u-component)                          m/s
+UU    U-Component of the Wind (Along the grid X axis)              knots/noeuds
+UUWE  True geographical W-E horizontal wind component              m/s
+UV    Wind Modulus                                                 knots/noeuds
+V3    Local TB Variation at PI, PJ GOES Channel 3                  k
+V4    Local TB Variation at PI, PJ GOES Channel 4                  k
+VA    Vanadium Aerosols (V+++)                                     ppb
+VD    V component of wind (Screen Level)                           m/s
+VDSN  Diag. level true geographical S-N horizontal wind component  m/s
+VE    Visible Intensity (code, from 0 to 15)                     
+VF    Vegetation Fraction                                        
+VG    Vegetation Type                                            
+VI    Vanadium Ion in Solution (V+++)                              ppb
+VIS   Visibility                                                   km
+VIS1  Visibility through liquid fog (Mil-Yau)                      km
+VIS2  Visibility through rain (Mil-Yau)                            km
+VIS3  Visibility through snow (Mil-Yau)                            km
+VL    Radar Derived Vertically Integrated Liquid                   kg/m2
+VN    Ventilation Coefficient ventilation at TMIN                  m2/s
+VO    Volatile Organic Compounds, Gas (VOC)                        ppb
+VNO   nitrogen monoxide deposition velocity                        m/s
+VNO2  nitrogen dioxide deposition velocity                         m/s
+VO3   ozone deposition velocity                                    m/s
+VP    Wind Speed at T+DT along y axis                              m/s
+VS    V-Component of the Wind at Ground Level                      m/s
+VT    Virtual Temperature                                          c
+VT1   Staggered image winds (v-component)                          m/s
+VV    V-Component of the Wind (Along the grid Y axis)              knots/noeuds
+VVWE  True geographical S-N horizontal wind component              m/s
+VX    Ventilation Coefficient at TMAX                              m2/s
+VZ    Visible Reflection                                           nil
+W1    Water Optical Path (According to Rockel)                     kg/m2
+W2    Ice Optical Path (According to Rockel)                       kg/m2
+W3    Water Total Optical Thickness                                nil
+W4    Ice Total Optical Thickness                                  nil
+W5    Brightness Water Vapor Temperature                           k
+WA    SHOWALTER index                                              k
+WA1X  particle bound water fine (2.5um) (CAM SPECIES)               ug/m3
+WA2X  particle bound water coarse (10um) (CAM SPECIES)              ug/m3
+WB    Significant Wave Direction                                   deg
+WC    Wind Chill                                                   w/m2
+WD    Meteorological Wind Direction                                deg
+WE    Vertical Motion ETA                                          s-1
+WG    Ground Level Moisture                                        nil
+WGE   Wind gust estimate from turbulent kinetic energy             m/s
+WGN   Wind gust minimum from turbulent kinetic energy              m/s
+WGX   Wind gust maximum from turbulent kinetic energy              m/s
+WH    Significant Wave Height                                      m
+WP    Isobaric Vertical Motion                                     pa/s
+WT1   Actual Model Vertical Velocity                               m/s
+WQ    Sea Peak Period                                              sec
+WR    Deep Ground Moisture                                         nil
+WS    SIGMA Coordinate Vertical Motion                             s-1
+WSPD  Horizontal wind modulus                                      m/s
+WU    Eastward Significant Wave Component                          m
+WV    Northward Significant Wave Component                         m
+WW    Vertical Motion                                              pa/s
+WX    Eastward Swell Component                                     m
+WY    Northward Swell Component                                    m
+WZ    Wind (or Sea) Wave Height                                    m
+X0    Stability Function at the Surface (z 0; beta)              
+X1    Stability Function at the Surface (z za/2, ~20m)           
+XA    Age of the Snow at Ground Level                              heures
+Y1    Temperature Increment for I0 level 1                         C
+Y2    Temperature Increment for I0 level 2                         C
+Y3    Humidity Increment for I1 level 1                            m^3/m^3
+Y4    Humidity Increment for I1 level 2                            m^3/m^3
+Y7    Sub-mesh Topographic Gradient along X                        nil
+Y8    Sub-mesh Topographic Gradient along Y                        nil
+Y9    Sub-mesh Topographic Gradient along X and Y                  nil
+YA    Land/Sea Mask without Glacier                                %
+YB    Snow Rejects                                                 %
+YC    Frozen Ground Rejects                                        %
+YD    Precipitation Rejects                                        %
+YE    Strong Wind Rejects                                          %
+YF    Lacking Sunshine Rejects 1                                   %
+YG    Lacking Sunshine Rejects 2                                   %
+YH    Humidity Model error                                         %
+YT    Temperature Model error                                      C
+Z0    Roughness Length                                             m
+ZA    Anemometer Height, 1st ETA level                             m
+ZB    Roughness Length                                             log(m)
+ZC    Satellite Zenith Angle at GOES pixel                         deg
+ZD    Length Scale of Dissipation                                  inconnue
+ZE    Roughness Length (ECMWF)                                     m
+ZE3D  3D equivalent reflectivity                                   dbZ
+ZEC   Maximum equivalent reflectivity                              dbZ
+ZET   Total equivalent reflectivity                                dbZ
+ZN    Turbulence Mixing Length                                     m
+ZP    Roughness Length (CRESSMAN)                                  log(m)
+ZR    Precipitation Type - Freezing Rain                         
+ZS    Zenith Angle of the Sun at GOES Pixel                        deg
+ZV    Roughness Length due to Vegetation (ECMWF)                   m
+ZZ    Vertical Motion (Z Coordinate)                               m/s
+PY    Deep convection accumulated precipitation                    m
+RZ    Shallow convection precipitation rate                        m/s
+RY    Deep convection precipitation rate                           m/s
+PZ    Shallow convection precipitation rate                        m/s
+U9    Hauteur de la base des nuages convectifs                     m
+U4    CAPE selon le schema de convection                           J/kg
+K6    Vitesse verticale maximale dans le nuage convectif           m/s
+K4    Hauteur des sommets de nuages convectifs                     m

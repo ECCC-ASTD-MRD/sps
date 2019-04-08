@@ -1,0 +1,308 @@
+#!/bin/ksh
+
+## ==========================================================================
+## Developing or Building and Installing SPS
+## ==========================================================================
+
+## ==========================================================================
+## Common preparation steps to all operations
+## ==========================================================================
+
+## --- Load recent Git
+
+## Note: It is probably best to always use a recent version og Git
+##       version 1.7 on Ubuntu 12 is probably too old
+## Update (to git version 2.3.1) with:
+. r.load.dot /ssm/net/rpn/utils/15.2
+. r.module.dot
+module load git
+
+
+## --- Define repositories
+
+## Note: Need bare repositories
+## gitdepotbase=ssh://localhost/~armnsch/GitDepots
+gitdepotbase=ssh://armnenv@localhost/~armnenv/GitDepots
+mysuffix=.git
+
+## Note: List of components dependent on versions
+##       Format: space separated list of COMPONENT:GIT_BRANCH
+
+## TODO: It would be best to have a file with this info in the repository
+## TODO: put the SPS version number and dependencies in a file
+##       then update Makefile, ssmusedep.bndl from it
+##       and use that file in here to build mycomponents
+
+# mycomponents="
+#    modelutils:modelutils_1.2-branch
+#    rpnphy:rpnphy:rpnphy_5.6-branch
+#    sps:sps_1.1-branch
+#    rde:rde
+#    "
+
+mycomponents="
+   modelutils:modelutils_1.3-branch 
+   rpnphy:rpnphy_5.7-branch 
+   sps:master
+   rde:rde
+   "
+#   sps:sps_5.7-branch
+
+# mycomponents="
+#    modelutils:master
+#    rpnphy:master
+#    sps:master
+#    rde:rde
+#    "
+
+
+## --- Create working dir
+
+mkdir mybuildtmpdir$$
+cd mybuildtmpdir$$
+
+
+## ==========================================================================
+## Building and Installing SPS
+## See other section below for Development instructions
+## ==========================================================================
+
+## === Option 1: Building SPS along with all its components =================
+
+Option removed... see option 2 below
+
+## === Option 2: Building SPS Only ==========================================
+
+#Note: this suppose you already installed modelutils and 
+#      it could be found in the location specified in ssmusedep.bndl
+
+#git clone ssh://armnenv@localhost/~armnenv/GitDepots/sps.git
+#git clone ssh://localhost/~armnenv/GitDepots/sps.git
+git clone https://gitlab.science.gc.ca/MIG/sps.git
+cd sps
+#git checkout -b tmp sps_VERSION
+#update version number (including leading 'x/') in ./include/Makefile.local.mk and ./Makefile.user.root.mk
+. ./.setenv.dot
+./bin/ouv_exp_sps --nodeps
+rdemklink
+make -j components_objects
+make sps_libs   MAKE_NO_LIBSO=1
+make components_abs COMPONENTS=sps
+make components_ssm COMPONENTS=sps
+make buildclean
+
+#For additional ARCH
+      ssh MYMACH
+      cd /PATH/
+      . ./.setenv.dot
+      rdemklink
+      make -j 6 components_objects
+      make sps_libs   MAKE_NO_LIBSO=1
+      make components_abs      COMPONENTS=sps
+      make components_ssm_arch COMPONENTS=sps
+      make buildclean
+
+## --- Installing -----------------------------------------------------------
+
+## Note: This will install ssm pkg on all ARCH to do only on the front end
+
+make components_install CONFIRM_INSTALL=yes COMPONENTS=sps 
+    # SSM_BASE=/fs/ssm/eccc/mrd/rpn/MIG SSM_BASE2=""
+
+sps_version=MYVERSION
+cd ~/SsmBundles/ENV/SPS
+#cd ~/SsmBundles/ENV/SPS/x
+ln -s sps/${sps_version}.bndl ${sps_version}.bndl 
+
+## --- test installation ---------------------------------------------------
+## NOTE: On a Linux machine, in a new shell
+
+. r.load.dot ENV/SPS/VERSION
+
+mkdir -p ~/home/sps/${sps_version}/myexp
+cd ~/home/sps/${sps_version}/myexp
+ouv_exp_sps -v
+sps-linkit -v
+
+rdeco sps.F90
+make obj -j4 
+make sps
+
+# cp -R $sps/share/cfgs/SPS_cfgs* .
+## edit cnofiguration
+
+sps.ksh -v --ptopo=2x2x1 --dircfg SPS_cfgs
+
+
+## --- Uninstalling --------------------------------------------------------
+
+make components_uninstall UNINSTALL_CONFIRM=yes
+
+## TODO: rm -f ~/SsmBundles/SPS/x/${sps_version}.bndl 
+## TODO: rm -f ~/SsmBundles/SPS/x/sps/${sps_version}-s.bndl 
+## TODO: rm -rf ~/SsmBundles/SPS/d/x/sps/${sps_version}-s/
+
+
+## ==========================================================================
+## Developing SPS and other components without full src code (mods only)
+## ==========================================================================
+
+## Preparing the RDE workdir
+
+. r.load.dot ENV/SPS/VERSION
+
+mkdir -p ~/home/sps/${sps_version}/myexp
+cd ~/home/sps/${sps_version}/myexp
+ouv_exp_sps -v
+linkit -v
+
+## Preparing the git-repos
+git init
+cp $gem/.gitignore .
+git add .gitignore Makefile.user.mk
+git commit -a -m 'initial commit'
+
+## Playing with code
+
+rdeco FILENAME
+vi FILENAME
+
+make obj -j4
+make sps
+
+## Committing your changes locally
+
+git status
+git add FILENAME
+git commit -a -m 'Message'
+
+## Pushing back local modifications upstream
+## Note: It is not possible to push modifications upstreams, 
+##       you'll need to commit your changes into each component's repository
+## Before committing, split your code changes into components with
+## spsexp-flat2tree .
+
+
+
+## ==========================================================================
+## Developing SPS and other components with full src code
+## ==========================================================================
+
+## === Option 1: Developing SPS with git-subtree ============================
+## Rely on git-subtree: https://github.com/git/git/tree/master/contrib/subtree
+
+## --- Preparing the git repos and Getting the source code --------------------
+
+## WARNING: for --depth a recent Git verion is needed
+##          See above to update (version 1.7 on Ubuntu 12 is too old)
+## WARNING: present git-subtree version doesn't seem to work with shallow clone
+##          push fails with "protocol error"; too old git on receiving end?
+#myfetchshallow='git fetch --depth=1'
+myfetchshallow='echo'
+
+git init
+touch .gitignore
+git add .gitignore
+git commit -a -m 'initial commit'
+gitk --all &
+
+set -x
+for mymodule in ${mycomponents} ; do
+   myname=${mymodule%%:*}
+   mybranch=${mymodule##*:}
+   git remote add -t ${mybranch} ${myname} ${gitdepotbase}/${myname}${mysuffix}
+   ${myfetchshallow} ${myname}
+   git subtree add --squash --prefix=${myname}/ ${myname} ${mybranch}
+done
+set +x
+ 
+## --- Preparing the workdir --------------------------------------------------
+
+rm -f .gitignore
+mylist="
+  sps/.gitignore 
+  sps/Makefile.user.mk 
+  sps/Makefile.user.root.mk 
+  sps/.setenv-withdeps.dot
+  $(/bin/ls -d sps/share/cfgs/*)
+"
+for item in $mylist ; do
+   ln -s $item .
+   git add ${item##*/}
+done
+git commit -m 'link Makefiles'
+
+git tag sps_dev0
+
+## --- Preparing the RDE workdir
+
+. ./.setenv-withdeps.dot
+ouv_exp_sps
+linkit       ## rdemklink
+make vfiles2
+
+## --- Playing with code ----------------------------------------------------
+## WARNING: Avoid "rdeco, rderm" as the local mods will not be pushed upsteam
+##          Edit/rename/remove files directly in the components subdirs
+
+rdeed FILENAME 
+
+make -j obj2
+make lib2
+make abs2
+
+## Committing your changes locally
+## WARNING: Avoid doing a commit with modifications to several components,
+##          split into one commit per component instead
+
+## Usefull diff options:
+## -M, --find-renames
+## -C, --find-copies-harder
+## --diff-filter=[(A|C|D|M|R|T|U|X|B)...[*]]
+## --text
+## --ignore-space-at-eol
+## -b, --ignore-space-change
+## -w, --ignore-all-space
+## --ignore-blank-lines
+git diff sps_dev0 #[path]
+git diff sps_dev0 --summary --name-status  #[path]
+git diff sps_dev0 --summary --stat         #--numstat #[path] 
+git diff sps_dev0 --summary --name-only    #[path] 
+
+git mv OLD NEW
+git add FILENAME
+git rm FILENAME
+
+git status
+git commit -m 'Message' ## Avoid "-a" since it is more prone to merge 
+                        ## changes from several subrepo into one commit
+
+## --- Pushing back local modifications upstream -----------------------------
+
+for mymodule in ${mycomponents} ; do
+   myname=${mymodule%%:*}
+   mybranch=${mymodule##*:}
+   git subtree push --prefix=${myname}/ ${myname} ${mybranch}
+done
+
+## --- pulling upstream modifications ----------------------------------------
+
+for mymodule in ${mycomponents} ; do
+   myname=${mymodule%%:*}
+   mybranch=${mymodule##*:}
+   git subtree pull --squash --prefix=${myname}/ ${myname} ${mybranch}
+done
+
+## --- Tag compnents version and push the tag upstream -----------------------
+
+## Note: Needs to be done after "git subtree push" above
+
+for mymodule in ${mycomponents} ; do
+   myname=${mymodule%%:*}
+   mybranch=${mymodule##*:}
+   git checkout -b ${myname}-${mybranch}-b ${myname}/${mybranch}
+   #VERSION=$(cat VERSION)
+   #git tag ${myname}_${VERSION##*/}
+   #git push --tags
+done
+

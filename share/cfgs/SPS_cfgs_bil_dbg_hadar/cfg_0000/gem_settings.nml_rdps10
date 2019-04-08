@@ -1,0 +1,9 @@
+&grid
+  Grd_typ_S       = 'LU'       ,
+  Grd_ni          = 996        , Grd_nj         = 1028   ,
+  Grd_dx          = 0.09       , Grd_dy         = 0.09   ,
+  Grd_xlon1       = -97.       , Grd_xlat1      = 64.0   ,
+  Grd_xlon2       = -85.       , Grd_xlat2      = 75.0   ,
+  Grd_iref        = 567        , Grd_jref       = 428    ,
+  Grd_lonr        = 180.0      , Grd_latr       = 0.0    ,
+/

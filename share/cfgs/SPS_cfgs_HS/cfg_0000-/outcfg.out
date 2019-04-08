@@ -1,0 +1,29 @@
+ etk_S=spsyin001;
+ units_S=hour;
+ datyp=134;
+ closeopen=hours,24;
+ nbits=16;
+ ip3=0;
+ ndigits=6;
+ linbot=0;
+ vinterp_S=cubic;
+ debug_L=f;
+ flip_L=f;
+ rewrite_L=f;
+
+ levels=1,model,diag;
+ levels=2,model,all;
+
+ grid=1,model;
+
+ steps=1,hour, 0.; 
+ steps=2,step,<0.,99.,1.>;
+
+ sortie_p(['I0','I1','I2','I3','I4','I5','I6','I7','I9','DN','SD'],             grid, 1, levels, 2, steps, 2)
+ sortie_p(['N0'],                                                               grid, 1, levels, 2, steps, 2)
+ sortie_p(['TJ','TDK'],                                                         grid, 1, levels, 2, steps, 2)
+ sortie_p(['PR','WT'],                                                          grid, 1, levels, 2, steps, 2)
+ sortie_p(['MG','2F','GL'],                                                     grid, 1, levels, 2, steps, 2)
+ sortie_p(['5P'],                                                               grid, 1, levels, 2, steps, 2)
+
+ xnbit([WT],bits,32)
