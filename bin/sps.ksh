@@ -1,9 +1,8 @@
 #!/bin/ksh
-#-e
 myself=${0##*/}
 model_name=sps
 MODEL_NAME="$(echo ${model_name} | tr 'a-z' 'A-Z')"
-DESC='SetUp and Launch script for the Surface Process Model [${MODEL_NAME}]'
+DESC="SetUp and Launch script for the Surface Process Model [${MODEL_NAME}]"
 USAGE="USAGE: ${myself##*/} [-h] [-v LEVEL] [--ptopo {NPEX}x{NPEY}x{NOMP}] [--btopo {NPEX}x{NPEY}] [--intopo {NPEX}x{NPEY}] [--cfg 0:N] [--dircfg ${MODEL_NAME}_cfgs] [--postclean] [--restart] [--nompi] [--dryrun] [--inorder] [--gdb] [--timeout TIMEOUT]"
 
 usage_long() {
@@ -66,7 +65,6 @@ btopo=""
 intopo=""
 dircfg="${MODEL_NAME}_cfgs"
 cfg="0:0"
-#binMPIext=mpiAbs
 binMPIext=Abs
 dryrun=0
 ngrids=1 #TODO: for yinyang grid, ngrids=2
@@ -123,14 +121,6 @@ if [[ x$dircfg == x || ! -d $dircfg ]] ; then
    exit 1
 fi
 
-#if [[ x$binMPIext == xAbs ]] ; then
-#   ptopo="1x1x1"
-#   btopo="1x1"
-#   intopo="1x1"
-#   ngrids=1
-#   cfg=${cfg%:*}:${cfg%:*} #TODO:maybe we should stop if more than one config is requested
-#fi
-
 npex=$(echo $ptopo | cut -dx -f1) ; [[ x$npex == x ]] && npex=1
 npey=$(echo $ptopo | cut -dx -f2) ; [[ x$npey == x ]] && npey=1
 nomp=$(echo $ptopo | cut -dx -f3) ; [[ x$nomp == x ]] && nomp=1
@@ -158,12 +148,10 @@ intopo=${ninblx}x${ninbly}
 #TODO: make sure to use basedir in run_basedir (many concurent exp) ${PWD##*/}
 config_basedir=$(pwd)/$dircfg
 myexpname=${PWD##*/}
-#run_basedir_name=__workdir__${BASE_ARCH}
 run_basedir_name=RUNMOD_${ORDENV_PLAT}
 export model_cfg_filename=${model_name}.cfg
 export model_tsk_file=${TMPDIR}/${model_name}.tsk
 export model_incdir=${sps}/include
-#export model_exp_storage=${storage_model:-$TMPDIR}/${myexpname}/${BASE_ARCH}
 export model_exp_storage=$(true_path ${PWD}/${run_basedir_name})
 if [[ x$model_exp_storage == x ]] ; then 
    cat <<EOF
@@ -278,6 +266,7 @@ set_tsk_cfg() {
 # cfg_${__cfg_id}/GEOPHY			 		${UM_EXEC_geophy}
 # cfg_${__cfg_id}/ANALYSIS		 			${UM_EXEC_anal}
 # cfg_${__cfg_id}/INREP			 			${UM_EXEC_inrep}
+# cfg_${__cfg_id}/ozone_clim.fst				${UM_EXEC_ozone}
 # cfg_${__cfg_id}/configexp.cfg			${__cfg_dir}/configexp.cfg
 # cfg_${__cfg_id}/${model_name}.cfg		${__cfg_file}
 # cfg_${__cfg_id}/${model_name}.dict   ${__dict_dir}/\${MODEL_NAME}.dict
@@ -285,6 +274,11 @@ set_tsk_cfg() {
 # cfg_${__cfg_id}/dyn_input_table		${SPS_dyn_intable:-${__inc_dir}/dyn_input_table}
 # cfg_${__cfg_id}/physics_input_table	${SPS_phy_intable:-${__inc_dir}/physics_input_table}
 EOF
+   if [[ -f ${__cfg_dir}/tape1 ]] ; then
+       cat >> ${__tsk_file} <<EOF
+# cfg_${__cfg_id}/tape1 ${__cfg_dir}/tape1
+EOF
+   fi
    echo "${UM_EXEC_Abs}:${UM_EXEC_ovbin}"
 }
 
@@ -293,7 +287,7 @@ set_tsk_final() {
    cat >> ${__tsk_file} <<EOF
 # </input>
 # <executables>
-# ${model_name}.Abs					\${UM_EXEC_Abs}
+# ${model_name}.Abs \${UM_EXEC_Abs}
 # </executables>
 # <output>
 # </output>
@@ -410,9 +404,9 @@ runmodel() {
    MPI_NINBLOCY=${9:-$MPI_NBLOCY}
 
    #-- SetUp dir and files for each domain
-   myclean=""
+   myclean=" "
    if [[ x$restart == x0 ]] ; then
-      myclean="--clean"
+      myclean=" --clean"
       rm -rf ${model_exp_storage}/ 2>/dev/null || true
    fi
 
@@ -436,14 +430,13 @@ runmodel() {
    fi
 
    . ${config_basedir}/cfg_$(int4digits ${MPI_DOMS%%:*})/configexp.cfg
-   . task_setup.ksh --file=${model_tsk_file} --base=${model_exp_storage} ${myclean} --verbose
+
+   task_setup_verbose=" "
+   if [ "$verbosity" = "debug" ]; then
+       task_setup_verbose=" --verbose"
+   fi
+   . task_setup.dot --file="$model_tsk_file" --base="$model_exp_storage""$myclean""$task_setup_verbose"
    
-   # echo $model_tsk_file
-   # exit 1 
-
-   #rm -f ${run_basedir_name} || true
-   #ln -s ${model_exp_storage} ./${run_basedir_name} || true
-
    #-- Export Mandatory EnvVar
    export UM_EXEC_VERBOSITY=$verbosity
    export UM_EXEC_NGRIDS=$MPI_NGRIDS
@@ -459,12 +452,9 @@ runmodel() {
    #NOTE: MPI_NPEX computation will not work for domains with a mix of YY and non-YY grids 
    #((MPI_NPEX = MPI_NDOMS * MPI_NGRIDS * MPI_NPEX))
    mycmd=$MODEL_ABS
-#   if [[ x$binMPIext == xmpiAbs ]] ; then
    if [[ x$binMPIext == xAbs ]] ; then
-      #rmpirun="$(which my.mpirun || true)"
       rmpirun="$(which r.run_in_parallel || true)"
       [[ x$rmpirun == x ]] && rmpirun="r.mpirun"
-      #mycmd="$rmpirun -pgm ${TASK_BIN}/${model_name}.Abs -npex $MPI_NPEX -npey $MPI_NPEY"
       mycmd="$rmpirun -pgm ${TASK_BIN}/${model_name}.Abs -npex $((MPI_NGRIDS*MPI_NPEX*MPI_NPEY)) -npey $MPI_NDOMS ${inorder} ${nompi} ${debug} ${preexec} -minstdout 3"
    fi
    echo $mycmd
