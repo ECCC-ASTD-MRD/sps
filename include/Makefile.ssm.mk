@@ -35,7 +35,8 @@ SSM_DEPOT_DIR := $(HOME)/SsmDepot
 SSM_BASE      := $(HOME)/SsmBundles
 SSM_BASE2     := $(HOME)/SsmBundles
 SPS_SSM_BASE_DOM  = $(SSM_BASE)/ENV/SPS/d/$(SPS_VERSION_X)sps
-SPS_SSM_BASE_BNDL = $(SSM_BASE)/ENV/SPS/$(SPS_VERSION_X)sps
+SPS_SSM_BASE_BNDL0 = $(SSM_BASE)/ENV/SPS/$(SPS_VERSION_X)
+SPS_SSM_BASE_BNDL = $(SPS_SSM_BASE_BNDL0)sps
 SPS_INSTALL   = sps_install
 SPS_UNINSTALL = sps_uninstall
 
@@ -175,6 +176,9 @@ sps_install: sps_ssmusedep_bndl
 			--post=$(sps)/ssmusedep_post.bndl \
 			--base=$(SSM_BASE2) \
 			sps{_,+*_,-d+*_}$(SPS_VERSION)_*.ssm
+	chmod u+w $(SPS_SSM_BASE_BNDL0) $(SPS_SSM_BASE_BNDL0)/$(SPS_VERSION).bndl || true
+	cd $(SPS_SSM_BASE_BNDL0) && \
+	ln -sf sps/$(SPS_VERSION).bndl .
 
 sps_uninstall:
 	if [[ x$(UNINSTALL_CONFIRM) != xyes ]] ; then \
@@ -187,6 +191,8 @@ sps_uninstall:
 			--bndl=$(SPS_SSM_BASE_BNDL)/$(SPS_VERSION).bndl \
 			--base=$(SSM_BASE2) \
 			--uninstall
+	chmod u+w $(SPS_SSM_BASE_BNDL0) $(SPS_SSM_BASE_BNDL0)/$(SPS_VERSION).bndl || true
+	rm -f $(SPS_SSM_BASE_BNDL0)/$(SPS_VERSION).bndl || true
 
 ifneq (,$(DEBUGMAKE))
 $(info ## ==== $$sps/include/Makefile.ssm.mk [END] ========================)
