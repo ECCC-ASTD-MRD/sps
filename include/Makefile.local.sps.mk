@@ -9,7 +9,7 @@ endif
 ifeq (,$(wildcard $(sps)/VERSION))
    $(error Not found: $(sps)/VERSION)
 endif
-SPS_VERSION0  = $(shell cat $(sps)/VERSION | sed 's|x/||')
+SPS_VERSION0  = $(shell cat $(sps)/VERSION)
 SPS_VERSION   = $(notdir $(SPS_VERSION0))
 SPS_VERSION_X = $(dir $(SPS_VERSION0))
 
