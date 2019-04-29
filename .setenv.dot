@@ -90,5 +90,10 @@ export PATH=${__scriptpath}/bin:$PATH
 export SSMVERSION=$(ssm version | cut -d. -f1)
 
 export sps=${__scriptpath}
+export sps_version='dev'
+if [[ -f ${sps}/VERSION ]] ; then
+   export sps_version="$(cat ${sps}/VERSION)"
+   export sps_version=${sps_version#*/}${__MIGVERSIONSFX__}
+fi
 
 unset __DESC __USAGE __usage_long __verbose __external __item __bndlname __scriptpath
