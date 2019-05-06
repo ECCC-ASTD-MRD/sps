@@ -29,7 +29,6 @@ module dyn_levels_mod
 #include <msg.h>
    include "thermoconsts.inc"
 
-   integer,external :: msg_getUnit
    character(len=*),parameter :: WB_LVL_SEC = 'levels_cfgs/'
    integer,parameter :: MAX_LEVELS = 1024
    real(RDOUBLE),parameter :: PREF_8 = 100000.d0
