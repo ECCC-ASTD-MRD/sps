@@ -9,6 +9,7 @@
 
 !>
 module dyn_input_mod
+   use tdpack, only: GRAV, KNAMS, TCDK
    use vGrid_Descriptors
    use vgrid_wb
    use phy_itf
@@ -34,7 +35,6 @@ module dyn_input_mod
 #include <WhiteBoard.hf>
 #include <gmm.hf>
 #include <msg.h>
-   include "thermoconsts.inc"
 
    real,parameter :: MB2PA =  100.
    real,parameter :: DAM2M =  10.

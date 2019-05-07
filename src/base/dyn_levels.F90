@@ -5,7 +5,7 @@
 ! - EC-RPN License, 2121 TransCanada, suite 500, Dorval (Qc), CANADA, H9P 1J3
 ! - service.rpn@ec.gc.ca
 ! It is distributed WITHOUT ANY WARRANTY of FITNESS FOR ANY PARTICULAR PURPOSE.
-!-------------------------------------------------------------------------- 
+!--------------------------------------------------------------------------
 
 !/@*
 module dyn_levels_mod
@@ -14,7 +14,7 @@ module dyn_levels_mod
    use sort_mod
    implicit none
    private
-   !@objective 
+   !@objective
    !@author Stephane Chamberland, July 2008
    !@revisions
    !  2012-02, Stephane Chamberland: RPNPhy offline
@@ -27,7 +27,6 @@ module dyn_levels_mod
 #include <rmnlib_basics.hf>
 #include <WhiteBoard.hf>
 #include <msg.h>
-   include "thermoconsts.inc"
 
    character(len=*),parameter :: WB_LVL_SEC = 'levels_cfgs/'
    integer,parameter :: MAX_LEVELS = 1024
@@ -38,7 +37,7 @@ contains
    !/@*
    function dyn_levels_init(F_nk,F_vcoor,F_stag_L,F_surf_idx) result(F_istat)
       implicit none
-      !@objective 
+      !@objective
       !@arguments
       integer,intent(out) :: F_nk,F_surf_idx
       type(vgrid_descriptor),intent(out) :: F_vcoor
@@ -57,7 +56,7 @@ contains
       F_istat = RMN_ERR
       F_stag_L = .false.
       F_surf_idx = RMN_ERR
-      
+
       istat = wb_get(WB_LVL_SEC//'Lvl_typ_S',Lvl_typ_S)
       istat = min(wb_get(WB_LVL_SEC//'Lvl_nk',Lvl_nk),istat)
       istat = min(wb_get(WB_LVL_SEC//'Lvl_list',Lvl_list,nlvls),istat)
@@ -97,7 +96,7 @@ contains
       Lvl_list(2:F_nk+1) = Lvl_list(1:F_nk)
       Lvl_list(1) = real(lvl_ptop_8/Lvl_pref_8)
       Lvl_list(F_nk+2) = 1.
-         
+
       F_nk = F_nk+2
       F_surf_idx = F_nk
 
@@ -152,7 +151,7 @@ contains
       if (.not.RMN_IS_OK(lvl_kind)) then
          call msg(MSG_ERROR,'(dyn_levels) Unknown Lvl_typ_S='//trim(Lvl_typ_S))
          F_istat = RMN_ERR
-         return         
+         return
       endif
 
       write(tmp_S,'(i4)') F_nk

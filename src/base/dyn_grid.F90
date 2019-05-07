@@ -5,13 +5,14 @@
 ! - EC-RPN License, 2121 TransCanada, suite 500, Dorval (Qc), CANADA, H9P 1J3
 ! - ec.service.rpn.ec@canada.ca
 ! It is distributed WITHOUT ANY WARRANTY of FITNESS FOR ANY PARTICULAR PURPOSE.
-!-------------------------------------------------------------------------- 
+!--------------------------------------------------------------------------
 
 !/@*
 module dyn_grid_mod
+   use tdpack, only: RAYT
    implicit none
    private
-   !@objective 
+   !@objective
    !@author Stephane Chamberland, July 2008
    !@revisions
    !  2012-02, Stephane Chamberland: RPNPhy offline
@@ -37,7 +38,6 @@ module dyn_grid_mod
 #include <clib_interface_mu.hf>
 #include <WhiteBoard.hf>
 #include <msg.h>
-   include "thermoconsts.inc"
 
    character(len=*),parameter :: WB_GRID_SEC = 'grid_cfgs/'
    integer,parameter :: IGRID_YIN = 0
@@ -82,7 +82,7 @@ contains
       endif
       Grd_typ_S = adjustl(Grd_typ_S)
       istat = clib_toupper(Grd_typ_S)
-      
+
       if (Grd_typ_S == 'TAPE') then
          F_istat = dyn_tape_init(F_ni,F_nj,F_halox,F_haloy,F_periodx,F_periody,F_grid_id)
       else
@@ -93,7 +93,7 @@ contains
       Grd_bsc_ext1 = 0  !# 3
       Grd_bsc_adw = 0
       Grd_extension = 0
-      Grd_x0 =   0.0 
+      Grd_x0 =   0.0
       Grd_xl = 360.0
       Grd_y0 = -90.0
       Grd_yl =  90.0
@@ -265,7 +265,7 @@ contains
       yl_8 = dble(Grd_yl)
       !# inout: Grd_dx, Grd_dy
       !# out  : m_xgi_8, m_ygi_8,Grd_left,Grd_belo,G_isuniform_L
-      call set_gemHgrid3(m_xgi_8, m_ygi_8, Grd_ni, Grd_nj, Grd_dx, Grd_dy, & 
+      call set_gemHgrid3(m_xgi_8, m_ygi_8, Grd_ni, Grd_nj, Grd_dx, Grd_dy, &
            x0_8, xl_8, Grd_left, y0_8, yl_8, Grd_belo, &
            Grd_nila, Grd_njla, Grd_dxmax, Grd_dymax,           &
            Grd_yy_L,Grd_gauss_L, G_islam_L, G_isuniform_L, &
@@ -288,7 +288,7 @@ contains
          F_istat = RMN_ERR
          call msg(MSG_ERROR,'(dyn_grid_init) halyy >0 yet implemented')
       endif
-      
+
       if (.not.RMN_IS_OK(F_istat)) then
          deallocate(xgi,ygi,stat=istat)
          return
@@ -405,7 +405,7 @@ contains
       !@revisions
       !  2012-02, Stephane Chamberland: RPNPhy offline
       !@description
-      !  
+      !
    !*@/
       real, parameter :: epsilon_4 = 1.e-5
 
@@ -456,7 +456,7 @@ contains
    !/@*
    function dyn_lat_lon(lat,lon) result(F_istat)
       implicit none
-      !@objective 
+      !@objective
       !@arguments
       real,pointer,intent(out) :: lat(:,:),lon(:,:)
       !@return
@@ -481,7 +481,7 @@ contains
    !/@*
    function dyn_dxdy(F_dxdy,F_i0,F_j0,F_ni,F_nj) result(F_istat)
       implicit none
-      !@objective 
+      !@objective
       !@arguments
       integer,intent(in) :: F_i0,F_j0,F_ni,F_nj
       real,pointer,intent(out) :: F_dxdy(:,:)
@@ -503,7 +503,7 @@ contains
 
       F_istat = RMN_OK
       offi = F_i0-1 ; offj = F_j0-1
-      rayt_8 = dble(rayt) !# From thermoconsts.inc
+      rayt_8 = dble(rayt)
       deg2rad_8 = acos(-1.D0)/180.D0
       cte2_8 = 0.5D0 * deg2rad_8 * rayt_8
       cte2_8 = cte2_8 * cte2_8

@@ -5,10 +5,11 @@
 ! - EC-RPN License, 2121 TransCanada, suite 500, Dorval (Qc), CANADA, H9P 1J3
 ! - service.rpn@ec.gc.ca
 ! It is distributed WITHOUT ANY WARRANTY of FITNESS FOR ANY PARTICULAR PURPOSE.
-!-------------------------------------------------------------------------- 
+!--------------------------------------------------------------------------
 
 !/@*
 module dyn_step_mod
+   use tdpack, only: FOTVT, GRAV, RGASD
    use phy_itf
    use vGrid_Descriptors
    use vgrid_wb
@@ -16,7 +17,7 @@ module dyn_step_mod
    use drv_time_mod
    implicit none
    private
-   !@objective 
+   !@objective
    !@author Stephane Chamberland, April 2012
    !@revisions
    !@public_functions
@@ -30,7 +31,6 @@ module dyn_step_mod
 #include <WhiteBoard.hf>
 #include <gmm.hf>
 #include <msg.h>
-   include "thermoconsts.inc"
 
    integer,parameter :: MAXNVAR = 64
    integer,parameter :: NK_MAX0 = 1024
@@ -42,7 +42,7 @@ contains
    !/@*
    function dyn_step(F_step) result(F_istat)
       implicit none
-      !@objective 
+      !@objective
       !@arguments
       integer,intent(in) :: F_step
       !@return
@@ -165,7 +165,7 @@ contains
    function dyn_mfbr2mf_adapt(my_readlist_S,my_nread,my_nk_max,my_step) result(my_istat)
       !@objective Adapt fields to High Res. Topography
       !@revisions
-      ! Bug fix for surface pressure M.A. 2016 
+      ! Bug fix for surface pressure M.A. 2016
       implicit none
       character(len=*) :: my_readlist_S(:)
       integer :: my_nread,my_istat,my_nk_max,my_step
@@ -188,10 +188,10 @@ contains
          istat = wb_get('sps_cfgs/adapt_L',adapt_L)
          istat = wb_get('sps_cfgs/lapserate',lapserate)
          is_init_L = .true.
-      endif  
+      endif
 
       if (.not.adapt_L) return
-      
+
       nullify(mf,mfbr,hr,tt,pt,pm)
       my_istat = min(gmmx_data('MF',mf),my_istat)
       my_istat = min(gmmx_data('MFBR',mfbr),my_istat)
@@ -200,7 +200,7 @@ contains
       my_istat = min(gmmx_data('PW_PT:P',pt),my_istat)
       my_istat = min(gmmx_data('PW_PM:P',pm),my_istat)
       my_istat = min(gmmx_data('P0',p0),my_istat)
-      
+
       if (.not.(associated(mf) .and. associated(mfbr) .and. &
            associated(hr) .and. associated(tt)        .and. &
            associated(pt) .and. associated(pm)        .and. &
@@ -217,7 +217,7 @@ contains
             return
          endif
       endif
-    
+
       lijk = lbound(hr)
       uijk = ubound(hr)
 
@@ -234,7 +234,7 @@ contains
          return
       endif
 
-     
+
        kn = uijk(3)
 
        ! calculate local sigma before adaptation
@@ -244,13 +244,13 @@ contains
        if (.not.associated(local_sigmam)) then
           allocate(local_sigmam(lijk(1):uijk(1),lijk(2):uijk(2),1),stat=istat)
        endif
-       
+
        local_sigmat(:,:,1) = pt(:,:,kn-1)/pt(:,:,kn)
        local_sigmam(:,:,1) = pm(:,:,kn-1)/pm(:,:,kn)
-       
+
        ! First adapt Temperature at Forcing level k=kn-1
        tt(:,:,kn-1) = tt(:,:,kn-1) + dmf(:,:,1) * lapserate
-      
+
        ! re-calculate pressure at forcing level with new temperature
        pt(:,:,kn-1) = exp( &
            (dmf(:,:,1)*GRAV/RGASD)/tt(:,:,kn-1) + log(pt(:,:,kn-1)) &
@@ -263,9 +263,9 @@ contains
        pt(:,:,kn) = pt(:,:,kn-1) / local_sigmat(:,:,1)
        pm(:,:,kn) = pm(:,:,kn-1) / local_sigmam(:,:,1)
        ! the variable p0 is used in the physics to get the forcing height
-       p0(:,:,1) = pm(:,:,kn) 
-                
-      
+       p0(:,:,1) = pm(:,:,kn)
+
+
        call msg(MSG_INFO,'(dyn_step) Adaptation to High Res. Topography')
       !---------------------------------------------------------------------
       return
@@ -327,8 +327,6 @@ contains
       character(len=*) :: my_readlist_S(:)
       integer :: my_nread,my_istat,my_nk_max
       !*@/
-      include "dintern.inc"
-      include "fintern.inc"
       integer :: kn,kn1,lijk(3),uijk(3),i,j,istat
       real,pointer :: gz(:,:,:),tt(:,:,:),hu(:,:,:),pm(:,:,:),mf(:,:,:)
       real :: tve
