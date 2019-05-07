@@ -21,7 +21,7 @@
 #include <arch_specific.hf>
 !
       integer nbre,unout
-      character * (*) liste(nbre)
+      character(len=*) liste(nbre)
       real val(nbre)
 !
 !author

@@ -329,10 +329,10 @@ contains
       !  2012-02, Stephane Chamberland: RPNPhy offline
       !  2018-07, V.Lee: read tictacs (E grid only) for Grid info
    !*@/
-      character*1    Grd_S
-      character*2    typ_S
-      character*4    var_S
-      character*12   etik_S
+      character(len=1)    Grd_S
+      character(len=2)    typ_S
+      character(len=4)    var_S
+      character(len=12)   etik_S
       integer dte, det, ipas, p1, p2, p3, g1, g2, g3, g4, bit, &
               dty, swa, lng, dlf, ubc, ex1, ex2, ex3,ip1,ip2,ip3
       integer :: ni1,nj1,nk1,ni,nj,nk
