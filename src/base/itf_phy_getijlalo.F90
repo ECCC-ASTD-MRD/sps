@@ -17,7 +17,7 @@ subroutine itf_phy_getijlalo (F_ig,F_jg,F_lat,F_lon,F_il,F_jl,F_MISSING,F_offset
    use ezgrid_mod
    use hgrid_wb
    implicit none
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
    !@arguments
    integer,intent(inout) :: F_ig,F_jg
    real,   intent(inout) :: F_lat,F_lon

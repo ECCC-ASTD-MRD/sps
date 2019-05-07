@@ -26,7 +26,7 @@ function itf_prefold_opr(F_data,F_name_S,F_horiz_interp_S,F_minx,F_maxx,F_miny,F
    !@author Stephane Chamberland, 2012-04
    !@revisions
    !*@/
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
 #include <msg.h>
 !!$#include "grd.cdk"

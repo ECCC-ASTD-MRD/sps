@@ -9,6 +9,8 @@
 
 !/@*
 subroutine sps()
+   use, intrinsic :: iso_fortran_env, only: REAL64, INT64
+   use wb_itf_mod
    use env_utils, only: env_get
    use ptopo_utils, only: ptopo_grid_npe,ptopo_grid_ipe
    use drv_itf_mod, only: drv_ptopo_init,drv_ptopo_terminate,drv_verbosity,drv_config, drv_init,drv_time_info,drv_time_increment
@@ -27,10 +29,9 @@ subroutine sps()
    !  2010-07, Stephane Chamberland: refactor for ico/geodesic model
    !  2012-02, Stephane Chamberland: RPNPhy offline (SPS)
 !*@/
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <WhiteBoard.hf>
-#include <gmm.hf>
+#include <mu_gmm.hf>
 #include <msg.h>
 
    integer, external :: model_timeout_alarm

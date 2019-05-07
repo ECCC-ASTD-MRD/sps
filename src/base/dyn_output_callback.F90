@@ -14,6 +14,7 @@
 !---------------------------------- LICENCE END ---------------------------------
 !/@*
 function dyn_output_callback(F_step,F_name_s,F_outname_s,F_data3d,F_lijk,F_uijk) result(F_istat)
+   use clib_itf_mod
    use tdpack, only: GRAV, KNAMS, TCDK
    use gmmx_mod
    implicit none
@@ -44,10 +45,10 @@ function dyn_output_callback(F_step,F_name_s,F_outname_s,F_data3d,F_lijk,F_uijk)
    !     ignored: 
    !     action:  callback can modify the data (change units...)
    !*@/
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <clib_interface_mu.hf>
 #include <msg.h>
+
    character(len=4),parameter :: OUTLIST(5) = (/ &
         'p0','gz','tt','uu','vv'/)
    real,parameter :: PA2MB =  0.01

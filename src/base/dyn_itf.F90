@@ -9,6 +9,7 @@
 
 !/@*
 module dyn_itf_mod
+   use wb_itf_mod
    use hgrid_wb
    use config_mod
    use gmmx_mod
@@ -33,9 +34,8 @@ module dyn_itf_mod
    integer,parameter,public :: DYN_NTIMELEVELS = 2
    !@public_vars
 !*@/
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <WhiteBoard.hf>
 #include <msg.h>
 
 contains

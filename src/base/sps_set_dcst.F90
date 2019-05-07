@@ -18,7 +18,7 @@
 !
       logical function set_dcst ( val, liste, nbre, unout )
       implicit none
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
 !
       integer nbre,unout
       character(len=*) liste(nbre)

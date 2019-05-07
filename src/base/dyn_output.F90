@@ -9,6 +9,8 @@
 
 !/@*
 module dyn_output_mod
+   use clib_itf_mod
+   use wb_itf_mod
    use output_mod
    use config_mod
    use cmcdate_mod
@@ -22,10 +24,8 @@ module dyn_output_mod
    !@public_params
    !@public_vars
 !*@/
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <clib_interface_mu.hf>
-#include <WhiteBoard.hf>
 #include <msg.h>
 
 contains

@@ -9,6 +9,9 @@
 
 !/@*
 module phys_itf_mod
+   use, intrinsic :: iso_fortran_env, only: REAL64, INT64
+   use clib_itf_mod
+   use wb_itf_mod
    use phy_itf
    use hgrid_wb
    use config_mod
@@ -30,11 +33,9 @@ module phys_itf_mod
    !@public_params
    !@public_vars
 !*@/
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <clib_interface_mu.hf>
-#include <WhiteBoard.hf>
-#include <gmm.hf>
+#include <mu_gmm.hf>
 #include <msg.h>
 
    character(len=*),parameter :: HGRID_S = 'local#'

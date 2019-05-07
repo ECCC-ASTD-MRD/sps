@@ -9,6 +9,9 @@
 
 !>
 module dyn_input_mod
+   use, intrinsic :: iso_fortran_env, only: REAL64, INT64
+   use clib_itf_mod
+   use wb_itf_mod
    use tdpack, only: GRAV, KNAMS, TCDK
    use vGrid_Descriptors
    use vgrid_wb
@@ -29,11 +32,9 @@ module dyn_input_mod
    !@public_params
    !@public_vars
 !**/
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <clib_interface_mu.hf>
-#include <WhiteBoard.hf>
-#include <gmm.hf>
+#include <mu_gmm.hf>
 #include <msg.h>
 
    real,parameter :: MB2PA =  100.

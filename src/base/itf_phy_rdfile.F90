@@ -16,6 +16,9 @@
 !/@*
 subroutine itf_phy_rdfile2(F_fichier_S,F_read_cb,F_messg_s,F_mode)
    use iso_c_binding
+   use rpn_comm_itf_mod
+   use clib_itf_mod
+   use wb_itf_mod
    implicit none
    !@objective Reading a file for the physics package 
    !@arguments
@@ -27,12 +30,10 @@ subroutine itf_phy_rdfile2(F_fichier_S,F_read_cb,F_messg_s,F_mode)
    !@revisions
    !2012-02, Stephane Chamberland: Extract from GEM (no gem's cdk)
    !*@/
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <clib_interface_mu.hf>
-#include <WhiteBoard.hf>
 #include <msg.h>
-   include "rpn_comm.inc"
+
    integer,parameter :: MAX_NDIM = 1000
    integer,parameter :: MODE_ALL_PE = 1
    integer,parameter :: MODE_ALL_PE_LOCAL = 2
@@ -168,7 +169,7 @@ end subroutine itf_phy_rdfile2
 !!$   external :: F_read_cb !# read call back routine (from physics)
 !!$   !@author M. Desgagne, Spring 2008
 !!$   !*@/
-!!$#include <arch_specific.hf>
+!!$!!!#include <arch_specific.hf>
 !!$#include <rmnlib_basics.hf>
 !!$#include <WhiteBoard.hf>
 !!$#include "path.cdk"

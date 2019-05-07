@@ -9,6 +9,8 @@
 
 !/@*
 module dyn_grid_mod
+   use clib_itf_mod
+   use wb_itf_mod
    use tdpack, only: RAYT
    implicit none
    private
@@ -33,10 +35,8 @@ module dyn_grid_mod
    logical,public,save :: G_periodx,G_periody
    real,public,save :: Grd_x0,Grd_y0,Grd_xl,Grd_yl
 !*@/
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <clib_interface_mu.hf>
-#include <WhiteBoard.hf>
 #include <msg.h>
 
    character(len=*),parameter :: WB_GRID_SEC = 'grid_cfgs/'

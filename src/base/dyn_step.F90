@@ -9,6 +9,9 @@
 
 !/@*
 module dyn_step_mod
+   use, intrinsic :: iso_fortran_env, only: REAL64, INT64
+   use clib_itf_mod
+   use wb_itf_mod
    use tdpack, only: FOTVT, GRAV, RGASD
    use phy_itf
    use vGrid_Descriptors
@@ -25,11 +28,9 @@ module dyn_step_mod
    !@public_params
    !@public_vars
 !*@/
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <clib_interface_mu.hf>
-#include <WhiteBoard.hf>
-#include <gmm.hf>
+#include <mu_gmm.hf>
 #include <msg.h>
 
    integer,parameter :: MAXNVAR = 64

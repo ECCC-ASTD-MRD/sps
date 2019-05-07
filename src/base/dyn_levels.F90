@@ -9,6 +9,7 @@
 
 !/@*
 module dyn_levels_mod
+   use wb_itf_mod
    use vGrid_Descriptors
    use vgrid_wb
    use sort_mod
@@ -23,9 +24,8 @@ module dyn_levels_mod
    !@public_params
    !@public_vars
 !*@/
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <WhiteBoard.hf>
 #include <msg.h>
 
    character(len=*),parameter :: WB_LVL_SEC = 'levels_cfgs/'

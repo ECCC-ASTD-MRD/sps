@@ -9,6 +9,8 @@
 
 !>
 module phys_prestep_mod
+   use, intrinsic :: iso_fortran_env, only: REAL64, INT64
+   use wb_itf_mod
    use phy_itf
    implicit none
    private
@@ -25,11 +27,10 @@ module phys_prestep_mod
    !@public_params
    !@public_vars
 !**/
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <gmm.hf>
+#include <mu_gmm.hf>
 #include <msg.h>
-#include <WhiteBoard.hf>
 
 contains
 

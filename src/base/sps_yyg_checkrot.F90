@@ -26,7 +26,7 @@ function yyg_checkrot2(Grd_xlat1,Grd_xlon1,Grd_xlat2,Grd_xlon2) result(F_istat)
    !@return
    integer :: F_istat
 !*@/
-#include <arch_specific.hf>
+!!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
 #include <msg.h>
    !-------------------------------------------------------------------
