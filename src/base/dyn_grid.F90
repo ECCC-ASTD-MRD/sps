@@ -458,7 +458,7 @@ contains
       implicit none
       !@objective 
       !@arguments
-      real,pointer,intent(out) :: lat(:,:),lon(:,:)
+      real,pointer,intent(inout) :: lat(:,:),lon(:,:)
       !@return
       integer :: F_istat
       !@author Stephane Chamberland, 2008-08
@@ -484,7 +484,7 @@ contains
       !@objective 
       !@arguments
       integer,intent(in) :: F_i0,F_j0,F_ni,F_nj
-      real,pointer,intent(out) :: F_dxdy(:,:)
+      real,pointer,intent(inout) :: F_dxdy(:,:)
       !@return
       integer :: F_istat
       !@author Stephane Chamberland, 2008-08
