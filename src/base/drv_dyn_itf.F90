@@ -42,7 +42,7 @@ function dyn_dxdy(F_dxdy,F_i0,F_j0,F_ni,F_nj) result(F_istat)
    !@objective 
    !@arguments
    integer,intent(in) :: F_i0,F_j0,F_ni,F_nj
-   real,pointer,intent(out) :: F_dxdy(:,:)
+   real,pointer,intent(inout) :: F_dxdy(:,:)
    !@return
    integer :: F_istat
    !*@/
