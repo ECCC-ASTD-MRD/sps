@@ -119,6 +119,8 @@ define(stat_by_level_L[l4,0],desc='Print stats levels by level if true')
 define(stat_list_S[c32,64],desc='List of field apearing on phy_blocstat')
 define(int_accu_S[c16,0],desc='')
 define(max_neg_pr0[r4,0],desc='Maximum negative Pr0 value')
+define(zta[r4,0],desc='Temperature diag level')
+define(zua[r4,0],desc='Wind diag level')
 ip1a  = 12000 
 ip1at = -1 
 int_accu_S = 'CONST'
@@ -131,4 +133,6 @@ read_hu_L = .false.
 stat_list_S = ' '
 stat_by_level_L = .false.
 max_neg_pr0 = -1.E-5
+zta = -1.
+zua = -1.
 @
