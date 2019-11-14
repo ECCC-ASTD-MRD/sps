@@ -347,7 +347,7 @@ contains
       F_istat = wb_get('path/config_dir0',config_dir0_S)
       iun=0
 
-      if (fnom(iun,trim(config_dir0_S)//'/'//INPUT_HGRID,'RND+OLD',0).ge.0) then
+      if (fnom(iun,trim(config_dir0_S)//'/'//INPUT_HGRID,'RND+R/O',0).ge.0) then
          if (fstouv(iun,'RND').lt.0) then
             call msg(MSG_ERROR, '(dyn_grid_tape) Problem opening file')
             stop
