@@ -431,10 +431,7 @@ runmodel() {
 
    . ${config_basedir}/cfg_$(int4digits ${MPI_DOMS%%:*})/configexp.cfg
 
-   task_setup_verbose=" "
-   if [ "$verbosity" = "debug" ]; then
-       task_setup_verbose=" --verbose"
-   fi
+   task_setup_verbose=" --verbose"
    . task_setup.dot --file="$model_tsk_file" --base="$model_exp_storage""$myclean""$task_setup_verbose"
    
    #-- Export Mandatory EnvVar
