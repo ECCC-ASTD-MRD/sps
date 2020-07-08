@@ -159,6 +159,7 @@ contains
       real :: std_p_prof(MAX_LEVELS)
       logical :: Lvl_stag_L,Lvl_Tlift_L
       character(len=128) :: msg_S
+      character(len=WB_MAXSTRINGLENGTH) :: input_type_S
       !---------------------------------------------------------------------
       call msg(MSG_DEBUG,'[BEGIN] phys_init')
       F_istat = RMN_ERR
@@ -216,7 +217,17 @@ contains
 !!$!     Re-define P_out_moyhr in units of hours, rather than in timesteps
 !!$      P_out_moyhr = ( P_out_moyhr * Cstv_dt_8 ) / 3600.
 
-
+      err(13) = wb_get('phy/input_type', input_type_S)
+      if (WB_IS_OK(err(13))) then
+         call msg(MSG_DEBUG, 'phy/input_type: '//input_type_S)
+         if (.not.any(input_type_S == (/ &
+              'BLOC   ', &
+              'GEM_4.8'/))) then
+            call msg(MSG_ERROR, 'input_type = BLOC or GEM_4.8 required')
+            err(14) = RMN_ERR
+         endif
+      endif
+      
       F_istat = minval(err(:))
       F_istat = min(priv_consis(),F_istat)
       F_istat = min(priv_geom(),F_istat)
