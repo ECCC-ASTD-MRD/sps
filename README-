@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/bash
 
 ## ==========================================================================
 ## Developing or Building and Installing SPS
@@ -131,7 +131,7 @@ make sps
 # cp -R $sps/share/cfgs/SPS_cfgs* .
 ## edit cnofiguration
 
-sps.ksh -v --ptopo=2x2x1 --dircfg SPS_cfgs
+sps.sh -v --ptopo=2x2x1 --dircfg SPS_cfgs
 
 
 ## --- Uninstalling --------------------------------------------------------
