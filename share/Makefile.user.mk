@@ -13,11 +13,11 @@ endif
 # MPI     = -mpi
 # LFLAGS  =     # User's flags passed to the linker
 # ifneq (,$(filter intel%,$(COMP_ARCH))$(filter PrgEnv-intel%,$(COMP_ARCH)))
-# FFLAGS  = -C -g -traceback -ftrapuv #-warn all
+# FFLAGS  = -C -g -fp-speculation=safe -init=snan,arrays -traceback -ftrapuv -warn all -warn nointerfaces -check noarg_temp_created -std08 -diag-disable 5268
 # CFLAGS  = -C -g -traceback -ftrapuv -fp-model precise #-Wall
 # else
-# FFLAGS  = -C -g -traceback
-# CFLAGS  = -C -g -traceback 
+# FFLAGS  = -g -traceback -warn all -warn nointerfaces -check noarg_temp_created -std08 -diag-disable 5268
+# CFLAGS  = -C -g -traceback
 # endif
 # LIBAPPL = 
 # LIBPATH_USER = 
