@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/bash
 
 myself=$0
 DESC='Open a new RDE experiment with pre-set SRCPATH'

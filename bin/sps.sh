@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/bash
 myself=${0##*/}
 model_name=sps
 MODEL_NAME="$(echo ${model_name} | tr 'a-z' 'A-Z')"
@@ -129,7 +129,7 @@ if [[ x$btopo != x ]] ; then
    nblx=$(echo $btopo | cut -dx -f1) ; [[ x$nblx == x ]] && nblx=1
    nbly=$(echo $btopo | cut -dx -f2) ; [[ x$nbly == x ]] && nbly=1
 else
-	nblx=${npex}
+   nblx=${npex}
    nbly=${npey}
 fi
 btopo=${nblx}x${nbly}
@@ -137,7 +137,7 @@ if [[ x$intopo != x ]] ; then
    ninblx=$(echo $intopo | cut -dx -f1) ; [[ x$ninblx == x ]] && ninblx=1
    ninbly=$(echo $intopo | cut -dx -f2) ; [[ x$ninbly == x ]] && ninbly=1
 else
-	ninblx=${nblx}
+   ninblx=${nblx}
    ninbly=${nbly}
 fi
 intopo=${ninblx}x${ninbly}
@@ -157,7 +157,7 @@ if [[ x$model_exp_storage == x ]] ; then
    cat <<EOF
 ERROR: RUNDIR does not exists:
        ${PWD}/${run_basedir_name}
-       Try running 'sps-linkit' then launching SPS (sps.ksh) again
+       Try running 'sps-linkit' then launching SPS (sps.sh) again
 EOF
    exit 1
 fi

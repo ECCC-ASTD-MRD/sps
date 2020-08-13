@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/bash
 #
 set -e
 
@@ -35,7 +35,7 @@ for item in sps; do
    if [[ ! -s ${BUILDBIN}/${absname} ]] ; then
       if [[ -n "${SPS_DEV_UPDATES}" ]] ; then
          cat > ${BUILDBIN}/${absname} <<EOF
-#!/usr/bin/env ksh
+#!/usr/bin/env bash
 message="Rebuild SPS executable with 'make sps' to include updates ${SPS_DEV_UPDATES}"
 if [[ -n "\${MP_CHILD}" && \${MP_CHILD} -eq 0 ]] ; then
   printf "\nERROR: \${message}\n\n" 1>&2

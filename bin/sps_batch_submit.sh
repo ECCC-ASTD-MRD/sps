@@ -1,6 +1,4 @@
-#/bin/ksh
-# taken from S. Chamberland from here:
-# /users/dor/armn/sch/_Code_Depot_/work/mid-a6/YEC15w_a5-n2/batch_submit.ksh
+#/bin/bash
 set -x
 
 cfgdir=$1
@@ -26,10 +24,11 @@ jobname=${myname}.job
 rm -f ${jobname}
 read wait for me
 cat >${jobname} <<EOF
+#!/bin/bash
 cd ${here}
 echo $storage_model
 . .setenv.dot
-sps.ksh --dircfg ${cfgdir} --ptopo ${npex}x${npey}x${nomp} --btopo=1x1
+sps.sh --dircfg ${cfgdir} --ptopo ${npex}x${npey}x${nomp} --btopo=1x1
 EOF
 #cat >${jobname} <<EOF
 #date
