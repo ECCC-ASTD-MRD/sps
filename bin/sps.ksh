@@ -266,7 +266,6 @@ set_tsk_cfg() {
 # cfg_${__cfg_id}/GEOPHY			 		${UM_EXEC_geophy}
 # cfg_${__cfg_id}/ANALYSIS		 			${UM_EXEC_anal}
 # cfg_${__cfg_id}/INREP			 			${UM_EXEC_inrep}
-# cfg_${__cfg_id}/ozone_clim.fst				${UM_EXEC_ozone}
 # cfg_${__cfg_id}/configexp.cfg			${__cfg_dir}/configexp.cfg
 # cfg_${__cfg_id}/${model_name}.cfg		${__cfg_file}
 # cfg_${__cfg_id}/${model_name}.dict   ${__dict_dir}/\${MODEL_NAME}.dict
