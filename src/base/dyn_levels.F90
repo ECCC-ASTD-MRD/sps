@@ -49,9 +49,8 @@ contains
    !*@/
       character(len=32) :: Lvl_typ_S,tmp_S
       integer :: istat,istat2,Lvl_nk,nlvls,nrcoef,nn,n2(1),lvl_kind,lvl_version,k0,kn,msgUnit,iverb
-      logical :: Lvl_NoTopThL_L,Lvl_Tlift_L
       real :: Lvl_list(MAX_LEVELS),Lvl_rcoef(2),hybtop
-      real(RDOUBLE) :: Lvl_ptop_8,Lvl_pref_8,Lvl_tstr_8,tmp_8
+      real(RDOUBLE) :: Lvl_ptop_8,Lvl_pref_8,tmp_8
       !---------------------------------------------------------------------
       F_istat = RMN_ERR
       F_stag_L = .false.
@@ -66,15 +65,6 @@ contains
       istat2 = wb_get(WB_LVL_SEC//'Lvl_pref_8',Lvl_pref_8)
       iverb = wb_verbosity(iverb)
       if (.not.RMN_IS_OK(istat2)) Lvl_pref_8 = PREF_8
-      istat = min(wb_get(WB_LVL_SEC//'Lvl_tstr_8',Lvl_tstr_8),istat)
-!!$      istat = min(wb_get(WB_LVL_SEC//'Lvl_NoTopThL_L',Lvl_NoTopThL_L),istat)
-      Lvl_NotopThL_L = .false. !TODO: is this needed?
-      istat = min(wb_get(WB_LVL_SEC//'Lvl_Tlift_L',Lvl_Tlift_L),istat)
-
-      if (.not.RMN_IS_OK(istat)) then
-         call msg(MSG_ERROR,'(dyn_levels) Problem getting config options')
-         return
-      endif
 
       !# Note: Ignore model levels outside of [0,1[ range
       Lvl_list = max(Lvl_list,0.)
@@ -104,15 +94,8 @@ contains
       IF_TYP: if (Lvl_typ_S == 'HS') then
 
          F_stag_L = .true.
-         if (Lvl_Tlift_L) then
-            call msg(MSG_ERROR,'(dyn_levels) Not yet supported Lvl_typ_S='//trim(Lvl_typ_S)//' with Lvl_Tlift_L=.true.')
-            return
-!!$            lvl_kind    = VGRID_HYBT_KIND    !#5,3
-!!$            lvl_version = VGRID_HYBT_VER
-         else
-            lvl_kind    = VGRID_HYBMD_KIND    !#5,5
-            lvl_version = VGRID_HYBMD_KIND
-         endif
+         lvl_kind    = VGRID_HYBMD_KIND    !#5,5
+         lvl_version = VGRID_HYBMD_KIND
          F_istat = vgd_new(F_vcoor, &
               kind     = lvl_kind, &
               version  = lvl_version, &

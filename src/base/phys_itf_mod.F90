@@ -44,7 +44,6 @@ module phys_itf_mod
    character(len=3),parameter :: OPT_SET = 'SET'
    integer,parameter :: COMPATIBILITY_LVL = 18
    integer,parameter :: MAX_LEVELS = 1024
-   integer,parameter :: OFFLINE_TRUE(1) = (/1/)
    integer,parameter :: PE_MASTER = 0
 
    character(len=RMN_PATH_LEN),save :: &
@@ -107,7 +106,6 @@ contains
          call msg(MSG_WARNING,'(phys) Config file not found: '//trim(path_nml_S))
       else
          call msg(MSG_INFO,'(phys) Reading Config: '//trim(path_nml_S)//'::'//trim(NML_S))
-         istat = wb_put('itf_phy/OFFLINE',.true.)
          F_istat = phy_nml(path_nml_S)
       endif
 
@@ -116,23 +114,6 @@ contains
       else
          m_isphy_L = .true.
 
-         if(m_msgUnit >= 0) then
-            write(m_msgUnit,2000)
-2000        format( &
-                '                                                     ', &
-              / ' ****************************************************', &
-              / ' ****************************************************', &
-              / '                                                     ', &
-              / '    UPDATED PHYSICS_CFGS NAMELIST FOR SPS :          ', &
-              / '    ---------------------                            ', &
-              / '                                                     ')
-            write(m_msgUnit,2001)
-2001        format( &
-                '       FLUVERT = SURFACE                             ', &
-              / '                                                     ')
-         endif
-
-         call msg(MSG_INFO,'(phys) Config OK')
       endif
 
       call msg(MSG_DEBUG,'[END] phys_config')
@@ -155,9 +136,9 @@ contains
       !@revisions
    !*@/
       integer,parameter :: NK_MIN = 3
-      integer :: err(15),idateo,istat,p_nk,Tlift,G_ngrids
-      real :: std_p_prof(MAX_LEVELS)
-      logical :: Lvl_stag_L,Lvl_Tlift_L
+      integer :: err(12),idateo,istat,p_nk,G_ngrids
+      real :: std_p_prof(MAX_LEVELS),sgo_tdfilter
+      logical :: atm_external_L
       character(len=128) :: msg_S
       character(len=WB_MAXSTRINGLENGTH) :: input_type_S
       !---------------------------------------------------------------------
@@ -175,57 +156,79 @@ contains
 
       idateo = cmcdate_fromprint(F_dateo_S)
       err(:) = RMN_OK
-      err(1) = wb_get('levels_cfgs/stag_L',Lvl_stag_L)
-      err(2) = wb_get('levels_cfgs/Lvl_Tlift_L',Lvl_Tlift_L)
-      err(3) = wb_get('std_p_prof_m',std_p_prof,p_nk)
-      if (p_nk < NK_MIN) then
-         F_istat = RMN_ERR
-         write(msg_S,'(a,i4,a,i2)') "(phys_init) Not enough levels, nk=",p_nk," <",NK_MIN
-         call msg(MSG_ERROR,msg_S)
-         return
-      endif
-      !TODO-later:  if (surf_idx /= p_nk) err(7) = RMN_ERR 
-
-      err(4)  = wb_put('itf_phy/VSTAG', Lvl_stag_L)
-      if (Lvl_Tlift_L) then
-         err(5)  = wb_put('itf_phy/TLIFT',1)
+      err(1) = wb_get('std_p_prof_m',std_p_prof,p_nk)
+      if (RMN_IS_OK(err(1))) then
+          if (p_nk < NK_MIN) then
+              F_istat = RMN_ERR
+              write(msg_S,'(a,i4,a,i2)') "(phys_init) Not enough levels, nk=",p_nk," <",NK_MIN
+              call msg(MSG_ERROR,msg_S)
+              return
+          else
+              call msg(MSG_DEBUG,'(phys_init) Number of levels ok')
+          endif
       else
-         err(5)  = wb_put('itf_phy/TLIFT',0)
+          write(msg_S,'(a)') "(phys_init) cannot wb_get std_p_prof_m "
+          call msg(MSG_ERROR,msg_S)
+          return
       endif
-      err(6) = wb_put('itf_phy/COUPLING',.false.)
 
-      err(7) = wb_get('path/input',input_dir_S)
+      err(2) = wb_get('path/input',input_dir_S)
       istat = wb_get('ptopo/ngrids',G_ngrids)
-      if (RMN_IS_OK(istat) .and. G_ngrids > 1) &
+      if (RMN_IS_OK(istat) .and. G_ngrids > 1) then
            input_dir_S = trim(input_dir_S)//'/..'
+      else
+          call msg(MSG_DEBUG,'(phys_init) cannot wb_get ptopo/ngrids, G_ngrids will be set to 1')
+      endif
 
-      err(8) = wb_put('model/outout/pe_master',PE_MASTER)
-      err(9) = wb_put('model/Init/halfspan', 0)
-      err(10) = wb_put('model/Init/mode',.false.)
-!!$      istat = wb_put('model/series/P_serg_srsus_L',.false.) !#TODO: allow series
-      err(12) = phy_init( &
+      err(3) = wb_put('model/outout/pe_master',PE_MASTER)
+      err(4) = phy_init( &
            input_dir_S, &
            idateo, real(F_dt_8), &
            HGRIDZ_S, HGRIDZ_S, &         !#TODO: dieze or Z grid?
            p_nk, std_p_prof(1:p_nk) )
 
-      if (.not.RMN_IS_OK(err(12))) &
+      if (.not.RMN_IS_OK(err(4))) &
            call msg(MSG_ERROR,'(phys_init) Problem in phy_init')
       
-      !TODO-later: if MOYHR needed for offline mode?
-!!$      call phy_opti('MOYHR' ,P_out_moyhr,1, OPT_GET,m_print_L,err(8))
-!!$!     Re-define P_out_moyhr in units of hours, rather than in timesteps
-!!$      P_out_moyhr = ( P_out_moyhr * Cstv_dt_8 ) / 3600.
-
-      err(13) = wb_get('phy/input_type', input_type_S)
-      if (WB_IS_OK(err(13))) then
+      
+      !check input_type
+      err(9) = wb_get('phy/input_type', input_type_S)
+      if (WB_IS_OK(err(9))) then
          call msg(MSG_DEBUG, 'phy/input_type: '//input_type_S)
-         if (.not.any(input_type_S == (/ &
-              'BLOC   ', &
-              'GEM_4.8'/))) then
-            call msg(MSG_ERROR, 'input_type = BLOC or GEM_4.8 required')
-            err(14) = RMN_ERR
+         if (.not.(trim(input_type_S) == 'GEM_4.8')) then
+            call msg(MSG_ERROR, "input_type='GEM_4.8' required in namelist physics_cfgs")
+            err(9) = RMN_ERR
          endif
+      else
+         call msg(MSG_ERROR, '(phys_init) cannot wb_get phy/input_type')
+         call msg(MSG_ERROR, "input_type='GEM_4.8' required in namelist physics_cfgs")
+         err(9) = RMN_ERR
+      endif
+
+      !check fluvert (atm_external)
+      err(10) = wb_get('phy/atm_external', atm_external_L)
+      if (WB_IS_OK(err(10))) then
+         if (.not. atm_external_L) then
+            call msg(MSG_ERROR, "fluvert='SURFACE' required in namelist physics_cfgs")
+            err(10) = RMN_ERR
+         else
+            call msg(MSG_DEBUG, "fluvert='SURFACE' detected namelist physics_cfgs: wb_get phy/atm_external=T")
+         endif
+      else
+         call msg(MSG_ERROR, '(phys_init) cannot wb_get phy/atm_external')
+         call msg(MSG_ERROR, "fluvert='SURFACE' required in namelist physics_cfgs")
+      endif
+
+      !check sgo_tdfilter
+      err(11) = wb_get('phy/sgo_tdfilter', sgo_tdfilter)
+      if (WB_IS_OK(err(11))) then
+         if (.not.(sgo_tdfilter == -1.0) ) then
+            call msg(MSG_ERROR, 'sgo_tdfilter = -1.0 required in namelist physics_cfgs')
+            err(11) = RMN_ERR
+         endif
+      else
+         call msg(MSG_ERROR, '(phys_init) cannot wb_get phy/sgo_tdfilter')
+         call msg(MSG_ERROR, 'sgo_tdfilter = -1.0 required in namelist physics_cfgs')
       endif
       
       F_istat = minval(err(:))
