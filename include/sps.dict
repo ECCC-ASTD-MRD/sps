@@ -75,16 +75,12 @@ define(Lvl_list[r4,1024],desc='List of model levels,  0.0 < HYB < 1.0')
 define(Lvl_rcoef[r4,2],desc='Pair of coefficients (min,max) to control the flattenning of the vertical coordinate')
 define(Lvl_ptop_8[r8,0],desc='Basic state pressure at the top (Pa)')
 define(Lvl_tstr_8[r8,0],desc='T*  (basic state temperature) (K)')
-define(Lvl_NoTopThL_L[l4,0],desc='.true. for No Top Thermo Level (level 3/4), notop = (NoTopThL_L) ? 1 : 0;')
-define(Lvl_Tlift_L[l4,0],desc='.true. last thermo level at last momentum level')
 Lvl_typ_S = 'HU'
 Lvl_nk = -1
 Lvl_list = -1.
 Lvl_rcoef = 1.,1.
 Lvl_ptop_8 = -1.0
 Lvl_tstr_8 = 240.0
-Lvl_NoTopThL_L = .true.
-Lvl_Tlift_L = .false.
 
 
 @time_cfgs
@@ -118,8 +114,8 @@ define(stat_by_level_L[l4,0],desc='Print stats levels by level if true')
 define(stat_list_S[c32,64],desc='List of field apearing on phy_blocstat')
 define(int_accu_S[c16,0],desc='')
 define(max_neg_pr0[r4,0],desc='Maximum negative Pr0 value')
-define(zta[r4,0],desc='Height above surface for air temperature')
-define(zua[r4,0],desc='Height above surface for wind')
+define(zta[r4,0],desc='Temperature diag level')
+define(zua[r4,0],desc='Wind diag level')
 ip1a  = 12000 
 ip1at = -1 
 int_accu_S = 'CONST'
