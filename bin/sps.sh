@@ -1,4 +1,11 @@
 #!/bin/bash
+ec_side=`echo $sps | grep ordenv`
+if [[ -n $ec_side ]] ; then
+echo "on EC side"
+export SPS_MODEL_DFILES=/users/dor/armn/sps/SPS_MODEL_DFILES
+else
+export SPS_MODEL_DFILES=/home/ssps121/SPS_MODEL_DFILES
+fi
 myself=${0##*/}
 model_name=sps
 MODEL_NAME="$(echo ${model_name} | tr 'a-z' 'A-Z')"

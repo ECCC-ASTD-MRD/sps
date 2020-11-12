@@ -1,0 +1,39 @@
+ etk_S=ctrl_SPS6;
+ units_S=hour;
+ datyp=134;
+ closeopen=hours,1;
+ nbits=16;
+ ip3=0;
+ ndigits=6;
+ linbot=0;
+ vinterp_S=cubic;
+ debug_L=f;
+ flip_L=f;
+ rewrite_L=f;
+
+ levels=1,model,all;
+ 
+ grid=1,model;
+
+ steps=1,hour,0.,1.;
+ steps=2,hour,<1.,240.,1.>;
+ steps=3,hour,0.,1.,120.;	
+
+ sortie_p([Z0,VG,MG,AL,J1,J2], grid, 1, levels, 1, steps, 1)
+ sortie_p([WT,6F]  , grid, 1, levels, 1, steps, 1)
+
+ sortie_p([LG,SD,DN,I7,I8,I9,ISOL], grid, 1, levels, 1, steps, 3)	
+
+ sortie_p([TM,TJ,DQ,UD,VD,TDK,TG,TSA,FI,FB,PR,J9,H8,HV,T8,U1,U3,PR0], grid, 1, levels, 1, steps, 2)	
+
+ sortie_p([TVG,TGR,TSN,TSNV,RSVG,RSGR],      grid, 1, levels, 1, steps, 2)
+ sortie_p([WSOL,WVEG,R1,RS,RCC,VGCT,AGWS],  grid, 1, levels, 1, steps, 2)
+
+ sortie_p([SNAL,SNDP,SNM,WSN,SNDN],      grid, 1, levels, 1, steps, 2)
+ sortie_p([SVAL,SVDP,SVM,WSV,SVDN],      grid, 1, levels, 1, steps, 2)
+ 
+ sortie_p([ACRT,VEGH,VEGL,LAIA,LAIH,LC],    grid, 1, levels, 1, steps, 2)
+ sortie_p([PSGL,PSVH,PSVA,SVF,SVSW],      grid, 1, levels, 1, steps, 2)
+ sortie_p([ATSN,ATSV,EFLX,ER,ETR,EG,ACRT,LATF,WFL],    grid, 1, levels, 1, steps, 2)
+ sortie_p([FC,FV,ALAT,TRAF],                       grid, 1, levels, 1, steps, 2)
+  sortie_p([AHFL,HFLQ,L2,LR,LT,LV],                       grid, 1, levels, 1, steps, 2)

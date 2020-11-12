@@ -66,3 +66,6 @@ for item in RUNMOD ; do
    /bin/rm -f ${item}_${ORDENV_PLAT}
    ln -sf ${BUILDRUN}/$item ${item}_${ORDENV_PLAT} || true
 done
+
+echo "Copying release configuration: ${sps}/share/cfgs/SPS_cfgs"
+cp --recursive ${sps}/share/cfgs/cfg_RI SPS_cfgs
