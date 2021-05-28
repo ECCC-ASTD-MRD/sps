@@ -47,3 +47,4 @@ sps=6.2.0-a1;spsdyn=6.2.0-a1;rpnphy=6.2.0-a1;modelutils=1.6.0-rc3;modelscripts=;
 sps=6.2.0-a2;spsdyn=6.2.0-a2;rpnphy=6.2.0-a2;modelutils=1.7.0-a2;modelscripts=5.2.0-a2;rde=1.1.8
 sps=6.2.0-a3;spsdyn=6.2.0-a3;rpnphy=6.2.0-a3;modelutils=1.7.0-a3;modelscripts=5.2.0-a3;rde=1.1.8
 sps=6.2.0-a4;spsdyn=6.2.0-a4;rpnphy=6.2.0-a4;modelutils=1.7.0-a4;modelscripts=5.2.0-a4;rde=1.1.8
+sps=6.2.0-a5;spsdyn=6.2.0-a5;rpnphy=6.2.0-a5;modelutils=1.7.0-a5;modelscripts=5.2.0-a5;rde=1.1.8
