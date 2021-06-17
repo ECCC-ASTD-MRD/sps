@@ -42,7 +42,7 @@ module phys_itf_mod
    character(len=*),parameter :: HGRIDZ_S = 'localz'
    character(len=3),parameter :: OPT_GET = 'GET'
    character(len=3),parameter :: OPT_SET = 'SET'
-   integer,parameter :: COMPATIBILITY_LVL = 18
+   integer,parameter :: COMPATIBILITY_LVL = 19
    integer,parameter :: MAX_LEVELS = 1024
    integer,parameter :: PE_MASTER = 0
 
