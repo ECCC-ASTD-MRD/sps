@@ -47,6 +47,7 @@ contains
       real,pointer,save :: BUSVOL3d(:,:) => null()
       real,pointer :: data3d(:,:,:)
       real, save :: max_neg_pr0 = -1.0000E-5
+      logical,save :: read_pcp_phase_L = .false.
       integer :: istat
       character(len=MSG_MAXLEN) :: msg_S
       !---------------------------------------------------------------------
@@ -103,6 +104,86 @@ contains
       endif
 
       deallocate(data3d,stat=istat)
+
+      F_istat = wb_get('sps_cfgs/read_pcp_phase_L',read_pcp_phase_L)
+      if (.not.RMN_IS_OK(F_istat)) then
+           call msg(MSG_ERROR,'(Phys) Pre-Step Problem in Reading pcpphase')
+           return
+      else
+
+       if(read_pcp_phase_L) then ! Read phase of precipitations in the forcing file
+
+        ! Read and store snow fraction
+        nullify(data3d)
+        F_istat = phy_get(data3d,'FCSNEN') 
+        if (.not.(RMN_IS_OK(F_istat).and.associated(data3d))) then
+           F_istat = RMN_ERR
+           call msg(MSG_ERROR,'(Phys) Pre-Step problem getting FCSNEN')
+         return
+        endif
+
+        istat = phy_put(data3d,'SNOWFRAC')  ! Store snow fraction in SNOWFRAC of the physics bus
+        if (.not.RMN_IS_OK(F_istat)) then
+           F_istat = RMN_ERR
+           call msg(MSG_ERROR,'(Phys) Pre-Step problem updating SNOWFRAC')
+           return
+        endif
+        deallocate(data3d,stat=istat)
+
+        ! Read and store rain fraction
+        nullify(data3d)
+        F_istat = phy_get(data3d,'FCRNEN') 
+        if (.not.(RMN_IS_OK(F_istat).and.associated(data3d))) then
+           F_istat = RMN_ERR
+           call msg(MSG_ERROR,'(Phys) Pre-Step problem getting FCRNEN')
+         return
+        endif
+
+        istat = phy_put(data3d,'RAINFRAC')  ! Store rain fraction in RAINFRAC of the physics bus
+        if (.not.RMN_IS_OK(F_istat)) then
+           F_istat = RMN_ERR
+           call msg(MSG_ERROR,'(Phys) Pre-Step problem updating RAINFRAC')
+           return
+        endif
+        deallocate(data3d,stat=istat)
+
+        ! Read and store freezing rain fraction
+        nullify(data3d)
+        F_istat = phy_get(data3d,'FCFREN') 
+        if (.not.(RMN_IS_OK(F_istat).and.associated(data3d))) then
+           F_istat = RMN_ERR
+           call msg(MSG_ERROR,'(Phys) Pre-Step problem getting FCFREN')
+         return
+        endif
+
+        istat = phy_put(data3d,'FRFRAC')  ! Store freezing rain fraction in FRFRAC of the physics bus
+        if (.not.RMN_IS_OK(F_istat)) then
+           F_istat = RMN_ERR
+           call msg(MSG_ERROR,'(Phys) Pre-Step problem updating FRFRAC')
+           return
+        endif
+        deallocate(data3d,stat=istat)
+
+        ! Read and store ice pellets fraction
+        nullify(data3d)
+        F_istat = phy_get(data3d,'FCPEEN') 
+        if (.not.(RMN_IS_OK(F_istat).and.associated(data3d))) then
+           F_istat = RMN_ERR
+           call msg(MSG_ERROR,'(Phys) Pre-Step problem getting FCPEEN')
+         return
+        endif
+
+        istat = phy_put(data3d,'PEFRAC')  ! Store ice pellets fraction in PEFRAC of the physics bus
+        if (.not.RMN_IS_OK(F_istat)) then
+           F_istat = RMN_ERR
+           call msg(MSG_ERROR,'(Phys) Pre-Step problem updating PEFRAC')
+           return
+        endif
+        deallocate(data3d,stat=istat)
+
+       endif !read_pcp_phase
+       endif
+
       !---------------------------------------------------------------------
       return
    end function phys_prestep
