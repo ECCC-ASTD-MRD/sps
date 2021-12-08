@@ -51,3 +51,4 @@ sps=6.2.0-a5;spsdyn=6.2.0-a5;rpnphy=6.2.0-a5;modelutils=1.7.0-a5;modelscripts=5.
 sps=6.2.0-a6;spsdyn=6.2.0-a6;rpnphy=6.2.0-a6;modelutils=1.7.0-a6;modelscripts=5.2.0-a6;rde=1.1.8
 sps=6.2.0-a7;spsdyn=6.2.0-a7;rpnphy=6.2.0-a7;modelutils=1.7.0-a7;modelscripts=5.2.0-a7;rde=1.1.8
 sps=6.2.0-a10;spsdyn=6.2.0-a10;rpnphy=6.2.0-a10;modelutils=1.7.0-a7;modelscripts=5.2.0-a10;rde=1.1.8
+sps=6.2.0-a10;spsdyn=6.2.0-a10;rpnphy=6.2.0-a10;modelutils=1.7.0-a7;modelscripts=5.2.0-a11;rde=1.1.8
