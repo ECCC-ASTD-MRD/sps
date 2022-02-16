@@ -69,7 +69,7 @@ contains
    !**/
       character(len=*),parameter :: INPUT_TABLE = 'dyn_input_table'
       logical,save :: is_init_L = .false.
-      integer,save :: gridid,dateo,minxzy(3),mzxxyz(3)
+      integer,save :: gridid,dateo
       real(RDOUBLE),save :: dt_8
       character(len=RMN_PATH_LEN),save :: incfg_S,basedir_S
       character(len=RMN_PATH_LEN) :: msg_S,pwd_S,config_dir0_S,dateo_S
@@ -121,7 +121,7 @@ contains
       integer, save :: nskip = 0
       character(len=32), save :: skip_list_S(16)
 
-      integer :: ivar,istat,nn,nread,nk_max
+      integer :: ivar,istat,nread,nk_max
       character(len=4) :: inname_S,inname2_S,bus_S
       character(len=32) :: name_S,name2_S,horiz_interp_S,readlist_S(MAXNVAR),vgrid_S
       character(len=512) :: dummylist_S(10),msg_S,geofilename_S
@@ -130,7 +130,7 @@ contains
       integer, target :: ip1_m1(1),ip1_t1(1)
       integer :: G_ngrids
       integer,pointer :: ip1list(:),ip1list0(:)
-      logical :: is_3d, has_ip1m
+      logical :: has_ip1m
       type(vgrid_descriptor) :: vgridm, vgridt
       !---------------------------------------------------------------------
       F_istat = RMN_OK
@@ -424,15 +424,15 @@ contains
 !!$      character(len=32),parameter :: HGRID = "HGRID=local#+h ;"
       character(len=32),parameter :: HGRID = "HGRID=local# ;"
       character(len=128),parameter :: VARLIST(NVARLIST) = (/&
-           "VN=PW_GZ:P ; "//trim(HGRID)//" VGRID='ref-m'; in=GZ ; ON=GZ   ;VD='Geopotential on momentum levels [m^2/s^2]' ; VB=g;          ", &
-           "VN=TR/HR:P ; "//trim(HGRID)//" VGRID='ref-t'; in=HR ; ON=HR   ;VD='Relative humidity [%]'              ; VB=g;          ", &
-           "VN=MFBR ; "//trim(HGRID)//" VGRID='surf' ; in=MFBR; ON=MFBR ;VD='Filtered Terrain Elevetion [m] from Analisys'; VB=g;   ", &
-           "VN=MF   ; "//trim(HGRID)//" VGRID='surf' ; in=MF ; ON=MF ;VD='Filtered Terrain Elevetion [m] at model resolution'; VB=g;", &
-           "VN=P0   ; "//trim(HGRID)//" VGRID='surf' ; in=P0 ; ON=P0   ;VD='Surface Pressure [Pa] from Analisys'; VB=g;          " &
+           "VN=PW_GZ:P ; "//trim(HGRID)//" VGRID='ref-m'; in=GZ  ; ON=GZ   ;VD='Geopotential on momentum levels [m^2/s^2]'   ;       VB=g; ", &
+           "VN=TR/HR:P ; "//trim(HGRID)//" VGRID='ref-t'; in=HR  ; ON=HR   ;VD='Relative humidity [%]'                       ;       VB=g; ", &
+           "VN=MFBR ;    "//trim(HGRID)//" VGRID='surf' ; in=MFBR; ON=MFBR ;VD='Filtered Terrain Elevetion [m] from Analisys';       VB=g; ", &
+           "VN=MF   ;    "//trim(HGRID)//" VGRID='surf' ; in=MF  ; ON=MF   ;VD='Filtered Terrain Elevetion [m] at model resolution'; VB=g; ", &
+           "VN=P0   ;    "//trim(HGRID)//" VGRID='surf' ; in=P0  ; ON=P0   ;VD='Surface Pressure [Pa] from Analisys';                VB=g; " &
            /)
       character(len=128),parameter :: VARDESC_FMT = &
            "('VN=',a,' ; "//trim(HGRID)//" VGRID=',a,' ;  in=',a,' ; ON=',a,' ;VD=',a,'; VB=g;')"
-      integer :: istat,nvars,ivar,idx,n
+      integer :: istat,nvars,ivar,n
       character(len=GMM_MAXNAMELENGTH) :: vgrid_S
       character(len=256) :: vardesc_S,desc_S
       type(phymeta), pointer :: mymetalist(:)

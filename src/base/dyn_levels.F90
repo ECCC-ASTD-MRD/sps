@@ -48,8 +48,8 @@ contains
       !@description
    !*@/
       character(len=32) :: Lvl_typ_S,tmp_S
-      integer :: istat,istat2,Lvl_nk,nlvls,nrcoef,nn,n2(1),lvl_kind,lvl_version,k0,kn,msgUnit,iverb
-      real :: Lvl_list(MAX_LEVELS),Lvl_rcoef(2),hybtop
+      integer :: istat,istat2,Lvl_nk,nlvls,nrcoef,nn,n2(1),lvl_kind,lvl_version,msgUnit,iverb
+      real :: Lvl_list(MAX_LEVELS),Lvl_rcoef(2)
       real(RDOUBLE) :: Lvl_ptop_8,Lvl_pref_8,tmp_8
       !---------------------------------------------------------------------
       F_istat = RMN_ERR

@@ -67,7 +67,7 @@ contains
       integer,external :: msg_getUnit,yyg_checkrot2
       real,pointer :: xgi(:,:), ygi(:,:)
       real(RDOUBLE) :: x0_8,y0_8,xl_8,yl_8,yan_xlat1_8, yan_xlon1_8, yan_xlat2_8, yan_xlon2_8,yin_xlat1_8, yin_xlon1_8, yin_xlat2_8, yin_xlon2_8,delta_8
-      integer :: istat,msgUnit,ierx,iery,gridid,ig1,ig2,ig3,ig4,hx,hy
+      integer :: istat,msgUnit,ierx,iery,ig1,ig2,ig3,ig4,hx,hy
       character(len=256) :: tmp_S
       !---------------------------------------------------------------------
       call msg(MSG_DEBUG,'[BEGIN] dyn_grid_init')
@@ -333,9 +333,9 @@ contains
       character(len=2)    typ_S
       character(len=4)    var_S
       character(len=12)   etik_S
-      integer dte, det, ipas, p1, p2, p3, g1, g2, g3, g4, bit, &
+      integer dte, det, ipas, g1, g2, g3, g4, bit, &
               dty, swa, lng, dlf, ubc, ex1, ex2, ex3,ip1,ip2,ip3
-      integer :: ni1,nj1,nk1,ni,nj,nk
+      integer :: ni1,nj1,nk1
       integer :: iun,key
       character(len=*),parameter :: INPUT_HGRID = 'tape1'
       character(len=RMN_PATH_LEN) :: config_dir0_S
@@ -407,14 +407,9 @@ contains
       !@description
       !
    !*@/
-      real, parameter :: epsilon_4 = 1.e-5
 
-      integer :: istat,i,j,itmp
-      real    :: rtmp
-      real, pointer, dimension(:,:) :: lat,lon
 !!$      type(gmm_metadata) :: gmmmeta
 !!$      type(gmm_layout)   :: layout2d(4)
-      character(len=256) :: tmp_S
       !---------------------------------------------------------------------
       F_istat = RMN_ERR
       if (.not.m_init_L) return
@@ -466,7 +461,6 @@ contains
       !  2012-02, Stephane Chamberland: RPNPhy offline
       !@description
    !*@/
-      integer :: i,j
       !---------------------------------------------------------------------
       F_istat = RMN_ERR
       if (.not.m_init2_L) return

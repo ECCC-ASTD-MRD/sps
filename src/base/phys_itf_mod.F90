@@ -259,8 +259,7 @@ contains
       integer, external :: itf_prefold_opr,phy_gmm2phy2
       character(len=*),parameter :: INPUT_TABLE = 'physics_input_table'
       logical,save :: is_init_L = .false.
-      character(len=RMN_PATH_LEN) :: config_dir0_S,pwd_S,dateo_S,msg_S
-      integer :: istat
+      character(len=RMN_PATH_LEN) :: config_dir0_S,pwd_S,msg_S
       !---------------------------------------------------------------------
       call msg(MSG_DEBUG,'[BEGIN] phys_input')
       F_istat = RMN_ERR
@@ -364,10 +363,9 @@ contains
       integer,save :: u_ijk(3) = (/0,0,0/)
       integer,save :: nstat = 0
       logical,save :: init_L = .false.
-      character(len=4)   :: outname_S,inname_S,bus_S
-      character(len=MSG_MAXLEN) :: msg_S,varname_S,name2_S
+      character(len=MSG_MAXLEN) :: msg_S,name2_S
       real,pointer :: data3dr4(:,:,:)
-      integer :: istat,ivar,grid_id,gi0,gj0,lni,lnj,hx,hy,busidx,params(MAX_PARAMS),k0,kn,k
+      integer :: istat,ivar,grid_id,gi0,gj0,lni,lnj,hx,hy,k0,kn,k
       type(phymeta) :: mymeta
 
       !---------------------------------------------------------------------
@@ -429,11 +427,11 @@ contains
       implicit none
       !@objective Check option consistency
       !@return
-      integer :: F_istat, F_istat2
+      integer :: F_istat
    !*@/
       integer,parameter :: MAX_LEVELS = 1024
       real, parameter :: epsilon_4 = 1.e-5
-      logical :: read_hu_L, adapt_L, use_zua_zta_L
+      logical :: use_zua_zta_L
       real :: zua, zta, Lvl_list(MAX_LEVELS) , max_level
       integer :: nlvls
       !---------------------------------------------------------------------
