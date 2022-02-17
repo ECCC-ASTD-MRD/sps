@@ -22,15 +22,15 @@ subroutine sps_yyencode()
    character(len=1)    familly_uencode_S
    character(len=2)    typ_S, grd_S
    character(len=4)    var_S
-   character(len=12)   lab_S, lste_S(2)
-   character(len=1024) def1_S(2), def2_S(2), yin_S,yan_S,out_S
+   character(len=12)   lab_S
+   character(len=1024) yin_S,yan_S,out_S
 
    integer dte, det, ipas, p1, p2, p3, g1, g2, g3, g4, bit, &
         dty, swa, lng, dlf, ubc, ex1, ex2, ex3,ip1,ip2,ip3
 
-   integer iun1,iun2,iun3,maxni,maxnj,i,n,datev,niyy,vesion_uencode
+   integer iun1,iun2,iun3,maxni,maxnj,i,datev,niyy,vesion_uencode
    integer lislon, key, ni1,nj1,nk1,ni,nj,err,sindx_yin,sindx
-   integer liste(nlis), niv(nlis)
+   integer liste(nlis)
 
    real  xlat1,xlon1, xlat2,xlon2
    real, dimension(:),allocatable :: champ, yy

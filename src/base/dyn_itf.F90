@@ -132,14 +132,13 @@ contains
       implicit none
       !@objective Check option consistency
       !@return
-      integer :: F_istat, F_istat2
+      integer :: F_istat
    !*@/
       integer,parameter :: MAX_LEVELS = 1024
       real, parameter :: epsilon_4 = 1.e-5
       logical :: read_hu_L, adapt_L
-      real :: Lvl_list(MAX_LEVELS) , max_level
+      real :: Lvl_list(MAX_LEVELS)
       real :: zta, zua = -1.
-      integer :: nlvls
       !---------------------------------------------------------------------
       call msg(MSG_INFOPLUS,'(dyn_itf) Checking options consistency')
       F_istat = wb_get('sps_cfgs/read_hu_l',read_hu_L)

@@ -53,7 +53,7 @@ contains
    !*@/
       character(len=MSG_MAXLEN) :: msg_S
       character(len=32) :: readlist_S(MAXNVAR)
-      integer :: istat,nread,nk_max,nn
+      integer :: istat,nread,nk_max
       logical :: read_hu_L
       !---------------------------------------------------------------------
       write(msg_S,'(a,I5.5)') '(dyn) Step=',F_step
@@ -117,7 +117,7 @@ contains
       real,pointer,save :: p0(:,:,:)
       integer,pointer,save :: ip1_m(:),ip1_t(:)
       type(vgrid_descriptor),save :: vgrid_m,vgrid_t
-      integer :: i,j,istat,istat2,k,k0m,k0t,knm,knt
+      integer :: istat,istat2,k0m,k0t,knm,knt
       real,pointer :: pm3d(:,:,:),pt3d(:,:,:),pm3d0(:,:,:),pt3d0(:,:,:)
       !---------------------------------------------------------------------
       my_istat = RMN_ERR
@@ -181,7 +181,7 @@ contains
       real,pointer,save :: local_sigmat(:,:,:) => null()
       real,pointer,save :: local_sigmam(:,:,:) => null()
       real,pointer,dimension(:,:,:) :: mf,mfbr,hr,tt,pt,pm
-      integer :: istat,istat2,k0,kn,k,lijk(3),uijk(3)
+      integer :: istat,kn,lijk(3),uijk(3)
       !---------------------------------------------------------------------
       my_istat = RMN_OK
       if (.not.is_init_L) then
@@ -283,7 +283,7 @@ contains
       logical,parameter :: SWPH = .false. !# consider water phase only
       logical,save :: is_init_L = .false.
       logical,save :: clip_hu_L = .false.
-      integer :: k0,kn,lijk(3),uijk(3),i,j,k,nij,istat
+      integer :: k0,kn,lijk(3),uijk(3),nij,istat
       real,pointer :: hu(:,:,:),hr(:,:,:),tt(:,:,:),pt(:,:,:)
       !---------------------------------------------------------------------
       my_istat = RMN_OK
@@ -328,7 +328,7 @@ contains
       character(len=*) :: my_readlist_S(:)
       integer :: my_nread,my_istat,my_nk_max
       !*@/
-      integer :: kn,kn1,lijk(3),uijk(3),i,j,istat
+      integer :: kn,kn1,lijk(3),uijk(3),i,j
       real,pointer :: gz(:,:,:),tt(:,:,:),hu(:,:,:),pm(:,:,:),mf(:,:,:)
       real :: tve
       !---------------------------------------------------------------------
@@ -381,7 +381,6 @@ contains
       integer :: my_nread,my_istat,my_nk_max
       !*@/
       real,pointer :: mf(:,:,:),p0(:,:,:),pw_me(:,:,:),pw_p0(:,:,:)
-      real :: tve
       !---------------------------------------------------------------------
       my_istat = RMN_OK
       nullify(mf,p0,pw_me,pw_p0)
@@ -461,7 +460,7 @@ contains
       integer :: my_nread,my_step,my_istat
       !*@/
       integer,parameter :: MUST_INIT = 1
-      integer,save :: nbvar = 0, nreq_vars = 0
+      integer,save :: nreq_vars = 0
       logical,save :: is_init_L = .false.
       character(len=GMM_MAXNAMELENGTH),save :: req_varlist_S(MAXNVAR),varname_S
       integer :: ivar,istat,n,nvars0
