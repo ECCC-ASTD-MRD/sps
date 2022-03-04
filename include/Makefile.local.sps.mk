@@ -33,8 +33,8 @@ SPS_ABS         = sps sps_yyencode
 SPS_ABS_FILES   = $(BINDIR)/$(mainsps) $(BINDIR)/$(mainsps_yyencode)
 
 ## Base Libpath and libs with placeholders for abs specific libs
-#MODEL3_LIBAPPL = $(SPS_LIBS_V)
-#MODEL3_LIBPATH = $(LIBCHMPATH)
+#MODEL5_LIBAPPL = $(SPS_LIBS_V)
+#MODEL5_LIBPATH = $(LIBCHMPATH)
 
 ## System-wide definitions
 
