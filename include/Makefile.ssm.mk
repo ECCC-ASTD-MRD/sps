@@ -176,7 +176,7 @@ sps_install: sps_ssmusedep_bndl
 			--post=$(sps)/ssmusedep_post.bndl \
 			--base=$(SSM_BASE2) \
 			sps{_,+*_,-d+*_}$(SPS_VERSION)_*.ssm
-	chmod u+w $(SPS_SSM_BASE_BNDL0) $(SPS_SSM_BASE_BNDL0)/$(SPS_VERSION).bndl || true
+	chmod u+w $(SPS_SSM_BASE_BNDL0) $(SPS_SSM_BASE_BNDL0)/$(SPS_VERSION).bndl 2>/dev/null || true
 	cd $(SPS_SSM_BASE_BNDL0) && \
 	ln -sf sps/$(SPS_VERSION).bndl .
 
@@ -191,7 +191,7 @@ sps_uninstall:
 			--bndl=$(SPS_SSM_BASE_BNDL)/$(SPS_VERSION).bndl \
 			--base=$(SSM_BASE2) \
 			--uninstall
-	chmod u+w $(SPS_SSM_BASE_BNDL0) $(SPS_SSM_BASE_BNDL0)/$(SPS_VERSION).bndl || true
+	chmod u+w $(SPS_SSM_BASE_BNDL0) $(SPS_SSM_BASE_BNDL0)/$(SPS_VERSION).bndl 2>/dev/null || true
 	rm -f $(SPS_SSM_BASE_BNDL0)/$(SPS_VERSION).bndl || true
 
 ifneq (,$(DEBUGMAKE))
