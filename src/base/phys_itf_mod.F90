@@ -286,7 +286,7 @@ contains
          return
       endif
 
-      F_istat = min(phy_input(itf_prefold_opr,F_step,config_S,input_dir_S,geofilename_S),F_istat)
+      F_istat = min(phy_input1(itf_prefold_opr,F_step,config_S,input_dir_S,geofilename_S),F_istat)
 
       call collect_error(F_istat)
       if (RMN_IS_OK(F_istat)) then
