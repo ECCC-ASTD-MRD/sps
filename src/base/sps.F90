@@ -114,7 +114,7 @@ subroutine sps()
       delta_step = 1
       write(tmp_S,'(a,a,I0,a,I0,a,L1,a,L1,a,a)') new_line(' '), "==== Processing Stepno: ",stepno,'/',steps_total,' [chkpt=',is_chkpt,', last=',is_last,"] ============", new_line(' ')
       call msg(MSG_INFO,tmp_S)
-      write(tmp_S,*) stepno
+      write(tmp_S, '(i0)') stepno
 
       call timing_start2(TMG_IN,MODEL_NAME//'-in',0)
       istat = dyn_input(stepno)
