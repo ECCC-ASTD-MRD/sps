@@ -42,7 +42,7 @@ module phys_itf_mod
    character(len=*),parameter :: HGRIDZ_S = 'localz'
    character(len=3),parameter :: OPT_GET = 'GET'
    character(len=3),parameter :: OPT_SET = 'SET'
-   integer,parameter :: COMPATIBILITY_LVL = 19
+   integer,parameter :: COMPATIBILITY_LVL = 20
    integer,parameter :: MAX_LEVELS = 1024
    integer,parameter :: PE_MASTER = 0
 
@@ -355,8 +355,8 @@ contains
    !*@/
       integer,parameter :: STAT_PRECISION = 4
       integer,parameter :: NSTATMAX = 64
-      integer,parameter :: MAX_PARAMS = 8
-      integer,parameter :: BUSPAR_NIK=2
+!!$      integer,parameter :: MAX_PARAMS = 8
+!!$      integer,parameter :: BUSPAR_NIK=2
       integer,parameter :: STAT_NK_MAX = 2
       character(len=32),save :: stat_list_S(NSTATMAX)
       integer,save :: l_ijk(3) = (/0,0,0/)
