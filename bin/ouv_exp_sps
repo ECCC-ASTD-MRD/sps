@@ -190,7 +190,7 @@ fi
 if [[ ! -f ${setenvfile} ]] ; then
 cat > ${setenvfile} <<EOF
 if [[ -z "\${ATM_MODEL_BNDL}" ]] ; then
-   . s.ssmuse.dot ${ATM_MODEL_BNDL:-NO_ATM_BNDL}
+   . r.load.dot ${ATM_MODEL_BNDL:-NO_ATM_BNDL}
 elif [[ \${ATM_MODEL_BNDL} != ${ATM_MODEL_BNDL:-NO_ATM_BNDL} ]] ; then
    cat 1>&2 <<EOF1
 
@@ -201,7 +201,7 @@ elif [[ \${ATM_MODEL_BNDL} != ${ATM_MODEL_BNDL:-NO_ATM_BNDL} ]] ; then
 EOF1
 fi
 export SPS_DEV_UPDATES="${SPS_DEV_UPDATES}"
-if [[ -n "\${SPS_DEV_UPDATES}" ]] ; then . s.ssmuse.dot \${SPS_DEV_UPDATES} ; fi
+if [[ -n "\${SPS_DEV_UPDATES}" ]] ; then . r.load.dot \${SPS_DEV_UPDATES} ; fi
 
 export SPS_DEV_SUITE=${SPS_DEV_SUITE}
 export SEQ_EXP_HOME=${SEQ_EXP_HOME}
