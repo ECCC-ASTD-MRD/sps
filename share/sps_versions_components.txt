@@ -59,3 +59,4 @@ sps=6.2.0-a16;spsdyn=6.2.0-a16;rpnphy=6.2.0-a16;modelutils=1.7.0-a16;modelscript
 sps=6.2-u2.0-a16;spsdyn=6.2-u2.0-a16;rpnphy=6.2.0-a17;modelutils=1.7-u2.0-a16;modelscripts=5.2-u2.0-a16;rde=1.1-u2.12
 sps=6.2.0-a18;spsdyn=6.2.0-a18;rpnphy=6.2.0-a18;modelutils=1.7.0-a18;modelscripts=5.2.0-a18;rde=1.1.13
 sps=6.2.0-a19;spsdyn=6.2.0-a19;rpnphy=6.2.0-a19;modelutils=1.7.0-a19;modelscripts=5.2.0-a19;rde=1.1.14
+sps=6.2.0-a20;spsdyn=6.2.0-a20;rpnphy=6.2.0-a20;modelutils=1.7.0-a20;modelscripts=5.2.0-a20;rde=1.1.15
