@@ -12,6 +12,7 @@ module phys_prestep_mod
    use, intrinsic :: iso_fortran_env, only: REAL64, INT64
    use wb_itf_mod
    use phy_itf
+   use phymem, only: phymem_busreset, PHY_VBUSIDX
    implicit none
    private
    !@objective 
@@ -44,7 +45,6 @@ contains
       integer :: F_istat
    !**/
       logical,save :: is_init_L = .false.
-      real,pointer,save :: BUSVOL3d(:,:) => null()
       real,pointer :: data3d(:,:,:)
       real, save :: max_neg_pr0 = -1.0000E-5
       integer :: istat
@@ -60,7 +60,6 @@ contains
             F_istat = RMN_ERR
             call msg(MSG_ERROR,msg_S)
          endif
-         F_istat = min(gmm_get('BUSVOL_3d',BUSVOL3d),F_istat)
          call collect_error(F_istat)
          if (.not.RMN_IS_OK(F_istat)) then
             call msg(MSG_ERROR,'(Phys) Pre-Step Problem in Init')
@@ -72,7 +71,11 @@ contains
       endif
 
       !# Reset to Zero at every step: tendencies, accumulators, ... in Vol Bus
-      BUSVOL3d = 0.
+      F_istat = phymem_busreset(PHY_VBUSIDX)
+      if (.not.RMN_IS_OK(F_istat)) then
+         call msg(MSG_ERROR,'(Phys) Pre-Step problem resetting volbus')
+         return
+      endif
 
       !# Note: 1h PR accumulation PR0 is read into PREN then copied to TSS
       nullify(data3d)
