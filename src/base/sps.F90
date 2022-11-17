@@ -10,6 +10,7 @@
 !/@*
 subroutine sps()
    use, intrinsic :: iso_fortran_env, only: REAL64, INT64
+   use rmn_gmm
    use wb_itf_mod
    use env_utils, only: env_get
    use ptopo_utils, only: ptopo_grid_npe,ptopo_grid_ipe
@@ -31,8 +32,7 @@ subroutine sps()
 !*@/
 !!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <mu_gmm.hf>
-#include <msg.h>
+#include <rmn/msg.h>
 
    integer, external :: model_timeout_alarm
 

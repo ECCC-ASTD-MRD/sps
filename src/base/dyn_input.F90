@@ -10,6 +10,7 @@
 !>
 module dyn_input_mod
    use, intrinsic :: iso_fortran_env, only: REAL64, INT64
+   use rmn_gmm
    use clib_itf_mod
    use wb_itf_mod
    use tdpack, only: GRAV, KNAMS, TCDK
@@ -34,8 +35,7 @@ module dyn_input_mod
 !**/
 !!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <mu_gmm.hf>
-#include <msg.h>
+#include <rmn/msg.h>
 
    real,parameter :: MB2PA =  100.
    real,parameter :: DAM2M =  10.
