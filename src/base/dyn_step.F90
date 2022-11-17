@@ -10,6 +10,7 @@
 !/@*
 module dyn_step_mod
    use, intrinsic :: iso_fortran_env, only: REAL64, INT64
+   use rmn_gmm
    use clib_itf_mod
    use wb_itf_mod
    use tdpack, only: FOTVT, GRAV, RGASD
@@ -30,8 +31,7 @@ module dyn_step_mod
 !*@/
 !!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <mu_gmm.hf>
-#include <msg.h>
+#include <rmn/msg.h>
 
    integer,parameter :: MAXNVAR = 64
    integer,parameter :: NK_MAX0 = 1024

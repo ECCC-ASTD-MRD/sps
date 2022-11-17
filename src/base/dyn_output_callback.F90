@@ -47,7 +47,7 @@ function dyn_output_callback(F_step,F_name_s,F_outname_s,F_data3d,F_lijk,F_uijk)
    !*@/
 !!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <msg.h>
+#include <rmn/msg.h>
 
    character(len=4),parameter :: OUTLIST(5) = (/ &
         'p0','gz','tt','uu','vv'/)

@@ -32,7 +32,7 @@ subroutine itf_phy_rdfile2(F_fichier_S,F_read_cb,F_messg_s,F_mode)
    !*@/
 !!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <msg.h>
+#include <rmn/msg.h>
 
    integer,parameter :: MAX_NDIM = 1000
    integer,parameter :: MODE_ALL_PE = 1

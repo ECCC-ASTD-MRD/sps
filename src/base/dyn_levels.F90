@@ -26,7 +26,7 @@ module dyn_levels_mod
 !*@/
 !!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <msg.h>
+#include <rmn/msg.h>
 
    character(len=*),parameter :: WB_LVL_SEC = 'levels_cfgs/'
    integer,parameter :: MAX_LEVELS = 1024

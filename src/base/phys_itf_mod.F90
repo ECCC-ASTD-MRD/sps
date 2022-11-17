@@ -10,6 +10,7 @@
 !/@*
 module phys_itf_mod
    use, intrinsic :: iso_fortran_env, only: REAL64, INT64
+   use rmn_gmm
    use clib_itf_mod
    use wb_itf_mod
    use phy_itf
@@ -35,8 +36,7 @@ module phys_itf_mod
 !*@/
 !!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <mu_gmm.hf>
-#include <msg.h>
+#include <rmn/msg.h>
 
    character(len=*),parameter :: HGRID_S = 'local#'
    character(len=*),parameter :: HGRIDZ_S = 'localz'

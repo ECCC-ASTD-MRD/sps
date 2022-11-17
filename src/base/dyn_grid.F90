@@ -37,7 +37,7 @@ module dyn_grid_mod
 !*@/
 !!!#include <arch_specific.hf>
 #include <rmnlib_basics.hf>
-#include <msg.h>
+#include <rmn/msg.h>
 
    character(len=*),parameter :: WB_GRID_SEC = 'grid_cfgs/'
    integer,parameter :: IGRID_YIN = 0
