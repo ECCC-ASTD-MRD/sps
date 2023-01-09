@@ -190,6 +190,9 @@ fi
 if [[ ! -f ${setenvfile} ]] ; then
 cat > ${setenvfile} <<EOF
 if [[ -z "\${ATM_MODEL_BNDL}" ]] ; then
+   if [[ "x\$(echo \${SSM_SHORTCUT_PATH} | grep '/fs/ssm/eccc/mrd/rpn/MIG:')" == "x" ]] ; then
+      export SSM_SHORTCUT_PATH=/:/fs/ssm:/fs/ssm/eccc:/fs/ssm/eccc/mrd/rpn:/fs/ssm/eccc/mrd/rpn/MIG:\${SSM_SHORTCUT_PATH}
+   fi
    . r.load.dot ${ATM_MODEL_BNDL:-NO_ATM_BNDL}
 elif [[ \${ATM_MODEL_BNDL} != ${ATM_MODEL_BNDL:-NO_ATM_BNDL} ]] ; then
    cat 1>&2 <<EOF1
