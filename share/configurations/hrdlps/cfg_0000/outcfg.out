@@ -1,0 +1,40 @@
+ etk_S=HLPS_XIMS1;
+ units_S=hour;
+ datyp=134;
+ closeopen=hours,1;
+ nbits=16;
+ ip3=0;
+ ndigits=6;
+ linbot=0;
+ vinterp_S=cubic;
+ debug_L=f;
+ flip_L=f;
+ rewrite_L=f;
+
+ grid=1,model;
+
+ levels=1,model,all;
+ levels=2,model,diag;
+
+ steps=1,hour,0.; 
+ steps=2,hour,0.,1.;
+ steps=3,hour,<0.,192.,1.>;
+
+ sortie_d(['MF'],           grid, 1, levels, 1, steps, 1)
+ sortie_p(['Z0','MG','AL'], grid, 1, levels, 1, steps, 2)
+ sortie_p(['J1','J2'],      grid, 1, levels, 1, steps, 2)
+
+ sortie_p(['TM','GL'],                                     grid, 1, levels, 1, steps, 3)
+ sortie_p(['I7','I8','I9','SD'],                           grid, 1, levels, 1, steps, 3)
+
+ sortie_p(['SVSW'],                                        grid, 1, levels, 1, steps, 3)
+ sortie_p(['TVG','TGR','TSN','TSNV','TSA','TG'],           grid, 1, levels, 1, steps, 3)
+ sortie_p(['WSOL','SNM','SVM','WT'],                       grid, 1, levels, 1, steps, 3)
+ sortie_p(['ISOL','WSN','WSV','WVEG'],                     grid, 1, levels, 1, steps, 3)
+ sortie_p(['SNDN','SNDP','SVDN','SVDP','SNAL','SVAL'],     grid, 1, levels, 1, steps, 3)
+ sortie_p(['TRAF','ALAT','O1','AHFL','ACWF'],              grid, 1, levels, 1, steps, 3)
+ sortie_p(['FQ','FC','FV'],                                grid, 1, levels, 1, steps, 3)  
+ sortie_p(['FI','FB','PR'],                                grid, 1, levels, 1, steps, 3)  
+ sortie_p(['UD','VD','TJ','TDK'],                          grid, 1, levels, 2, steps, 3)
+
+ xnbit([WT],bits,32)

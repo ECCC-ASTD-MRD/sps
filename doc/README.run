@@ -1,0 +1,29 @@
+# Window for running binaries must have the compiler environment that
+# goes with the binaries created.
+# . ./.eccc_setup_intel (only for internal EC)
+
+# make sure you source the .common_setup file to set the environment
+#  variables needed to run SPS
+. ./.common_setup [intel|gnu]
+
+cd sps/work[...]
+#--ptopo [npx] x [npy] x [OMP_NUM_THREADS] where npx, npy is for MPI topology
+
+#test configuration
+sps.sh --dircfg configurations/SPS_cfgs 
+sps.sh --dircfg configurations/SPS_cfgs --ptopo=1x1 --btopo=1x1 > list_tape1 2>&1
+
+#Use voir to see what records are produced in the FST files
+voir -iment RUNMOD/output/cfg_0000/laststep_0000000024/000-000/dm2009042700-000-000_010
+
+#Use xrec to see the records visually
+xrec -imflds RUNMOD/output/cfg_0000/laststep_0000000024/000-000/dm2009042700-000-000_010
+
+#Use fststat to look at statistical means on the records
+fststat -fst RUNMOD/output/cfg_0000/laststep_0000000024/000-000/dm2009042700-000-000_010
+
+#pgsm is a program to interpolate records to a different grid
+pgsm -iment <input FST> -ozsrt <output FST> -i <pgsm.directives>
+
+#editfst is a program to manipulate records into another file
+editfst -s <input FST> -d <output FST> -i <editfst.directives>

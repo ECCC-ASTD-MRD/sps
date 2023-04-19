@@ -1,0 +1,78 @@
+# How to get, compile and run SPS at the CMC.
+Warning: This repository uses submodules. Make sure you follow the
+instructions below for that branch.
+
+# getting sps git repository
+# choose one of the following methods
+# At CMC, method 1 should be the first choice, unless you are compiling with
+# gnu on gpscc or on EC side: in those cases, use method 2.
+# If you forgot to update submodules and you need them after cloning, use
+# method 3.
+
+# Method 1 - cloning only the necessary components (spsdyn, modelutils, rpnphy):
+git clone git@gitlab.science.gc.ca:cpi001/sps.git
+cd sps
+
+# Method 2 - cloning everything, including rpn-si libraries sources (rmn, vgrid,
+# rpncomm, tdpack) and cmake_rpn in one step (necessary to compile with gnu
+# on gpscc or on EC side:
+git clone --recursive git@gitlab.science.gc.ca:cpi001/sps.git
+cd sps
+
+# Method 3 - cloning in several steps (in case you forgot to update submodule)
+git clone git@gitlab.science.gc.ca:cpi001/sps.git
+cd sps
+git submodule update --init --recursive
+
+# choosing your branch
+git branch -a # list all branches
+git checkout name_of_the_branch # checkout a branch
+
+# if you want, create your own branch
+git checkout -b mybranch
+
+# preparing sps compilation
+./scripts/link-dbase.sh
+
+. ./.eccc_setup_intel
+
+# Or with gnu
+# Please note you cannot compile with Intel and then with GNU in the same shell
+. ./.eccc_setup_gnu
+
+# Before the first build, or if you made important changes (such as updating
+# other submodules, or removing or adding source files):
+. ./.initial_setup
+
+# building and installing SPS
+# see Makefile for options
+# for example, make cmake-all compiles everything: you need to
+# update rpn-si submodules to use it (see method 2 and 3 above)
+# make cmake builds only spsdyn, modelutils and rpnphy
+make cmake
+# compile and build (into build-* directory)
+make work -j
+# running SPS: example (more in README in work-* directory)
+cd work-*
+sps.sh --dircfg ./configurations/SPS_cfgs --ptopo 2x2x1 --inorder
+
+# structure of the working environment
+The following environment variables are created (examples):
+- sps_DIR=/users/dor/armn/cpi/ords/sps
+- SPS_WORK=work-ubuntu-18.04-amd64-64-intel-2022.1.2
+- SPS_ARCH=ubuntu-18.04-amd64-64-intel-2022.1.2
+- COMPILER_SUITE=intel
+- COMPILER_VERSION=2022.1.2
+
+The structure of the build and work directories is different whether the $storage_model environment variable exists:
+
+- Example if $storage_model exists:
+  - SPS_STORAGE_DIR=/users/dor/armn/cpi/local/sps-devel_ubuntu-18.04-amd64-64-intel-2022.1.2
+  - in sps_DIR:
+    . build-ubuntu-18.04-amd64-64-intel-2022.1.2 -> /local/drive1/armn/armncpi/storage/goas/sps-devel_ubuntu-18.04-amd64-64-intel-2022.1.2/build
+    . work-ubuntu-18.04-amd64-64-intel-2022.1.2 -> /local/drive1/armn/armncpi/storage/goas/sps-devel_ubuntu-18.04-amd64-64-intel-2022.1.2/work
+
+- Example if $storage_model doesn't exist:
+  - SPS_STORAGE_DIR=/users/dor/armn/cpi/ords/sps/sps-devel
+  - build-ubuntu-18.04-amd64-64-intel-2022.1.2
+  - work-ubuntu-18.04-amd64-64-intel-2022.1.2

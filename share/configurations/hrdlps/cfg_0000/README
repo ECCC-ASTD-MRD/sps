@@ -1,0 +1,11 @@
+
+Except for configexp.cfg and physics_input_table, the configuration files 
+in this directory were used in the first stage of the HRDLPS experiment
+HLPS_XIMS1 (2020022800 run), and were copied from:
+
+/home/dde000/.suites/hlps_xims1/hub/eccc-ppp4/work/20200228000000/storage/stage_1/sps_input/SPSYIN/cfg_0000
+
+
+physics_input_table was copied from the directory
+
+/home/dde000/.suites/hlps_xims1/config/main/lps/spsstage_1/loop_region/sps/shared

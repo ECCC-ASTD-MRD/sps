@@ -1,0 +1,68 @@
+cd sps-devel
+In GPSCC2: 
+to obtain GNU compiler 9.3.0
+. r.load.dot rpn/code-tools/ENV/cdt-1.5.8/gnu-9.3.0
+. ./.eccc_setup_gnu
+to obtain Intel compiler
+. ./.eccc_setup_intel
+
+Interactive:
+sps.sh --dircfg configurations/tape1_grid --ptopo=1x1 --btopo=1x1 > list_tape1 2>&1
+sps.sh --dircfg configurations/SPS_cfgs --ptopo=2x2 --btopo=1x1 --inorder > list_sps 2>&1
+
+Batch example for Intel
+-----------------
+in myjob.sh
+
+!/bin/bash
+cd [path of your SPS git clone]
+. ./.eccc_setup_intel
+cd [work-intel path]
+sps.sh --dircfg configurations/SPS_cfgs --ptopo=1x1 --btopo=1x1 > list_sps_cfgs 2>&1
+
+Batch example for GNU
+-----------------
+in myjob.sh
+
+!/bin/bash
+cd [path of your SPS git clone]
+. r.load.dot rpn/code-tools/ENV/cdt-1.5.8/gnu-9.3.0
+. ./.eccc_setup_gnu
+cd [work-intel path]
+sps.sh --dircfg configurations/SPS_cfgs --ptopo=1x1 --btopo=1x1 > list_sps_cfgs 2>&1
+sps.sh --dircfg configurations/SPS_isba_cfgs --ptopo=1x1 --btopo=1x1 > list_sps_isba_cfgs 2>&1
+
+Submit job(s) using ord_soumet:
+ord_soumet -jobfile [path of your SPS gitclone]/myjob.sh -jn job_SPS_1x1x1 -d ppp5 -mpi -norerun -c 1x1 -m 4G -w 10 -v -listing $HOME/listings
+
+
+CPU and PE topologies for the following configurationss:
+
+-----------------
+mySPSsvs.job:
+sps.sh --dircfg configurations/SPS_cfgs --ptopo=2x2x1 --btopo=1x1 > list_svs_2x2 2>&1
+#ord_soumet -jobfile mySPSsvs.job -jn job_SPSsvs_2x2x1 -d ppp5 -mpi -norerun -c 4x1 -m 2G -w 60 -v -listing $HOME/listings
+-----------------
+mySPSisba.job:
+sps.sh --dircfg configurations/SPS_isba_cfgs --ptopo=2x2x1 --btopo=1x1 > list_isba_2x2 2>&1
+#ord_soumet -jobfile mySPSisba.job -jn job_SPSisba_2x2x1 -d ppp5 -mpi -norerun -c 4x1 -m 2G -w 60 -v -listing $HOME/listings
+-----------------
+myHRDLPS.job:
+sps.sh --dircfg configurations/hrdlps --ptopo=4x20 --btopo=1x1 > list_hrdlps_4x20 2>&1
+#ord_soumet -jobfile myHRDLPS.job -jn job_SPShrdlps_20x4x1 -d ppp5 -mpi -norerun -c 80x1 -m 2G -w 60 -v -listing $HOME/listings
+-----------------
+myYIN15.job:
+sps.sh --dircfg configurations/yin15 --ptopo=4x10 --btopo=1x1 > list_yin15_4x10 2>&1
+#ord_soumet -jobfile myYIN15.job -jn job_SPSyin_4x10x1 -d ppp5 -mpi -norerun -c 40x1 -m 2G -w 60 -v -listing $HOME/listings
+-----------------
+myYAN15.job:
+sps.sh --dircfg configurations/yan15 --ptopo=4x10 --btopo=1x1 > list_yan15_4x10 2>&1
+#ord_soumet -jobfile myYAN15.job -jn job_SPSyan_4x10x1 -d ppp5 -mpi -norerun -c 40x1 -m 2G -w 60 -v -listing $HOME/listings
+-----------------
+myCALDAS.job:
+sps.sh --dircfg configurations/caldas_hrdps_isba --ptopo=6x1 --btopo=1x1 > list_caldas_hrdps_isba_6x1 2>&1
+#ord_soumet -jobfile myCALDAS.job -jn job_SPScaldas_6x1x1 -d ppp5 -mpi -norerun -c 6x1 -m 6G -w 10 -v -listing $HOME/listings
+-----------------
+myTAPE1.job
+sps.sh --dircfg configurations/tape1_grid --ptopo=1x1x1 --btopo=1x1 > list_tape1 2>&1
+#ord_soumet myTAPE1.job -c 1x1 -t 600 -mach ppp5 -m 4000M -mpi -jn sps_tape1_1x1 -shell bash -w 10 -v -listing /home/viv001/sitestore5/GITLAB/sps_6.2.0-a19/work-rhel-8-icelake-64-intel-2021.5.0

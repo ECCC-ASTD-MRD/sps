@@ -1,0 +1,67 @@
+variables:
+  ORD_SOUMET_SHELL: "/bin/bash"
+  ORD_SOUMET_CPUS: "4"
+  ORD_SOUMET_TMPFS: "1G"
+  ORD_SOUMET_M: "8G"
+  ORD_SOUMET_W: "30"
+  GIT_SUBMODULE_STRATEGY: recursive
+
+stages:
+  - build
+#  - run_configs_intel
+#  - run_configs_gnu
+
+before_script:
+  - export CLICOLOR_FORCE=1
+
+# U2 GNU 9.3.0 with oneAPI
+gnu-9.3.0:
+  stage: build
+  script:
+    - set +e
+    - . ~/ci-env/latest/profile.sh
+    - . ./.eccc_setup_gnu
+    - . ./.initial_setup
+    - make cmake-all
+    - time make -j $NCPUS work
+  allow_failure: true
+
+# U2 GNU 12.1.0 with OpenMPI
+gnu-12.1.0:
+  stage: build
+  when: always
+  script:
+    - set +e
+    - . ~/ci-env/latest/profile.sh
+    - . ./.eccc_setup_gnu_12
+    - . ./.initial_setup
+    - ./scripts/link-dbase.sh .
+    - make cmake-all
+    - time make -j $NCPUS work
+  allow_failure: true
+
+# U2 Intel 2022
+intel_with_rpn_libs:
+  stage: build
+  when: always
+  script:
+    - set +e
+    - . ~/ci-env/latest/profile.sh
+    - . ./.eccc_setup_intel
+    - . ./.initial_setup
+    - make cmake
+    - time make -j $NCPUS work
+  allow_failure: true
+
+# U2 Intel 2022
+intel_with_src:
+  stage: build
+  when: always
+  script:
+    - set +e
+    - . ~/ci-env/latest/profile.sh
+    - . ./.eccc_setup_intel
+    - . ./.initial_setup
+    - make cmake-all
+    - time make -j $NCPUS work
+  allow_failure: true

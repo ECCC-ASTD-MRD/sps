@@ -1,0 +1,33 @@
+#!/bin/bash
+# post-install <domainHome> <packageHome>
+
+domainHome=$1
+packageHome=$2
+
+# create profiles
+packageName=`basename ${packageHome}`
+profileDirPath=${packageHome}/etc/profile.d
+profilePath=${profileDirPath}/${packageName}.sh
+loginPath=${profileDirPath}/${packageName}.csh
+
+rm -f ${profilePath} ${loginPath}
+mkdir -p ${profileDirPath}
+
+cat > ${profilePath} << EOF
+#----- Add the <PackageName>_DIR variable for cmake builds
+export ${packageName%%_*}_DIR="$packageHome"
+export PATH="$packageHome/scripts:\$PATH"
+export ATM_MODEL_VERSION=@SPS_VERSION@
+export SPS_MODEL_DFILES=/home/ssps121/SPS_MODEL_DFILES
+export OMP_STACKSIZE=4G
+EOF
+
+cat > ${loginPath} << EOF
+#----- Add the <PackageName>_DIR variable for cmake builds
+setenv ${packageName%%_*}_DIR="$packageHome"
+setenv PATH="$packageHome/scripts:\$PATH"
+setenv ATM_MODEL_VERSION=@SPS_VERSION@
+setenv SPS_MODEL_DFILES=/home/ssps121/SPS_MODEL_DFILES
+setenv OMP_STACKSIZE=4G
+EOF
+

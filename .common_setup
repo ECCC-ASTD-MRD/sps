@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Source this file to:
+# - set some environment variables
+# - set PATH to find SPS binaries and scripts
+
+if [[ $# -eq 0 ]] ; then
+    echo "Usage:   . ./.common_setup compiler_suite"
+    echo "Example: . ./.common_setup gnu"
+    echo "Example: . ./.common_setup intel"
+else
+    unset SPS_ARCH SPS_WORK SPS_STORAGE_DIR sps_DIR
+    export OMP_STACKSIZE=4G
+
+    export COMPILER_SUITE=${1}
+    platform=$(utils/os.sh)
+    if [ -z "${EC_ARCH}" ]; then
+        COMPILER_VERSION=$(utils/compiler.sh ${COMPILER_SUITE})
+        export COMPILER_VERSION
+    fi
+
+    if [ -n "${platform}" -a "${COMPILER_VERSION}" != "Unknown_Compiler" ]; then
+        export SPS_ARCH=${platform}-${COMPILER_SUITE}-${COMPILER_VERSION}
+        export SPS_WORK=work-${SPS_ARCH}
+        
+        if [ -n "${storage_model}" ] ; then
+           DIR=$(echo $(basename $(dirname $PWD))/$(basename $PWD))
+           SPS_STORAGE_DIR=${storage_model}/goas/${DIR}/${SPS_ARCH}
+        else
+           SPS_STORAGE_DIR=${PWD}
+        fi
+        export SPS_STORAGE_DIR
+        export sps_DIR=$PWD
+        SPS_MODEL_DFILES=${SPS_MODEL_DFILES:-${sps_DIR}/sps_dbase}
+        export SPS_MODEL_DFILES
+        export ATM_MODEL_VERSION=`cat MANIFEST | sed -n '/VERSION/s/.*: //p'`
+        export PATH=${PWD}/scripts:${PWD}/${SPS_WORK}/bin:${PATH}
+        export TMPDIR=${TMPDIR-$(mktemp -d /tmp/$USER-XXXX)}
+    fi
+fi
+
+export PYTHONDONTWRITEBYTECODE=true
+
+unset platform

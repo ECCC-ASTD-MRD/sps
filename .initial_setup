@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Source this file to:
+# - Create the build and work directories for the specific architecture and compiler versions
+#   according to the existence or not of the storage_model environment variable
+# If these directories already exist, they will be deleted, and recreated.
+# Additionally, a setup file is copied in the work directory as a shortcut.
+
+if [ -n "${SPS_STORAGE_DIR}" -a -n "${SPS_ARCH}" -a -n "${SPS_WORK}" ] ; then
+    if [ -n "${storage_model}" ] ; then
+        /bin/rm -rf ${SPS_STORAGE_DIR} build-${SPS_ARCH} ${SPS_WORK}
+        mkdir -p ${SPS_STORAGE_DIR}/work
+        mkdir -p ${SPS_STORAGE_DIR}/build
+        ln -sf ${SPS_STORAGE_DIR}/build ${PWD}/build-${SPS_ARCH}
+        ln -sf ${SPS_STORAGE_DIR}/work ${PWD}/${SPS_WORK}
+    else
+        /bin/rm -rf build-${SPS_ARCH} ${SPS_WORK}
+        mkdir -p build-${SPS_ARCH} ${SPS_WORK}
+    fi
+
+    if [ -n "${EC_ARCH}" ]; then
+        if [ "$COMPILER_SUITE" == "intel" ] ; then
+            SETUP_FILE=.eccc_setup_intel
+        else
+            SETUP_FILE=.eccc_setup_gnu
+        fi
+
+cat > ${PWD}/${SPS_WORK}/.eccc_setup <<EOF
+ici=\$PWD
+cd ${sps_DIR}
+. $SETUP_FILE
+cd \$ici
+EOF
+    fi
+else
+    echo "SPS environment variables not set! Make sure you use .common_setup script first."
+fi
