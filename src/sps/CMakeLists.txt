@@ -13,7 +13,6 @@ add_library(spsdyn STATIC ${F_FILES})
 
 target_include_directories(spsdyn PRIVATE
    include
-   base
    ${tdpack_INCLUDE_DIRS}
    ${vgrid_INCLUDE_DIRS}
    ${rmn_INCLUDE_DIRS}
