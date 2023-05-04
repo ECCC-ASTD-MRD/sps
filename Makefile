@@ -11,6 +11,10 @@ MAKEFLAGS += --no-print-directory
 cmake:
 	( cd build-${SPS_ARCH} && cd `/bin/pwd` && cmake -DWITH_SYSTEM_RPN=TRUE ${sps_DIR} )
 
+# Using installed RPN libraries (rmn, vgrid, rpncomm, tdpack) and static Intel libraries
+cmake-static:
+	( cd build-${SPS_ARCH} && cd `/bin/pwd` && cmake -DWITH_SYSTEM_RPN=TRUE -DSTATIC_INTEL=ON ${sps_DIR} )
+
 # Compiling everything: you need to update rpn-si libraries (rmn, vgrid, rpncomm, tdpack) submodules to do this
 cmake-all:
 	( cd build-${SPS_ARCH} && cd `/bin/pwd` && cmake -DWITH_SYSTEM_RPN=FALSE ${sps_DIR} )
@@ -35,7 +39,7 @@ package:
 	( cd build-${SPS_ARCH} && cd `/bin/pwd` && $(MAKE) package )
 
 # make clean in build directory, to remove compiler and linker generated files
-buildclean:
+clean:
 	( cd build-${SPS_ARCH} && cd `/bin/pwd` && $(MAKE) clean )
 
 # Delete the build and work directories

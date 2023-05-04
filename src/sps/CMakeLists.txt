@@ -3,6 +3,7 @@ message(STATUS "(EC) Generating spsdyn libraries Makefile")
 find_package(MPI)
 if (MPI_FOUND)
    set(CMAKE_Fortran_COMPILER ${MPI_Fortran_COMPILER})
+   set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${MPI_COMPILER_FLAGS}")
 endif()
 
 file(GLOB F_FILES src/base/*.F90)
@@ -22,6 +23,8 @@ target_include_directories(spsdyn PRIVATE
    ${modelutils_MODULES_DIR}
    ${phy_INCLUDE_DIRS}
    ${phy_MODULES_DIR}
+   OpenMP::OpenMP_Fortran
+   MPI::MPI_Fortran
 )
 
 if ("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
