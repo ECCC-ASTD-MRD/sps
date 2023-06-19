@@ -1,2 +1,2 @@
 --prefix=src/modelutils git@gitlab.science.gc.ca:MIG/modelutils.git modelutils_1.7-branch
---prefix=src/rpnphy git@gitlab.science.gc.ca:MIG/rpnphy.git rpnphy_6.2-branch
+--prefix=src/rpnphy git@gitlab.science.gc.ca:MIG/rpnphy.git rpnphy_6.2.0-rc2
