@@ -14,17 +14,14 @@ add_library(spsdyn STATIC ${F_FILES})
 
 target_include_directories(spsdyn PRIVATE
    include
-   ${tdpack_INCLUDE_DIRS}
-   ${vgrid_INCLUDE_DIRS}
-   ${rmn_INCLUDE_DIRS}
-   ${rpncomm_INCLUDE_DIRS}
-   ${rpncomm_GEN_INCLUDE_DIR}
-   ${modelutils_INCLUDE_DIRS}
-   ${modelutils_MODULES_DIR}
-   ${phy_INCLUDE_DIRS}
-   ${phy_MODULES_DIR}
-   OpenMP::OpenMP_Fortran
-   MPI::MPI_Fortran
+)
+target_link_libraries(spsdyn PRIVATE
+   modelutils
+   modelutils_tmg_stubs
+   modelutils_ov_ifort
+   ${phy_LIBRARIES}
+   ${cpl_LIBRARIES}
+   ${chm_LIBRARIES}
 )
 
 if ("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
@@ -44,20 +41,17 @@ add_executable(mainspsdm src/main/mainspsdm.F90)
 
 target_link_libraries(mainspsdm
    spsdyn
-   ${phy_LIBRARIES}
-   ${cpl_LIBRARIES}
-   ${chm_LIBRARIES}
-   modelutils
-   modelutils_tmg_stubs
-   modelutils_ov_ifort
-   vgrid
-   tdpack
-   rpncomm
-   rmn
+   vgrid::vgrid
+   tdpack::tdpack
+   rpncomm::rpncomm
+   rmn::rmn-ompi
+   OpenMP::OpenMP_Fortran
+   MPI::MPI_Fortran
    ${LAPACK_LIBRARIES}
    ${BLAS_LIBRARIES}
 )
 
-add_dependencies(mainspsdm spsdyn ${phy_SRC} modelutils ${vgrid_SRC} ${rpncomm_SRC} ${rmn_SRC})
+target_link_libraries(modelutils PRIVATE modelutils_tmg_stubs)
+target_link_libraries(rpnphy PRIVATE modelutils_ov_ifort)
 
 install(TARGETS mainspsdm RUNTIME DESTINATION bin)
