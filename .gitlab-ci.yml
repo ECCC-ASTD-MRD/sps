@@ -405,8 +405,6 @@ deploy:staging:
 #----- Running test configuration for rhel-8-icelake-64-intel-2022.1.2
 SPS_cfgs_intel:
   stage: run_intel
-  tags:
-    - U2
   dependencies:
   - build:rhel-8-icelake-64-intel-2022.1.2
   when: always
@@ -423,8 +421,6 @@ SPS_cfgs_intel:
 #----- Running test configuration for rhel-8-amd64_gnu-9.3.0
 SPS_cfgs_gnu_9.3.0:
   stage: run_gnu
-  tags:
-    - U2
   dependencies:
   - build:rhel-8-amd64_gnu-9.3.0
   when: always
