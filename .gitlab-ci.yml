@@ -35,7 +35,6 @@ build:rhel-8-amd64_gnu-9.3.0:
     - set +e
     - . ~/ci-env/latest/profile.sh
     - . ./.eccc_setup_gnu
-    - git submodule update --recursive --init
     - set -e
     - mkdir -pv ${PIPELINE_SUBDIR}/build-rhel-8-amd64-64-gnu-9.3.0
     - mkdir -pv ${PIPELINE_SUBDIR}/work-rhel-8-amd64-64-gnu-9.3.0
@@ -43,7 +42,7 @@ build:rhel-8-amd64_gnu-9.3.0:
     - ./scripts/link-dbase.sh
     - SRC_DIR=$(pwd)
     - cd ${PIPELINE_SUBDIR}/build-rhel-8-amd64-64-gnu-9.3.0
-    - cmake -DWITH_SYSTEM_RPN=FALSE ${SRC_DIR}
+    - cmake -DWITH_SYSTEM_RPN=TRUE ${SRC_DIR}
     - time make -j $NCPUS
     - time make work
   artifacts:
