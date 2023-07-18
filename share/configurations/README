@@ -1,7 +1,6 @@
-cd sps-devel
+cd sps
 In GPSCC2: 
 to obtain GNU compiler 9.3.0
-. r.load.dot rpn/code-tools/ENV/cdt-1.5.8/gnu-9.3.0
 . ./.eccc_setup_gnu
 to obtain Intel compiler
 . ./.eccc_setup_intel
@@ -26,7 +25,6 @@ in myjob.sh
 
 !/bin/bash
 cd [path of your SPS git clone]
-. r.load.dot rpn/code-tools/ENV/cdt-1.5.8/gnu-9.3.0
 . ./.eccc_setup_gnu
 cd [work-intel path]
 sps.sh --dircfg configurations/SPS_cfgs --ptopo=1x1 --btopo=1x1 > list_sps_cfgs 2>&1
@@ -65,4 +63,4 @@ sps.sh --dircfg configurations/caldas_hrdps_isba --ptopo=6x1 --btopo=1x1 > list_
 -----------------
 myTAPE1.job
 sps.sh --dircfg configurations/tape1_grid --ptopo=1x1x1 --btopo=1x1 > list_tape1 2>&1
-#ord_soumet myTAPE1.job -c 1x1 -t 600 -mach ppp5 -m 4000M -mpi -jn sps_tape1_1x1 -shell bash -w 10 -v -listing /home/viv001/sitestore5/GITLAB/sps_6.2.0-a19/work-rhel-8-icelake-64-intel-2021.5.0
+#ord_soumet myTAPE1.job -c 1x1 -t 600 -mach ppp5 -m 4000M -mpi -jn sps_tape1_1x1 -shell bash -w 10 -v -listing $HOME/listings
