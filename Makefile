@@ -9,23 +9,23 @@ MAKEFLAGS += --no-print-directory
 
 # Using installed RPN libraries (rmn, vgrid, rpncomm, tdpack)
 cmake:
-	( cd build-${SPS_ARCH} && cd `/bin/pwd` && cmake -DWITH_SYSTEM_RPN=TRUE ${sps_DIR} )
+	( cd build-${SPS_ARCH} && cd `/bin/pwd` && cmake ${sps_DIR} )
 
 # Using installed RPN libraries (rmn, vgrid, rpncomm, tdpack) and static Intel libraries
 cmake-static:
-	( cd build-${SPS_ARCH} && cd `/bin/pwd` && cmake -DWITH_SYSTEM_RPN=TRUE -DSTATIC_INTEL=ON ${sps_DIR} )
+	( cd build-${SPS_ARCH} && cd `/bin/pwd` && cmake -DSTATIC_INTEL=ON ${sps_DIR} )
 
 # Compiling everything: you need to update rpn-si libraries (rmn, vgrid, rpncomm, tdpack) submodules to do this
 cmake-all:
-	( cd build-${SPS_ARCH} && cd `/bin/pwd` && cmake -DWITH_SYSTEM_RPN=FALSE ${sps_DIR} )
+	( export WITH_SYSTEM_RPN=FALSE && cd build-${SPS_ARCH} && cd `/bin/pwd` && cmake ${sps_DIR} )
 
 # with CMAKE_BUILD_TYPE=Debug
 cmake-debug:
-	( cd build-${SPS_ARCH} && cd `/bin/pwd` && cmake -DCMAKE_BUILD_TYPE=Debug -DWITH_SYSTEM_RPN=TRUE $${sps_DIR} )
+	( cd build-${SPS_ARCH} && cd `/bin/pwd` && cmake -DCMAKE_BUILD_TYPE=Debug ${sps_DIR} )
 
 # Extra debug (see extra checks defined in cmake_rpn compiler presets and in CMakeLists.txt)
 cmake-debug-extra:
-	( cd build-${SPS_ARCH} && cd `/bin/pwd` && cmake -DCMAKE_BUILD_TYPE=Debug -DWITH_SYSTEM_RPN=TRUE -DEXTRA_CHECKS=ON ${sps_DIR} )
+	( cd build-${SPS_ARCH} && cd `/bin/pwd` && cmake -DCMAKE_BUILD_TYPE=Debug -DEXTRA_CHECKS=ON ${sps_DIR} )
 
 .PHONY: build
 build:

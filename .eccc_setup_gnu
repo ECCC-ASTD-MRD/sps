@@ -18,9 +18,7 @@ else
 fi
 
 # Load latest version of RPN-SI libraries
-# Doesn't work for now
-# You need to update the submodules to compile with GNU
-#. r.load.dot rpn/libs/20230228-beta4
+. r.load.dot rpn/libs/20230531
 . r.load.dot rpn/utils/20230531
 
 # We need a more recent version of cmake than the one available by default
@@ -31,3 +29,6 @@ COMPILER_VERSION=$(utils/compiler.sh gnu)
 export COMPILER_VERSION
 
 . ./.common_setup ${COMPILER_SUITE}
+
+# Set WITH_SYSTEM_RPN variable with default value TRUE for ECCC users
+export WITH_SYSTEM_RPN=TRUE
