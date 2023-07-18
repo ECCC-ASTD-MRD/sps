@@ -144,10 +144,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/src src)
 
 # list of binaries depends on built sources
 list(APPEND BINARIES mainspsdm)
-list(APPEND BINARIES yy2global flipit yydecode yyencode)
-if ("${phy_SRC}" STREQUAL "rpnphy" )
-  list(APPEND BINARIES feseri prphynml )
-endif()
+list(APPEND BINARIES yy2global flipit yydecode yyencode feseri prphynml)
 
 install(TARGETS ${BINARIES} RUNTIME DESTINATION ${WORK_PREFIX}/bin)
 
@@ -189,7 +186,7 @@ set(CPACK_GENERATOR "TGZ")
 set(CPACK_PACKAGE_VENDOR "ECCC")
 set(CPACK_PACKAGE_CONTACT "${MAINTAINER}")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt")
-set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README")
+set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
 set(CPACK_OUTPUT_FILE_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/package")
 set(CPACK_PACKAGE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 set(CPACK_PACKAGE_FILE_NAME "${PACKAGE_NAME}")
