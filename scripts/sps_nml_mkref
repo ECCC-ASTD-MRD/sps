@@ -1,0 +1,61 @@
+#!/bin/bash
+# @Object: Create a reference nml for SPS
+# @Author: S.Chamberland
+# @Date:   Feb 2016
+
+DESC='Create a reference nml for SPS; execute in $sps_DIR/share/nml_ref'
+
+eval $(rpy.cclargparse \
+   -D " " \
+   ${0##*/} \
+   "${DESC}" \
+   "Example: ${0##*/} -v sps_settings.${ATM_MODEL_VERSION}.ref" \
+   "positional"   'nargs=*'        "sps_settings.${ATM_MODEL_VERSION}.ref"     "[FILENAME]" \
+   "-v,--verbose" 'action=count'   '0'     '[verbose mode]' \
+   ++++ $*)
+myverbose=''
+[[ ${verbose} -gt 0 ]] && myverbose='-v' || true
+
+myfile="${1:-sps_settings.${ATM_MODEL_VERSION}.ref}"
+
+if [[ x"${myfile}" == x"" ]] ; then
+   cat 1>&2 <<EOF
+ERROR: Need to provide a destination filename
+EOF
+   exit 1
+fi
+
+if [[ x"${ATM_MODEL_VERSION}" == x"" ]] ; then
+   cat 1>&2 <<EOF
+ERROR: SPS environment not properly set, \${ATM_MODEL_VERSION} not defined.
+EOF
+   exit 1
+fi
+
+export rpnphy_version=${rpnphy_version:-${ATM_MODEL_VERSION}}
+a=$(which rpnphy_nml_mkref)
+if [[ x"${a}" == x"" ]] ; then
+   cat 1>&2 <<EOF
+ERROR: SPS environment not properly set, cannot find print nml progs
+       rpnphy_nml_mkref
+EOF
+   exit 1
+fi
+
+here=$(pwd)
+localtmp=$(mktemp -d ${TMPDIR:-/tmp/${USER}}/XXXXXX)
+mkdir -p ${localtmp}
+cd ${localtmp}
+
+${a} ${myverbose} filea
+#${b} ${myverbose} fileb
+nmlfilename='sps_settings.nml.ref'
+cat filea > ${nmlfilename}
+
+[[ x${myfile} == x${myfile#/} ]] && myfile=${here}/${myfile} || true
+mv ${nmlfilename} ${myfile}
+
+cd ${here}
+rm -rf ${localtmp}
+echo "Place ${myfile} TO  $sps_DIR/share/nml_ref/ "
+exit 0

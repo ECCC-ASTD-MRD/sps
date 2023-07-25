@@ -65,8 +65,8 @@ other submodules, or adding or removing source files):
 There is a new script aimed at replacing the top-level Makefile.
 For now, both still coexist.
 See cado -h (short help) or cado help or the content of the Makefile for options.
-For example: cado cmake or make cmake generates Makefiles to compile gem,
-gemdyn, modelutils and rpnphy
+For example: cado cmake or make cmake generates Makefiles to compile sps,
+modelutils and rpnphy
 
 Configure:
 ```
@@ -99,6 +99,10 @@ See others options with cado -h (short help) or cado help
 ## Running SPS: example
 cd $SPS_WORK
 sps.sh --dircfg ./configurations/SPS_cfgs --ptopo 2x2x1 --inorder
+
+## Running SPS using DDT: example
+cd $SPS_WORK
+sps_ddt.sh --dircfg ./configurations/SPS_cfgs --ptopo 2x2x1 --btopo=1x1
 
 ## Structure of the working environment
 The structure of the build and work directories is different whether the

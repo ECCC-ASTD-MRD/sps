@@ -34,7 +34,9 @@ else
         SPS_MODEL_DFILES=${SPS_MODEL_DFILES:-${sps_DIR}/sps_dbase}
         export SPS_MODEL_DFILES
         export ATM_MODEL_VERSION=`cat MANIFEST | sed -n '/VERSION/s/.*: //p'`
-        export PATH=${PWD}/scripts:${PWD}/${SPS_WORK}/bin:${PATH}
+        export rpnphy_version=`cat src/rpnphy/MANIFEST | sed -n '/VERSION/s/.*: //p'`
+        export modelutils_version=`cat src/modelutils/MANIFEST | sed -n '/VERSION/s/.*: //p'`
+        export PATH=${PWD}/scripts:${PWD}/scripts/support:${PWD}/scripts/rpy:${PWD}/${SPS_WORK}/bin:${PATH}
         export TMPDIR=${TMPDIR-$(mktemp -d /tmp/$USER-XXXX)}
     fi
 fi
