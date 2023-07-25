@@ -143,7 +143,7 @@ if [[ $(realpath $PWD) != $(realpath $(eval echo \${${this_project_lower}_DIR}))
   printf "$0: \033[1;31mERROR\033[0m: This command must be run from the top of the source code repository\n"
   exit 1
 fi
-# The above could be replaced by a `cd` to ${gem_DIR}
+# The above could be replaced by a `cd` to ${sps_DIR}
 
 if ! build_dir=$(realpath build-$(eval echo \${${this_project}_ARCH})) ; then
     echo "ERROR running true_path on 'build-\${SPS_ARCH}'."

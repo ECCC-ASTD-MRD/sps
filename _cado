@@ -18,7 +18,7 @@ cado_commands=(
 #
 favorite_makefile_targets=(
     work
-    maingemdm
+    mainspsdm
     rpnphy
     rmn
     modelutils

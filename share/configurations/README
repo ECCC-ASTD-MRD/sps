@@ -9,6 +9,10 @@ Interactive:
 sps.sh --dircfg configurations/tape1_grid --ptopo=1x1 --btopo=1x1 > list_tape1 2>&1
 sps.sh --dircfg configurations/SPS_cfgs --ptopo=2x2 --btopo=1x1 --inorder > list_sps 2>&1
 
+Verify namelists (example):
+checknml configurations/SPS_cfgs/cfg_000/sps.cfg
+checknml configurations/SPS_isba_cfgs/cfg_000/sps.cfg
+
 Batch example for Intel
 -----------------
 in myjob.sh
