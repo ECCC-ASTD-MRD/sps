@@ -28,7 +28,7 @@ if [ -n "${SPS_STORAGE_DIR}" -a -n "${SPS_ARCH}" -a -n "${SPS_WORK}" ] ; then
 cat > ${PWD}/${SPS_WORK}/.eccc_setup <<EOF
 ici=\$PWD
 cd ${sps_DIR}
-. $SETUP_FILE
+. ./$SETUP_FILE
 cd \$ici
 EOF
     fi
