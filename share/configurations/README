@@ -1,5 +1,4 @@
 cd sps
-In GPSCC2: 
 to obtain GNU compiler 9.3.0
 . ./.eccc_setup_gnu
 to obtain Intel compiler

@@ -156,12 +156,11 @@ mkdir -p ${run_basedir_name}
 export model_cfg_filename=${model_name}.cfg
 export model_tsk_file=${TMPDIR}/${model_name}.tsk
 export model_sharedir=${sps_DIR}/share/misc
-export model_exp_storage=$(true_path ${PWD}/${run_basedir_name})
+export model_exp_storage=$(realpath ${PWD}/${run_basedir_name})
 if [[ x$model_exp_storage == x ]] ; then 
    cat <<EOF
 ERROR: RUNDIR does not exists:
        ${PWD}/${run_basedir_name}
-       Try running 'sps-linkit' then launching SPS (sps.sh) again
 EOF
    exit 1
 fi
