@@ -4,7 +4,7 @@ BUILD      : RelWithDebInfo
 DESCRIPTION: ECCC-MRD Surface Prediction System - SPS
 SUMMARY    : The Surface Prediction System (SPS) can be seen as a driver to directly call and integrate a given RPNPHY PHYSICS package. Developed by the Atmospheric Numerical Prediction Research Section, Meteorological Research Division, of Environment and Climate Change Canada.
 MAINTAINER : Vivian Lee - Vivian.Lee@ec.gc.ca
-URL        : https://gitlab.science.gc.ca/cpi001/sps
+URL        : https://gitlab.science.gc.ca/MIG/sps
 DOC	   : https://wiki.cmc.ec.gc.ca/wiki/SPS
 
 # Dependencies 
