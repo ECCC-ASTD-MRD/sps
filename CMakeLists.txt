@@ -144,6 +144,9 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/src src)
 
 # list of binaries depends on built sources
 list(APPEND BINARIES mainspsdm)
+if ((NOT DEFINED ENV{EC_ARCH} ) OR (NOT((WITH_SYSTEM_RPN) OR (CACHE WITH_SYSTEM_RPN) OR ($ENV{WITH_SYSTEM_RPN}))))
+  list(APPEND BINARIES cclargs_lite)
+endif()
 list(APPEND BINARIES yy2global flipit yydecode yyencode feseri prphynml)
 
 install(TARGETS ${BINARIES} RUNTIME DESTINATION ${WORK_PREFIX}/bin)

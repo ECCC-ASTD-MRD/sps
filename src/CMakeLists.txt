@@ -51,6 +51,11 @@ endif()
 
 add_subdirectory(sps sps)
 
+# Add this binary only for external users, or if WITH_SYSTEM_RPN is FALSE
+if ((NOT DEFINED ENV{EC_ARCH} ) OR (NOT ((WITH_SYSTEM_RPN) OR (CACHE WITH_SYSTEM_RPN) OR ($ENV{WITH_SYSTEM_RPN}))))
+  add_subdirectory(rpn-si/cclargs cclargs)
+endif()
+
 # To be installed only with package
 install(DIRECTORY ../scripts/ DESTINATION scripts USE_SOURCE_PERMISSIONS PATTERN "rpy" EXCLUDE PATTERN "support" EXCLUDE)
 install(DIRECTORY ../share/configurations/ DESTINATION share/configurations USE_SOURCE_PERMISSIONS)
