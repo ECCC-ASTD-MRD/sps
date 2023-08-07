@@ -5,6 +5,10 @@ cado_commands=(
     cmake-all
     cmake-debug
     cmake-debug-extra
+    cmake-mach
+    cmake-mach-static
+    cmake-all-mach
+    cmake-mach-debug
     build
     work
     install
@@ -18,7 +22,7 @@ cado_commands=(
 #
 favorite_makefile_targets=(
     work
-    mainspsdm
+    maingemdm
     rpnphy
     rmn
     modelutils
@@ -37,7 +41,7 @@ _cado(){
     if (( cword == 1 )) ; then
         COMPREPLY=($(compgen -W "${cado_commands[*]}" -- ${cur}))
     elif [[ "${words[1]}" == "build" ]] ; then
-        _complete_targets build-${SPS_ARCH}
+        _complete_targets build-${GEM_ARCH}
     fi
 }
 
