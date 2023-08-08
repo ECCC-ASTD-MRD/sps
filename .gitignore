@@ -4,10 +4,11 @@
 *.swo
 *.pyc
 __pycache__
-sps_dbase
 /build*
 /work*
 src/modelutils/include/modelutils_version.inc
 src/rpnphy/include/rpnphy_version.inc
 src/sps/src/main/mainspsdm.F90
 src/sps/include/sps_version.inc
+sps_dbase
+sps_dbase.tar.gz
